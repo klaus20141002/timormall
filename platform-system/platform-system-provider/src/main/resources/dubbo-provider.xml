@@ -21,5 +21,40 @@
 
     <dubbo:service interface="cn.zhangxd.platform.system.api.service.ICurrencyRateService"
                    ref="currencyRateService" protocol="dubbo" timeout="5000"/>
+                   
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IDeskService"
+                   ref="deskService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IAreaService"
+                   ref="areaService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IAddressService"
+                   ref="addressService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.ICategeryService"
+                   ref="categeryService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IFoodPropertyService"
+                   ref="foodPropertyService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IFoodService"
+                   ref="foodService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IFoodSkuService"
+                   ref="foodSkuService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IFoodTagService"
+                   ref="foodTagService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IMerchantService"
+                   ref="merchantService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IOrderCommentService"
+                   ref="orderCommentService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IOrderFoodsService"
+                   ref="orderFoodsService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IOrderLogService"
+                   ref="orderLogService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IOrderService"
+                   ref="orderService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IPropertyService"
+                   ref="propertyService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IPropValueService"
+                   ref="propValueService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.ITagService"
+                   ref="tagService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="cn.zhangxd.platform.system.api.service.IValueService"
+                   ref="valueService" protocol="dubbo" timeout="5000"/>
 
 </beans>

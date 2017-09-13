@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhangxd.platform.system.provider.mapper.OrderMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.zhangxd.platform.system.api.entity.Order" id="orderMap">
+        <result property="id" column="id"/>
+        <result property="deskId" column="desk_id"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="orderType" column="order_type"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderRemark" column="order_remark"/>
+        <result property="orderTotalPrice" column="order_total_price"/>
+        <result property="orderAddressId" column="order_address_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="orderUserId" column="order_user_id"/>
+        <result property="orderMerchantId" column="order_merchant_id"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Order">
+		select * from st_cy_order where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Order">
+		select * from st_cy_order
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from st_cy_order 
+	</select>
+	 
+	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Order" useGeneratedKeys="true" keyProperty="id">
+		insert into st_cy_order
+		(
+			`desk_id`, 
+			`order_no`, 
+			`order_type`, 
+			`order_status`, 
+			`order_remark`, 
+			`order_total_price`, 
+			`order_address_id`, 
+			`create_date`, 
+			`update_date`, 
+			`del_flag`, 
+			`order_user_id`, 
+			`order_merchant_id`
+		)
+		values
+		(
+			#{deskId}, 
+			#{orderNo}, 
+			#{orderType}, 
+			#{orderStatus}, 
+			#{orderRemark}, 
+			#{orderTotalPrice}, 
+			#{orderAddressId}, 
+			#{createDate}, 
+			#{updateDate}, 
+			#{delFlag}, 
+			#{orderUserId}, 
+			#{orderMerchantId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Order">
+		update st_cy_order 
+		<set>
+			<if test="deskId != null">`desk_id` = #{deskId}, </if>
+			<if test="orderNo != null">`order_no` = #{orderNo}, </if>
+			<if test="orderType != null">`order_type` = #{orderType}, </if>
+			<if test="orderStatus != null">`order_status` = #{orderStatus}, </if>
+			<if test="orderRemark != null">`order_remark` = #{orderRemark}, </if>
+			<if test="orderTotalPrice != null">`order_total_price` = #{orderTotalPrice}, </if>
+			<if test="orderAddressId != null">`order_address_id` = #{orderAddressId}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="orderUserId != null">`order_user_id` = #{orderUserId}, </if>
+			<if test="orderMerchantId != null">`order_merchant_id` = #{orderMerchantId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from st_cy_order where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from st_cy_order where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

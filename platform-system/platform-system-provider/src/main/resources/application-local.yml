@@ -4,7 +4,7 @@ spring:
     write:
       url: jdbc:mysql://127.0.0.1:3306/platform?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
       username: root
-      password: root
+      password: 123456
       driver-class-name: com.mysql.jdbc.Driver
       max-active: 20
       initial-size: 1
@@ -25,7 +25,7 @@ spring:
     read:
       url: jdbc:mysql://127.0.0.1:3306/platform?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
       username: root
-      password: root
+      password: 123456
       driver-class-name: com.mysql.jdbc.Driver
       max-active: 20
       initial-size: 1
@@ -55,17 +55,17 @@ spring:
       max-wait: -1 #最大等待时间
       min-idle: 0 #初始化连接数
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: admin
-    virtualHost: /
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: admin
+#    password: admin
+#    virtualHost: /
   mail:
-    host: xxx
+    host: smtp.126.com
     port: 25
-    username: aaa@xxx.com
-    password: xxx
+    username: love20141002@126.com
+    password: CapgeminiKl@us
     testConnection: false
 server:
-  port: 8085
+  port: 8097

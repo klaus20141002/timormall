@@ -22,7 +22,7 @@ import java.util.Map;
  * @author zhangxd
  */
 @RestController
-@RequestMapping("/{version}/currency")
+@RequestMapping("/api/{version}/currency")
 @Api(tags = "汇率")
 public class CurrencyRateController extends BaseController {
 

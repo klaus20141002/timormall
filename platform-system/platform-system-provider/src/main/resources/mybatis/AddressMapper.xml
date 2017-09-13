@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhangxd.platform.system.provider.mapper.AddressMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.zhangxd.platform.system.api.entity.Address" id="addressMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="provinceId" column="province_id"/>
+        <result property="cityId" column="city_id"/>
+        <result property="districtId" column="district_id"/>
+        <result property="zipcode" column="zipcode"/>
+        <result property="mobile" column="mobile"/>
+        <result property="contactName" column="contact_name"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Address">
+		select * from st_cy_address where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Address">
+		select * from st_cy_address
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from st_cy_address 
+	</select>
+	 
+	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Address" useGeneratedKeys="true" keyProperty="id">
+		insert into st_cy_address
+		(
+			`user_id`, 
+			`province_id`, 
+			`city_id`, 
+			`district_id`, 
+			`zipcode`, 
+			`mobile`, 
+			`contact_name`, 
+			`create_date`, 
+			`update_date`, 
+			`del_flag`
+		)
+		values
+		(
+			#{userId}, 
+			#{provinceId}, 
+			#{cityId}, 
+			#{districtId}, 
+			#{zipcode}, 
+			#{mobile}, 
+			#{contactName}, 
+			#{createDate}, 
+			#{updateDate}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Address">
+		update st_cy_address 
+		<set>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="provinceId != null">`province_id` = #{provinceId}, </if>
+			<if test="cityId != null">`city_id` = #{cityId}, </if>
+			<if test="districtId != null">`district_id` = #{districtId}, </if>
+			<if test="zipcode != null">`zipcode` = #{zipcode}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="contactName != null">`contact_name` = #{contactName}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from st_cy_address where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from st_cy_address where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

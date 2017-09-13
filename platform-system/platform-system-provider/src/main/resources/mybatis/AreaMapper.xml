@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhangxd.platform.system.provider.mapper.AreaMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.zhangxd.platform.system.api.entity.Area" id="areaMap">
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="shortName" column="short_name"/>
+        <result property="longtitude" column="longtitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="level" column="level"/>
+        <result property="sort" column="sort"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Area">
+		select * from st_cy_area where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Area">
+		select * from st_cy_area
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from st_cy_area 
+	</select>
+	 
+	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Area" useGeneratedKeys="true" keyProperty="id">
+		insert into st_cy_area
+		(
+			`parent_id`, 
+			`name`, 
+			`short_name`, 
+			`longtitude`, 
+			`latitude`, 
+			`level`, 
+			`sort`, 
+			`status`
+		)
+		values
+		(
+			#{parentId}, 
+			#{name}, 
+			#{shortName}, 
+			#{longtitude}, 
+			#{latitude}, 
+			#{level}, 
+			#{sort}, 
+			#{status}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Area">
+		update st_cy_area 
+		<set>
+			<if test="parentId != null">`parent_id` = #{parentId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="shortName != null">`short_name` = #{shortName}, </if>
+			<if test="longtitude != null">`longtitude` = #{longtitude}, </if>
+			<if test="latitude != null">`latitude` = #{latitude}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="sort != null">`sort` = #{sort}, </if>
+			<if test="status != null">`status` = #{status}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from st_cy_area where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from st_cy_area where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

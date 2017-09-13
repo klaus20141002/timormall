@@ -36,7 +36,7 @@ import java.util.Map;
  */
 @Validated
 @RestController
-@RequestMapping("/{version}/sms")
+@RequestMapping("/api/{version}/sms")
 @Api(tags = "短信")
 public class ShortMsgController extends BaseController {
     /**

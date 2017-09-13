@@ -47,7 +47,7 @@ public class SwaggerConfig {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("平台 API 文档")
+            .title("蜘蛛餐饮平台 用户API 文档")
             .build();
 
     }

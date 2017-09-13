@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhangxd.platform.system.provider.mapper.FoodTagMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.zhangxd.platform.system.api.entity.FoodTag" id="foodTagMap">
+        <result property="id" column="id"/>
+        <result property="foodId" column="food_id"/>
+        <result property="tagId" column="tag_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.FoodTag">
+		select * from st_cy_food_tag where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.FoodTag">
+		select * from st_cy_food_tag
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from st_cy_food_tag 
+	</select>
+	 
+	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.FoodTag" useGeneratedKeys="true" keyProperty="id">
+		insert into st_cy_food_tag
+		(
+			`food_id`, 
+			`tag_id`, 
+			`create_date`, 
+			`update_date`, 
+			`del_flag`
+		)
+		values
+		(
+			#{foodId}, 
+			#{tagId}, 
+			#{createDate}, 
+			#{updateDate}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.FoodTag">
+		update st_cy_food_tag 
+		<set>
+			<if test="foodId != null">`food_id` = #{foodId}, </if>
+			<if test="tagId != null">`tag_id` = #{tagId}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from st_cy_food_tag where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from st_cy_food_tag where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

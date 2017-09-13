@@ -44,7 +44,7 @@ import java.util.Map;
  */
 @Validated
 @RestController
-@RequestMapping("/{version}/user")
+@RequestMapping("/api/{version}/user")
 @Api(tags = "用户管理")
 public class UserController extends BaseController {
     /**

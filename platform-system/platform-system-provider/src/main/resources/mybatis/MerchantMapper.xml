@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhangxd.platform.system.provider.mapper.MerchantMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.zhangxd.platform.system.api.entity.Merchant" id="merchantMap">
+        <result property="id" column="id"/>
+        <result property="merchantName" column="merchant_name"/>
+        <result property="merchantNotice" column="merchant_notice"/>
+        <result property="merchantDesc" column="merchant_desc"/>
+        <result property="merchantMobile" column="merchant_mobile"/>
+        <result property="merchantLogo" column="merchant_logo"/>
+        <result property="merchantRunTime" column="merchant_run_time"/>
+        <result property="merchantAddressId" column="merchant_address_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="merchantStatus" column="merchant_status"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Merchant">
+		select * from st_cy_merchant where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Merchant">
+		select * from st_cy_merchant
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from st_cy_merchant 
+	</select>
+	 
+	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Merchant" useGeneratedKeys="true" keyProperty="id">
+		insert into st_cy_merchant
+		(
+			`merchant_name`, 
+			`merchant_notice`, 
+			`merchant_desc`, 
+			`merchant_mobile`, 
+			`merchant_logo`, 
+			`merchant_run_time`, 
+			`merchant_address_id`, 
+			`create_date`, 
+			`update_date`, 
+			`del_flag`, 
+			`merchant_status`
+		)
+		values
+		(
+			#{merchantName}, 
+			#{merchantNotice}, 
+			#{merchantDesc}, 
+			#{merchantMobile}, 
+			#{merchantLogo}, 
+			#{merchantRunTime}, 
+			#{merchantAddressId}, 
+			#{createDate}, 
+			#{updateDate}, 
+			#{delFlag}, 
+			#{merchantStatus}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Merchant">
+		update st_cy_merchant 
+		<set>
+			<if test="merchantName != null">`merchant_name` = #{merchantName}, </if>
+			<if test="merchantNotice != null">`merchant_notice` = #{merchantNotice}, </if>
+			<if test="merchantDesc != null">`merchant_desc` = #{merchantDesc}, </if>
+			<if test="merchantMobile != null">`merchant_mobile` = #{merchantMobile}, </if>
+			<if test="merchantLogo != null">`merchant_logo` = #{merchantLogo}, </if>
+			<if test="merchantRunTime != null">`merchant_run_time` = #{merchantRunTime}, </if>
+			<if test="merchantAddressId != null">`merchant_address_id` = #{merchantAddressId}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="merchantStatus != null">`merchant_status` = #{merchantStatus}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from st_cy_merchant where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from st_cy_merchant where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

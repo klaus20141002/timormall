@@ -40,7 +40,7 @@ import java.util.Map;
  * @author zhangxd
  */
 @RestController
-@RequestMapping("/{version}/auth")
+@RequestMapping("/api/{version}/auth")
 @Api(tags = "权限管理")
 public class AuthenticationController extends BaseController {
 

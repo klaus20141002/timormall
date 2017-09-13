@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhangxd.platform.system.provider.mapper.ValueMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.zhangxd.platform.system.api.entity.Value" id="valueMap">
+        <result property="id" column="id"/>
+        <result property="propertyId" column="property_id"/>
+        <result property="valueId" column="value_id"/>
+        <result property="valueName" column="value_name"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Value">
+		select * from st_cy_value where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Value">
+		select * from st_cy_value
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from st_cy_value 
+	</select>
+	 
+	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Value" useGeneratedKeys="true" keyProperty="id">
+		insert into st_cy_value
+		(
+			`property_id`, 
+			`value_id`, 
+			`value_name`, 
+			`create_date`, 
+			`update_date`, 
+			`del_flag`
+		)
+		values
+		(
+			#{propertyId}, 
+			#{valueId}, 
+			#{valueName}, 
+			#{createDate}, 
+			#{updateDate}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Value">
+		update st_cy_value 
+		<set>
+			<if test="propertyId != null">`property_id` = #{propertyId}, </if>
+			<if test="valueId != null">`value_id` = #{valueId}, </if>
+			<if test="valueName != null">`value_name` = #{valueName}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from st_cy_value where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from st_cy_value where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

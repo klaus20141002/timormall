@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhangxd.platform.system.provider.mapper.OrderFoodsMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.zhangxd.platform.system.api.entity.OrderFoods" id="orderFoodsMap">
+        <result property="id" column="id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="foodsSkuId" column="foods_sku_id"/>
+        <result property="foodsId" column="foods_id"/>
+        <result property="count" column="count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.OrderFoods">
+		select * from st_cy_order_foods where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.OrderFoods">
+		select * from st_cy_order_foods
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from st_cy_order_foods 
+	</select>
+	 
+	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.OrderFoods" useGeneratedKeys="true" keyProperty="id">
+		insert into st_cy_order_foods
+		(
+			`order_id`, 
+			`foods_sku_id`, 
+			`foods_id`, 
+			`count`, 
+			`create_date`, 
+			`update_date`, 
+			`del_flag`
+		)
+		values
+		(
+			#{orderId}, 
+			#{foodsSkuId}, 
+			#{foodsId}, 
+			#{count}, 
+			#{createDate}, 
+			#{updateDate}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.OrderFoods">
+		update st_cy_order_foods 
+		<set>
+			<if test="orderId != null">`order_id` = #{orderId}, </if>
+			<if test="foodsSkuId != null">`foods_sku_id` = #{foodsSkuId}, </if>
+			<if test="foodsId != null">`foods_id` = #{foodsId}, </if>
+			<if test="count != null">`count` = #{count}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from st_cy_order_foods where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from st_cy_order_foods where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

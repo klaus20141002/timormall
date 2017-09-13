@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zhangxd.platform.system.provider.mapper.CategeryMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.zhangxd.platform.system.api.entity.Categery" id="categeryMap">
+        <result property="id" column="id"/>
+        <result property="catName" column="cat_name"/>
+        <result property="catImg" column="cat_img"/>
+        <result property="catIndex" column="cat_index"/>
+        <result property="catDesc" column="cat_desc"/>
+        <result property="catDescImg" column="cat_desc_img"/>
+        <result property="remark" column="remark"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Categery">
+		select * from st_cy_categery where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Categery">
+		select * from st_cy_categery
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from st_cy_categery 
+	</select>
+	 
+	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Categery" useGeneratedKeys="true" keyProperty="id">
+		insert into st_cy_categery
+		(
+			`cat_name`, 
+			`cat_img`, 
+			`cat_index`, 
+			`cat_desc`, 
+			`cat_desc_img`, 
+			`remark`, 
+			`create_date`, 
+			`update_date`, 
+			`del_flag`
+		)
+		values
+		(
+			#{catName}, 
+			#{catImg}, 
+			#{catIndex}, 
+			#{catDesc}, 
+			#{catDescImg}, 
+			#{remark}, 
+			#{createDate}, 
+			#{updateDate}, 
+			#{delFlag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Categery">
+		update st_cy_categery 
+		<set>
+			<if test="catName != null">`cat_name` = #{catName}, </if>
+			<if test="catImg != null">`cat_img` = #{catImg}, </if>
+			<if test="catIndex != null">`cat_index` = #{catIndex}, </if>
+			<if test="catDesc != null">`cat_desc` = #{catDesc}, </if>
+			<if test="catDescImg != null">`cat_desc_img` = #{catDescImg}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from st_cy_categery where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from st_cy_categery where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

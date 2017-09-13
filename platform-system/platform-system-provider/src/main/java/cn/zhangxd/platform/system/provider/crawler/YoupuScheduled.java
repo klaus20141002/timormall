@@ -15,7 +15,7 @@ public class YoupuScheduled {
     @Autowired
     private YoupuPipeline ratePipeline;
 
-    @Scheduled(cron = "0 0/1 * * * ? ")
+//    @Scheduled(cron = "0 0/1 * * * ? ")
     public void BankOfChinaScheduled() {
         Spider.create(new YoupuProcessor())
                 .addUrl("http://www.youpu.cn/Destination")
