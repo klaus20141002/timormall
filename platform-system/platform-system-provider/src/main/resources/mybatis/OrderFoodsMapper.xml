@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.zhangxd.platform.system.provider.mapper.OrderFoodsMapper">
+<mapper namespace="zhizhu.cy.platform.system.provider.mapper.OrderFoodsMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="cn.zhangxd.platform.system.api.entity.OrderFoods" id="orderFoodsMap">
+    <resultMap type="zhizhu.cy.platform.system.api.entity.OrderFoods" id="orderFoodsMap">
         <result property="id" column="id"/>
         <result property="orderId" column="order_id"/>
         <result property="foodsSkuId" column="foods_sku_id"/>
@@ -15,11 +15,11 @@
         <result property="delFlag" column="del_flag"/>
     </resultMap>
 
-	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.OrderFoods">
+	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.OrderFoods">
 		select * from st_cy_order_foods where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.OrderFoods">
+	<select id="queryList" resultType="zhizhu.cy.platform.system.api.entity.OrderFoods">
 		select * from st_cy_order_foods
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -38,7 +38,7 @@
 		select count(*) from st_cy_order_foods 
 	</select>
 	 
-	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.OrderFoods" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.OrderFoods" useGeneratedKeys="true" keyProperty="id">
 		insert into st_cy_order_foods
 		(
 			`order_id`, 
@@ -61,7 +61,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.OrderFoods">
+	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.OrderFoods">
 		update st_cy_order_foods 
 		<set>
 			<if test="orderId != null">`order_id` = #{orderId}, </if>

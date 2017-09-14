@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.zhangxd.platform.system.provider.mapper.DeskMapper">
+<mapper namespace="zhizhu.cy.platform.system.provider.mapper.DeskMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="cn.zhangxd.platform.system.api.entity.Desk" id="deskMap">
+    <resultMap type="zhizhu.cy.platform.system.api.entity.Desk" id="deskMap">
         <result property="id" column="id"/>
         <result property="merchantId" column="merchant_id"/>
         <result property="deskNumber" column="desk_number"/>
@@ -13,11 +13,11 @@
         <result property="availableNumber" column="available_number"/>
     </resultMap>
 
-	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Desk">
+	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Desk">
 		select * from st_cy_desk where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Desk">
+	<select id="queryList" resultType="zhizhu.cy.platform.system.api.entity.Desk">
 		select * from st_cy_desk where del_flag = 0 
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -36,7 +36,7 @@
 		select count(*) from st_cy_desk 
 	</select>
 	 
-	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Desk" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.Desk" useGeneratedKeys="true" keyProperty="id">
 		insert into st_cy_desk
 		(
 			`merchant_id`, 
@@ -55,7 +55,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Desk">
+	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.Desk">
 		update st_cy_desk 
 		<set>
 			<if test="merchantId != null">`merchant_id` = #{merchantId}, </if>

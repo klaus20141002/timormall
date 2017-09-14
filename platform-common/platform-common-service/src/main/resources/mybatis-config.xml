@@ -72,7 +72,7 @@
 
         </plugin>
 
-        <plugin interceptor="cn.zhangxd.platform.common.service.datasource.DynamicPlugin">
+        <plugin interceptor="zhizhu.cy.platform.common.service.datasource.DynamicPlugin">
         </plugin>
     </plugins>
 

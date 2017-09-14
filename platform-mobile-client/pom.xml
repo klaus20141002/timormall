@@ -12,7 +12,7 @@
     <artifactId>platform-mobile-client</artifactId>
 
     <properties>
-        <start-class>cn.zhangxd.platform.mobile.client.ClientMobileApplication</start-class>
+        <start-class>zhizhu.cy.platform.mobile.client.ClientMobileApplication</start-class>
     </properties>
 
     <profiles>

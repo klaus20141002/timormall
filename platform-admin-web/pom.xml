@@ -12,7 +12,7 @@
     <artifactId>platform-admin-web</artifactId>
 
     <properties>
-        <start-class>cn.zhangxd.platform.admin.web.WebAdminApplication</start-class>
+        <start-class>zhizhu.cy.platform.admin.web.WebAdminApplication</start-class>
     </properties>
 
     <profiles>

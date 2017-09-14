@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.zhangxd.platform.system.provider.mapper.MerchantMapper">
+<mapper namespace="zhizhu.cy.platform.system.provider.mapper.MerchantMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="cn.zhangxd.platform.system.api.entity.Merchant" id="merchantMap">
+    <resultMap type="zhizhu.cy.platform.system.api.entity.Merchant" id="merchantMap">
         <result property="id" column="id"/>
         <result property="merchantName" column="merchant_name"/>
         <result property="merchantNotice" column="merchant_notice"/>
@@ -19,11 +19,11 @@
         <result property="merchantStatus" column="merchant_status"/>
     </resultMap>
 
-	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Merchant">
+	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Merchant">
 		select * from st_cy_merchant where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Merchant">
+	<select id="queryList" resultType="zhizhu.cy.platform.system.api.entity.Merchant">
 		select * from st_cy_merchant
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -42,7 +42,7 @@
 		select count(*) from st_cy_merchant 
 	</select>
 	 
-	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Merchant" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.Merchant" useGeneratedKeys="true" keyProperty="id">
 		insert into st_cy_merchant
 		(
 			`merchant_name`, 
@@ -73,7 +73,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Merchant">
+	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.Merchant">
 		update st_cy_merchant 
 		<set>
 			<if test="merchantName != null">`merchant_name` = #{merchantName}, </if>

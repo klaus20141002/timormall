@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.zhangxd.platform.common.redis.RedisConfig
+zhizhu.cy.platform.common.redis.RedisConfig

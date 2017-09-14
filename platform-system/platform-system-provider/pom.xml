@@ -12,7 +12,7 @@
     <artifactId>platform-system-provider</artifactId>
 
     <properties>
-        <start-class>cn.zhangxd.platform.system.provider.SysProviderApplication</start-class>
+        <start-class>zhizhu.cy.platform.system.provider.SysProviderApplication</start-class>
     </properties>
 
     <profiles>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.zhangxd.platform.system.provider.mapper.CategeryMapper">
+<mapper namespace="zhizhu.cy.platform.system.provider.mapper.CategeryMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="cn.zhangxd.platform.system.api.entity.Categery" id="categeryMap">
+    <resultMap type="zhizhu.cy.platform.system.api.entity.Categery" id="categeryMap">
         <result property="id" column="id"/>
         <result property="catName" column="cat_name"/>
         <result property="catImg" column="cat_img"/>
@@ -17,11 +17,11 @@
         <result property="delFlag" column="del_flag"/>
     </resultMap>
 
-	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Categery">
+	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Categery">
 		select * from st_cy_categery where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Categery">
+	<select id="queryList" resultType="zhizhu.cy.platform.system.api.entity.Categery">
 		select * from st_cy_categery
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -40,7 +40,7 @@
 		select count(*) from st_cy_categery 
 	</select>
 	 
-	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Categery" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.Categery" useGeneratedKeys="true" keyProperty="id">
 		insert into st_cy_categery
 		(
 			`cat_name`, 
@@ -67,7 +67,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Categery">
+	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.Categery">
 		update st_cy_categery 
 		<set>
 			<if test="catName != null">`cat_name` = #{catName}, </if>

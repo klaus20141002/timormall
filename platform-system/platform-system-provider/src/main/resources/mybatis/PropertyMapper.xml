@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.zhangxd.platform.system.provider.mapper.PropertyMapper">
+<mapper namespace="zhizhu.cy.platform.system.provider.mapper.PropertyMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="cn.zhangxd.platform.system.api.entity.Property" id="propertyMap">
+    <resultMap type="zhizhu.cy.platform.system.api.entity.Property" id="propertyMap">
         <result property="id" column="id"/>
         <result property="propId" column="prop_id"/>
         <result property="propName" column="prop_name"/>
@@ -13,11 +13,11 @@
         <result property="delFlag" column="del_flag"/>
     </resultMap>
 
-	<select id="queryObject" resultType="cn.zhangxd.platform.system.api.entity.Property">
+	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Property">
 		select * from st_cy_property where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="cn.zhangxd.platform.system.api.entity.Property">
+	<select id="queryList" resultType="zhizhu.cy.platform.system.api.entity.Property">
 		select * from st_cy_property
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -36,7 +36,7 @@
 		select count(*) from st_cy_property 
 	</select>
 	 
-	<insert id="save" parameterType="cn.zhangxd.platform.system.api.entity.Property" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.Property" useGeneratedKeys="true" keyProperty="id">
 		insert into st_cy_property
 		(
 			`prop_id`, 
@@ -55,7 +55,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="cn.zhangxd.platform.system.api.entity.Property">
+	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.Property">
 		update st_cy_property 
 		<set>
 			<if test="propId != null">`prop_id` = #{propId}, </if>

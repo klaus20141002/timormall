@@ -41,17 +41,17 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="cn.zhangxd.platform.mobile.client.ClientMobileApplication" level="INFO"/>
+    <logger name="zhizhu.cy.platform.mobile.client.ClientMobileApplication" level="INFO"/>
 
     <springProfile name="local">
-        <logger name="cn.zhangxd.platform" level="DEBUG"/>
+        <logger name="zhizhu.cy.platform" level="DEBUG"/>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
 
     <springProfile name="dev">
-        <logger name="cn.zhangxd.platform" level="DEBUG"/>
+        <logger name="zhizhu.cy.platform" level="DEBUG"/>
         <root level="ERROR">
             <appender-ref ref="FILE"/>
         </root>
