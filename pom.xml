@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.zhangxd</groupId>
+    <groupId>zhizhu.cy</groupId>
     <artifactId>platform-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
@@ -25,6 +25,8 @@
         <relativePath/>
     </parent>
 
+
+	<!-- need to change user's own repositor -->
     <repositories>
         <repository>
             <id>nexus</id>
@@ -255,6 +257,16 @@
             <name>ZhangXuDong</name>
             <id>zhangxudong</id>
             <email>zhangxd_2011sz@163.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+        
+        <developer>
+            <name>NiklausMikaelson</name>
+            <id>NiklausMikaelson</id>
+            <email>niklausjulie@gmail.com</email>
             <roles>
                 <role>Developer</role>
             </roles>
