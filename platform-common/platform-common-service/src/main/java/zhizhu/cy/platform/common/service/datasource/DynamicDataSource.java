@@ -2,8 +2,10 @@ package zhizhu.cy.platform.common.service.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
+import java.sql.SQLFeatureNotSupportedException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * 动态数据源实现读写分离
