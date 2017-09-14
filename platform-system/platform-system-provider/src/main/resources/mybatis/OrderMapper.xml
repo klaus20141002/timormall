@@ -12,12 +12,16 @@
         <result property="orderStatus" column="order_status"/>
         <result property="orderRemark" column="order_remark"/>
         <result property="orderTotalPrice" column="order_total_price"/>
+        <result property="orderVirtualPrice" column="order_virtual_price"/>
+        <result property="orderCouponPrice" column="order_coupon_price"/>
         <result property="orderAddressId" column="order_address_id"/>
-        <result property="createDate" column="create_date"/>
-        <result property="updateDate" column="update_date"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="orderAddress" column="order_address"/>
         <result property="orderUserId" column="order_user_id"/>
         <result property="orderMerchantId" column="order_merchant_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Order">
@@ -52,12 +56,16 @@
 			`order_status`, 
 			`order_remark`, 
 			`order_total_price`, 
+			`order_virtual_price`, 
+			`order_coupon_price`, 
 			`order_address_id`, 
-			`create_date`, 
-			`update_date`, 
-			`del_flag`, 
+			`order_address`, 
 			`order_user_id`, 
-			`order_merchant_id`
+			`order_merchant_id`, 
+			`create_time`, 
+			`update_time`, 
+			`remark`, 
+			`data_status`
 		)
 		values
 		(
@@ -67,12 +75,16 @@
 			#{orderStatus}, 
 			#{orderRemark}, 
 			#{orderTotalPrice}, 
+			#{orderVirtualPrice}, 
+			#{orderCouponPrice}, 
 			#{orderAddressId}, 
-			#{createDate}, 
-			#{updateDate}, 
-			#{delFlag}, 
+			#{orderAddress}, 
 			#{orderUserId}, 
-			#{orderMerchantId}
+			#{orderMerchantId}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{remark}, 
+			#{dataStatus}
 		)
 	</insert>
 	 
@@ -85,12 +97,16 @@
 			<if test="orderStatus != null">`order_status` = #{orderStatus}, </if>
 			<if test="orderRemark != null">`order_remark` = #{orderRemark}, </if>
 			<if test="orderTotalPrice != null">`order_total_price` = #{orderTotalPrice}, </if>
+			<if test="orderVirtualPrice != null">`order_virtual_price` = #{orderVirtualPrice}, </if>
+			<if test="orderCouponPrice != null">`order_coupon_price` = #{orderCouponPrice}, </if>
 			<if test="orderAddressId != null">`order_address_id` = #{orderAddressId}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="orderAddress != null">`order_address` = #{orderAddress}, </if>
 			<if test="orderUserId != null">`order_user_id` = #{orderUserId}, </if>
-			<if test="orderMerchantId != null">`order_merchant_id` = #{orderMerchantId}</if>
+			<if test="orderMerchantId != null">`order_merchant_id` = #{orderMerchantId}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>

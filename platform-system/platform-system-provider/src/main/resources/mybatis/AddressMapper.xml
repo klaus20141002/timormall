@@ -13,9 +13,10 @@
         <result property="zipcode" column="zipcode"/>
         <result property="mobile" column="mobile"/>
         <result property="contactName" column="contact_name"/>
-        <result property="createDate" column="create_date"/>
-        <result property="updateDate" column="update_date"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Address">
@@ -51,9 +52,10 @@
 			`zipcode`, 
 			`mobile`, 
 			`contact_name`, 
-			`create_date`, 
-			`update_date`, 
-			`del_flag`
+			`create_time`, 
+			`update_time`, 
+			`remark`, 
+			`data_status`
 		)
 		values
 		(
@@ -64,9 +66,10 @@
 			#{zipcode}, 
 			#{mobile}, 
 			#{contactName}, 
-			#{createDate}, 
-			#{updateDate}, 
-			#{delFlag}
+			#{createTime}, 
+			#{updateTime}, 
+			#{remark}, 
+			#{dataStatus}
 		)
 	</insert>
 	 
@@ -80,9 +83,10 @@
 			<if test="zipcode != null">`zipcode` = #{zipcode}, </if>
 			<if test="mobile != null">`mobile` = #{mobile}, </if>
 			<if test="contactName != null">`contact_name` = #{contactName}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>

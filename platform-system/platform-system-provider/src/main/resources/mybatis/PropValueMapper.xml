@@ -10,9 +10,10 @@
         <result property="propId" column="prop_id"/>
         <result property="valueId" column="value_id"/>
         <result property="colorImg" column="color_img"/>
-        <result property="createDate" column="create_date"/>
-        <result property="updateDate" column="update_date"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.PropValue">
@@ -45,9 +46,10 @@
 			`prop_id`, 
 			`value_id`, 
 			`color_img`, 
-			`create_date`, 
-			`update_date`, 
-			`del_flag`
+			`create_time`, 
+			`update_time`, 
+			`remark`, 
+			`data_status`
 		)
 		values
 		(
@@ -55,9 +57,10 @@
 			#{propId}, 
 			#{valueId}, 
 			#{colorImg}, 
-			#{createDate}, 
-			#{updateDate}, 
-			#{delFlag}
+			#{createTime}, 
+			#{updateTime}, 
+			#{remark}, 
+			#{dataStatus}
 		)
 	</insert>
 	 
@@ -68,9 +71,10 @@
 			<if test="propId != null">`prop_id` = #{propId}, </if>
 			<if test="valueId != null">`value_id` = #{valueId}, </if>
 			<if test="colorImg != null">`color_img` = #{colorImg}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>

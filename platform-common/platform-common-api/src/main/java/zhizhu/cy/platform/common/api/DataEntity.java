@@ -1,19 +1,22 @@
 package zhizhu.cy.platform.common.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import zhizhu.cy.platform.common.utils.RandomHelper;
+import java.util.Date;
+
 import org.hibernate.validator.constraints.Length;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import zhizhu.cy.platform.common.utils.RandomHelper;
 
 /**
  * 数据Entity类
  *
  * @author zhangxd
  */
+@SuppressWarnings("serial")
 public abstract class DataEntity extends BaseEntity {
 
-    /**
+	/**
      * 删除标记0：正常
      */
     public static final String DEL_FLAG_NORMAL = "0";
@@ -25,19 +28,19 @@ public abstract class DataEntity extends BaseEntity {
     /**
      * 创建日期
      */
-    private Date createDate;
+    private Date createTime;
     /**
      * 更新日期
      */
-    private Date updateDate;
+    private Date updateTime;
     /**
      * 删除标记(0:正常;1:删除;)
      */
-    private String delFlag;
+    private String dataStatus;
 
     public DataEntity() {
         super();
-        this.delFlag = DEL_FLAG_NORMAL;
+        this.dataStatus = DEL_FLAG_NORMAL;
     }
 
     public DataEntity(String id) {
@@ -53,8 +56,8 @@ public abstract class DataEntity extends BaseEntity {
         if (this.getIsNewRecord()) {
             setId(RandomHelper.uuid());
         }
-        this.updateDate = new Date();
-        this.createDate = this.updateDate;
+        this.updateTime = new Date();
+        this.createTime = this.updateTime;
     }
 
     /**
@@ -62,33 +65,33 @@ public abstract class DataEntity extends BaseEntity {
      */
     @Override
     public void preUpdate() {
-        this.updateDate = new Date();
+        this.updateTime = new Date();
     }
 
-    public Date getCreateDate() {
-        return createDate == null ? null : (Date) createDate.clone();
+    public Date getCreateTime() {
+        return createTime == null ? null : (Date) createTime.clone();
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate == null ? null : (Date) createDate.clone();
+    public void setCreateTime(Date createDate) {
+        this.createTime = createDate == null ? null : (Date) createDate.clone();
     }
 
-    public Date getUpdateDate() {
-        return updateDate == null ? null : (Date) updateDate.clone();
+    public Date getUpdateTime() {
+        return updateTime == null ? null : (Date) updateTime.clone();
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate == null ? null : (Date) updateDate.clone();
+    public void setUpdateTime(Date updateDate) {
+        this.updateTime = updateDate == null ? null : (Date) updateDate.clone();
     }
 
     @JsonIgnore
     @Length(min = 1, max = 1)
-    public String getDelFlag() {
-        return delFlag;
+    public String getDataStatus() {
+        return dataStatus;
     }
 
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
+    public void setDataStatus(String dataStatus) {
+        this.dataStatus = dataStatus;
     }
 
 }

@@ -12,6 +12,7 @@ import java.io.Serializable;
  *
  * @author zhangxd
  */
+@SuppressWarnings("serial")
 public abstract class BaseEntity implements Serializable {
 
     /**

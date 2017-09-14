@@ -13,14 +13,15 @@
         <result property="foodProPrice" column="food_pro_price"/>
         <result property="foodImages" column="food_images"/>
         <result property="foodVolume" column="food_volume"/>
-        <result property="createDate" column="create_date"/>
-        <result property="updateDate" column="update_date"/>
         <result property="foodStatus" column="food_status"/>
         <result property="foodState" column="food_state"/>
         <result property="foodMerchantId" column="food_merchant_id"/>
         <result property="foodIsContainSku" column="food_is_contain_sku"/>
         <result property="foodSaleLimitNum" column="food_sale_limit_num"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Food">
@@ -56,14 +57,15 @@
 			`food_pro_price`, 
 			`food_images`, 
 			`food_volume`, 
-			`create_date`, 
-			`update_date`, 
 			`food_status`, 
 			`food_state`, 
 			`food_merchant_id`, 
 			`food_is_contain_sku`, 
 			`food_sale_limit_num`, 
-			`del_flag`
+			`create_time`, 
+			`update_time`, 
+			`remark`, 
+			`data_status`
 		)
 		values
 		(
@@ -74,14 +76,15 @@
 			#{foodProPrice}, 
 			#{foodImages}, 
 			#{foodVolume}, 
-			#{createDate}, 
-			#{updateDate}, 
 			#{foodStatus}, 
 			#{foodState}, 
 			#{foodMerchantId}, 
 			#{foodIsContainSku}, 
 			#{foodSaleLimitNum}, 
-			#{delFlag}
+			#{createTime}, 
+			#{updateTime}, 
+			#{remark}, 
+			#{dataStatus}
 		)
 	</insert>
 	 
@@ -95,14 +98,15 @@
 			<if test="foodProPrice != null">`food_pro_price` = #{foodProPrice}, </if>
 			<if test="foodImages != null">`food_images` = #{foodImages}, </if>
 			<if test="foodVolume != null">`food_volume` = #{foodVolume}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
 			<if test="foodStatus != null">`food_status` = #{foodStatus}, </if>
 			<if test="foodState != null">`food_state` = #{foodState}, </if>
 			<if test="foodMerchantId != null">`food_merchant_id` = #{foodMerchantId}, </if>
 			<if test="foodIsContainSku != null">`food_is_contain_sku` = #{foodIsContainSku}, </if>
 			<if test="foodSaleLimitNum != null">`food_sale_limit_num` = #{foodSaleLimitNum}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -12,10 +12,11 @@
         <result property="quantity" column="quantity"/>
         <result property="price" column="price"/>
         <result property="promotionPrice" column="promotion_price"/>
-        <result property="isUse" column="is_use"/>
-        <result property="createDate" column="create_date"/>
-        <result property="updateDate" column="update_date"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="flagUse" column="flag_use"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.FoodSku">
@@ -50,10 +51,11 @@
 			`quantity`, 
 			`price`, 
 			`promotion_price`, 
-			`is_use`, 
-			`create_date`, 
-			`update_date`, 
-			`del_flag`
+			`flag_use`, 
+			`create_time`, 
+			`update_time`, 
+			`remark`, 
+			`data_status`
 		)
 		values
 		(
@@ -63,10 +65,11 @@
 			#{quantity}, 
 			#{price}, 
 			#{promotionPrice}, 
-			#{isUse}, 
-			#{createDate}, 
-			#{updateDate}, 
-			#{delFlag}
+			#{flagUse}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{remark}, 
+			#{dataStatus}
 		)
 	</insert>
 	 
@@ -79,10 +82,11 @@
 			<if test="quantity != null">`quantity` = #{quantity}, </if>
 			<if test="price != null">`price` = #{price}, </if>
 			<if test="promotionPrice != null">`promotion_price` = #{promotionPrice}, </if>
-			<if test="isUse != null">`is_use` = #{isUse}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="flagUse != null">`flag_use` = #{flagUse}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -5,8 +5,8 @@ import java.util.Map;
 
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,10 +23,10 @@ import zhizhu.cy.platform.system.api.service.ICategeryService;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:32:37
+ * @date 2017-09-14 17:46:37
  */
 @RestController
-@RequestMapping("/api/{version}/categery")
+@RequestMapping("categery")
 public class CategeryController {
 	@Autowired
 	private ICategeryService categeryService;
@@ -34,7 +34,7 @@ public class CategeryController {
 	/**
 	 * 列表
 	 */
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	//@PreAuthorize("hasAuthority('categery:list')")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
@@ -52,7 +52,7 @@ public class CategeryController {
 	/**
 	 * 信息
 	 */
-	@RequestMapping("/info/{id}")
+	@GetMapping("/info/{id}")
 	//@PreAuthorize("hasAuthority('categery:info')")
 	public R info(@PathVariable("id") Long id){
 		Categery categery = categeryService.queryObject(id);
@@ -60,40 +60,6 @@ public class CategeryController {
 		return R.ok().put("categery", categery);
 	}
 	
-	/**
-	 * 保存
-	 */
-	@RequestMapping("/save")
-	//@RequiresPermissions("categery:save")
-	//@PreAuthorize("hasAuthority('categery:save')")
-	public R save(@RequestBody Categery categery){
-		categeryService.save(categery);
-		
-		return R.ok();
-	}
 	
-	/**
-	 * 修改
-	 */
-	@RequestMapping("/update")
-	//@RequiresPermissions("categery:update")
-	//@PreAuthorize("hasAuthority('categery:update')")
-	public R update(@RequestBody Categery categery){
-		categeryService.update(categery);
-		
-		return R.ok();
-	}
-	
-	/**
-	 * 删除
-	 */
-	@RequestMapping("/delete")
-	//@RequiresPermissions("categery:delete")
-	//@PreAuthorize("hasAuthority('categery:delete')")
-	public R delete(@RequestBody Long[] ids){
-		categeryService.deleteBatch(ids);
-		
-		return R.ok();
-	}
 	
 }

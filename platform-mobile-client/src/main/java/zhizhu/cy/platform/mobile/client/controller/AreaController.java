@@ -5,8 +5,8 @@ import java.util.Map;
 
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,10 +23,10 @@ import zhizhu.cy.platform.system.api.service.IAreaService;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:32:53
+ * @date 2017-09-14 17:46:21
  */
 @RestController
-@RequestMapping("/api/{version}/area")
+@RequestMapping("area")
 public class AreaController {
 	@Autowired
 	private IAreaService areaService;
@@ -34,7 +34,7 @@ public class AreaController {
 	/**
 	 * 列表
 	 */
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	//@PreAuthorize("hasAuthority('area:list')")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
@@ -52,7 +52,7 @@ public class AreaController {
 	/**
 	 * 信息
 	 */
-	@RequestMapping("/info/{id}")
+	@GetMapping("/info/{id}")
 	//@PreAuthorize("hasAuthority('area:info')")
 	public R info(@PathVariable("id") Long id){
 		Area area = areaService.queryObject(id);
@@ -60,40 +60,5 @@ public class AreaController {
 		return R.ok().put("area", area);
 	}
 	
-	/**
-	 * 保存
-	 */
-	@RequestMapping("/save")
-	//@RequiresPermissions("area:save")
-	//@PreAuthorize("hasAuthority('area:save')")
-	public R save(@RequestBody Area area){
-		areaService.save(area);
-		
-		return R.ok();
-	}
-	
-	/**
-	 * 修改
-	 */
-	@RequestMapping("/update")
-	//@RequiresPermissions("area:update")
-	//@PreAuthorize("hasAuthority('area:update')")
-	public R update(@RequestBody Area area){
-		areaService.update(area);
-		
-		return R.ok();
-	}
-	
-	/**
-	 * 删除
-	 */
-	@RequestMapping("/delete")
-	//@RequiresPermissions("area:delete")
-	//@PreAuthorize("hasAuthority('area:delete')")
-	public R delete(@RequestBody Long[] ids){
-		areaService.deleteBatch(ids);
-		
-		return R.ok();
-	}
 	
 }

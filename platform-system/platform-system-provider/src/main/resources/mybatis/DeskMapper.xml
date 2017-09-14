@@ -6,11 +6,13 @@
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="zhizhu.cy.platform.system.api.entity.Desk" id="deskMap">
         <result property="id" column="id"/>
-        <result property="merchantId" column="merchant_id"/>
+        <result property="deskMerchantId" column="desk_merchant_id"/>
         <result property="deskNumber" column="desk_number"/>
-        <result property="createDate" column="create_date"/>
-        <result property="UpdateDate" column="update_date"/>
-        <result property="availableNumber" column="available_number"/>
+        <result property="deskAvailableNu" column="desk_available_nu"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Desk">
@@ -18,7 +20,7 @@
 	</select>
 
 	<select id="queryList" resultType="zhizhu.cy.platform.system.api.entity.Desk">
-		select * from st_cy_desk where del_flag = 0 
+		select * from st_cy_desk
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -39,40 +41,46 @@
 	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.Desk" useGeneratedKeys="true" keyProperty="id">
 		insert into st_cy_desk
 		(
-			`merchant_id`, 
+			`desk_merchant_id`, 
 			`desk_number`, 
-			`create_date`, 
-			`update_date`, 
-			`available_number`                  
+			`desk_available_nu`, 
+			`create_time`, 
+			`update_time`, 
+			`remark`, 
+			`data_status`
 		)
 		values
 		(
-			#{merchantId}, 
+			#{deskMerchantId}, 
 			#{deskNumber}, 
-			#{createDate}, 
-			#{updateDate}, 
-			#{availableNumber}
+			#{deskAvailableNu}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{remark}, 
+			#{dataStatus}
 		)
 	</insert>
 	 
 	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.Desk">
 		update st_cy_desk 
 		<set>
-			<if test="merchantId != null">`merchant_id` = #{merchantId}, </if>
+			<if test="deskMerchantId != null">`desk_merchant_id` = #{deskMerchantId}, </if>
 			<if test="deskNumber != null">`desk_number` = #{deskNumber}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_time` = #{updateDate}, </if>
-			<if test="availableNumber != null">`available_number` = #{availableNumber}</if>
+			<if test="deskAvailableNu != null">`desk_available_nu` = #{deskAvailableNu}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>
 	
 	<delete id="delete">
-		update st_cy_desk set del_flag = 1 where id = #{value}
+		delete from st_cy_desk where id = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		update st_cy_desk set del_flag = 1 where id in 
+		delete from st_cy_desk where id in 
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>

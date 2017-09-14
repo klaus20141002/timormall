@@ -6,15 +6,17 @@
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="zhizhu.cy.platform.system.api.entity.Categery" id="categeryMap">
         <result property="id" column="id"/>
+        <result property="merchantId" column="merchant_id"/>
         <result property="catName" column="cat_name"/>
         <result property="catImg" column="cat_img"/>
         <result property="catIndex" column="cat_index"/>
         <result property="catDesc" column="cat_desc"/>
         <result property="catDescImg" column="cat_desc_img"/>
+        <result property="catRemark" column="cat_remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
         <result property="remark" column="remark"/>
-        <result property="createDate" column="create_date"/>
-        <result property="updateDate" column="update_date"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Categery">
@@ -43,42 +45,48 @@
 	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.Categery" useGeneratedKeys="true" keyProperty="id">
 		insert into st_cy_categery
 		(
+			`merchant_id`, 
 			`cat_name`, 
 			`cat_img`, 
 			`cat_index`, 
 			`cat_desc`, 
 			`cat_desc_img`, 
+			`cat_remark`, 
+			`create_time`, 
+			`update_time`, 
 			`remark`, 
-			`create_date`, 
-			`update_date`, 
-			`del_flag`
+			`data_status`
 		)
 		values
 		(
+			#{merchantId}, 
 			#{catName}, 
 			#{catImg}, 
 			#{catIndex}, 
 			#{catDesc}, 
 			#{catDescImg}, 
+			#{catRemark}, 
+			#{createTime}, 
+			#{updateTime}, 
 			#{remark}, 
-			#{createDate}, 
-			#{updateDate}, 
-			#{delFlag}
+			#{dataStatus}
 		)
 	</insert>
 	 
 	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.Categery">
 		update st_cy_categery 
 		<set>
+			<if test="merchantId != null">`merchant_id` = #{merchantId}, </if>
 			<if test="catName != null">`cat_name` = #{catName}, </if>
 			<if test="catImg != null">`cat_img` = #{catImg}, </if>
 			<if test="catIndex != null">`cat_index` = #{catIndex}, </if>
 			<if test="catDesc != null">`cat_desc` = #{catDesc}, </if>
 			<if test="catDescImg != null">`cat_desc_img` = #{catDescImg}, </if>
+			<if test="catRemark != null">`cat_remark` = #{catRemark}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
 			<if test="remark != null">`remark` = #{remark}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>

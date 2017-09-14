@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:32:53
+ * @date 2017-09-14 17:46:21
  */
 public class Area implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:32:53
+ * @date 2017-09-14 17:46:37
  */
 public class PropValue implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -26,11 +26,13 @@ public class PropValue implements Serializable {
 	//sku头图
 	private String colorImg;
 	//创建时间
-	private Date createDate;
-	//最后更新时间
-	private Date updateDate;
-	//是否删除 ：1 已删， 0 未删
-	private Integer delFlag;
+	private Date createTime;
+	//更新时间
+	private Date updateTime;
+	//表备注
+	private String remark;
+	//是否删除 ：0 已删， 1 未删
+	private Integer dataStatus;
 
 	/**
 	 * 设置：
@@ -95,37 +97,49 @@ public class PropValue implements Serializable {
 	/**
 	 * 设置：创建时间
 	 */
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	/**
 	 * 获取：创建时间
 	 */
-	public Date getCreateDate() {
-		return createDate;
+	public Date getCreateTime() {
+		return createTime;
 	}
 	/**
-	 * 设置：最后更新时间
+	 * 设置：更新时间
 	 */
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 	/**
-	 * 获取：最后更新时间
+	 * 获取：更新时间
 	 */
-	public Date getUpdateDate() {
-		return updateDate;
+	public Date getUpdateTime() {
+		return updateTime;
 	}
 	/**
-	 * 设置：是否删除 ：1 已删， 0 未删
+	 * 设置：表备注
 	 */
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	/**
-	 * 获取：是否删除 ：1 已删， 0 未删
+	 * 获取：表备注
 	 */
-	public Integer getDelFlag() {
-		return delFlag;
+	public String getRemark() {
+		return remark;
+	}
+	/**
+	 * 设置：是否删除 ：0 已删， 1 未删
+	 */
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	/**
+	 * 获取：是否删除 ：0 已删， 1 未删
+	 */
+	public Integer getDataStatus() {
+		return dataStatus;
 	}
 }

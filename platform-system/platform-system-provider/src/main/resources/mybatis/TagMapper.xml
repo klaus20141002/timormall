@@ -8,9 +8,10 @@
         <result property="id" column="id"/>
         <result property="tagName" column="tag_name"/>
         <result property="tagIndex" column="tag_index"/>
-        <result property="createDate" column="create_date"/>
+        <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="remark" column="remark"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Tag">
@@ -41,17 +42,19 @@
 		(
 			`tag_name`, 
 			`tag_index`, 
-			`create_date`, 
+			`create_time`, 
 			`update_time`, 
-			`del_flag`
+			`remark`, 
+			`data_status`
 		)
 		values
 		(
 			#{tagName}, 
 			#{tagIndex}, 
-			#{createDate}, 
+			#{createTime}, 
 			#{updateTime}, 
-			#{delFlag}
+			#{remark}, 
+			#{dataStatus}
 		)
 	</insert>
 	 
@@ -60,9 +63,10 @@
 		<set>
 			<if test="tagName != null">`tag_name` = #{tagName}, </if>
 			<if test="tagIndex != null">`tag_index` = #{tagIndex}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>

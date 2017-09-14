@@ -8,11 +8,12 @@
         <result property="id" column="id"/>
         <result property="orderId" column="order_id"/>
         <result property="operationType" column="operation_type"/>
+        <result property="logDesc" column="log_desc"/>
         <result property="userId" column="user_id"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
-        <result property="delFlag" column="del_flag"/>
-        <result property="desc" column="desc"/>
+        <result property="remark" column="remark"/>
+        <result property="dataStatus" column="data_status"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.OrderLog">
@@ -43,21 +44,23 @@
 		(
 			`order_id`, 
 			`operation_type`, 
+			`log_desc`, 
 			`user_id`, 
 			`create_time`, 
 			`update_time`, 
-			`del_flag`, 
-			`desc`
+			`remark`, 
+			`data_status`
 		)
 		values
 		(
 			#{orderId}, 
 			#{operationType}, 
+			#{logDesc}, 
 			#{userId}, 
 			#{createTime}, 
 			#{updateTime}, 
-			#{delFlag}, 
-			#{desc}
+			#{remark}, 
+			#{dataStatus}
 		)
 	</insert>
 	 
@@ -66,11 +69,12 @@
 		<set>
 			<if test="orderId != null">`order_id` = #{orderId}, </if>
 			<if test="operationType != null">`operation_type` = #{operationType}, </if>
+			<if test="logDesc != null">`log_desc` = #{logDesc}, </if>
 			<if test="userId != null">`user_id` = #{userId}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
-			<if test="desc != null">`desc` = #{desc}</if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}
 	</update>

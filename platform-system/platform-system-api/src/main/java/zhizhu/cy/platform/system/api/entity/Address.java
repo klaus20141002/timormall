@@ -1,7 +1,6 @@
 package zhizhu.cy.platform.system.api.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import zhizhu.cy.platform.common.api.DataEntity;
 
 
 
@@ -10,13 +9,11 @@ import java.util.Date;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:27:48
+ * @date 2017-09-14 17:46:21
  */
-public class Address implements Serializable {
+public class Address extends DataEntity {
 	private static final long serialVersionUID = 1L;
 	
-	//
-	private Long id;
 	//用户ID
 	private String userId;
 	//省ID
@@ -31,25 +28,9 @@ public class Address implements Serializable {
 	private String mobile;
 	//联系人名称
 	private String contactName;
-	//创建时间
-	private Date createDate;
-	//最后修改时间
-	private Date updateDate;
-	//是否删除 ：1 已删， 0 未删
-	private Integer delFlag;
+	//表备注
+	private String remark;
 
-	/**
-	 * 设置：
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * 获取：
-	 */
-	public Long getId() {
-		return id;
-	}
 	/**
 	 * 设置：用户ID
 	 */
@@ -135,39 +116,15 @@ public class Address implements Serializable {
 		return contactName;
 	}
 	/**
-	 * 设置：创建时间
+	 * 设置：表备注
 	 */
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	/**
-	 * 获取：创建时间
+	 * 获取：表备注
 	 */
-	public Date getCreateDate() {
-		return createDate;
-	}
-	/**
-	 * 设置：最后修改时间
-	 */
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-	/**
-	 * 获取：最后修改时间
-	 */
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-	/**
-	 * 设置：是否删除 ：1 已删， 0 未删
-	 */
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
-	}
-	/**
-	 * 获取：是否删除 ：1 已删， 0 未删
-	 */
-	public Integer getDelFlag() {
-		return delFlag;
+	public String getRemark() {
+		return remark;
 	}
 }

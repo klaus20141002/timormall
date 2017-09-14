@@ -1,6 +1,7 @@
 package zhizhu.cy.platform.system.api.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -10,7 +11,7 @@ import java.util.Date;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:32:53
+ * @date 2017-09-14 17:46:37
  */
 public class OrderFoods implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -26,11 +27,15 @@ public class OrderFoods implements Serializable {
 	//数量
 	private Integer count;
 	//
-	private Date createDate;
+	private BigDecimal price;
+	//创建时间
+	private Date createTime;
 	//
-	private Date updateDate;
-	//是否删除 ：1 已删， 0 未删
-	private Integer delFlag;
+	private Date updateTime;
+	//是否删除 ：0 已删， 1 未删
+	private Integer dataStatus;
+	//表备注
+	private String remark;
 
 	/**
 	 * 设置：
@@ -95,37 +100,61 @@ public class OrderFoods implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 	/**
 	 * 获取：
 	 */
-	public Date getCreateDate() {
-		return createDate;
+	public BigDecimal getPrice() {
+		return price;
+	}
+	/**
+	 * 设置：创建时间
+	 */
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	/**
+	 * 获取：创建时间
+	 */
+	public Date getCreateTime() {
+		return createTime;
 	}
 	/**
 	 * 设置：
 	 */
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 	/**
 	 * 获取：
 	 */
-	public Date getUpdateDate() {
-		return updateDate;
+	public Date getUpdateTime() {
+		return updateTime;
 	}
 	/**
-	 * 设置：是否删除 ：1 已删， 0 未删
+	 * 设置：是否删除 ：0 已删， 1 未删
 	 */
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
 	}
 	/**
-	 * 获取：是否删除 ：1 已删， 0 未删
+	 * 获取：是否删除 ：0 已删， 1 未删
 	 */
-	public Integer getDelFlag() {
-		return delFlag;
+	public Integer getDataStatus() {
+		return dataStatus;
+	}
+	/**
+	 * 设置：表备注
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	/**
+	 * 获取：表备注
+	 */
+	public String getRemark() {
+		return remark;
 	}
 }

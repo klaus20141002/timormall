@@ -5,7 +5,11 @@ import java.util.Map;
 
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +27,10 @@ import zhizhu.cy.platform.system.api.service.IOrderLogService;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:32:53
+ * @date 2017-09-14 17:46:37
  */
 @RestController
-@RequestMapping("/api/{version}/orderlog")
+@RequestMapping("orderlog")
 public class OrderLogController {
 	@Autowired
 	private IOrderLogService orderLogService;
@@ -34,7 +38,7 @@ public class OrderLogController {
 	/**
 	 * 列表
 	 */
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	//@PreAuthorize("hasAuthority('orderlog:list')")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
@@ -52,7 +56,7 @@ public class OrderLogController {
 	/**
 	 * 信息
 	 */
-	@RequestMapping("/info/{id}")
+	@GetMapping("/info/{id}")
 	//@PreAuthorize("hasAuthority('orderlog:info')")
 	public R info(@PathVariable("id") Long id){
 		OrderLog orderLog = orderLogService.queryObject(id);
@@ -63,7 +67,7 @@ public class OrderLogController {
 	/**
 	 * 保存
 	 */
-	@RequestMapping("/save")
+	@PostMapping("/save")
 	//@RequiresPermissions("orderlog:save")
 	//@PreAuthorize("hasAuthority('orderlog:save')")
 	public R save(@RequestBody OrderLog orderLog){
@@ -75,7 +79,7 @@ public class OrderLogController {
 	/**
 	 * 修改
 	 */
-	@RequestMapping("/update")
+	@PutMapping("/update")
 	//@RequiresPermissions("orderlog:update")
 	//@PreAuthorize("hasAuthority('orderlog:update')")
 	public R update(@RequestBody OrderLog orderLog){
@@ -87,7 +91,7 @@ public class OrderLogController {
 	/**
 	 * 删除
 	 */
-	@RequestMapping("/delete")
+	@DeleteMapping("/delete")
 	//@RequiresPermissions("orderlog:delete")
 	//@PreAuthorize("hasAuthority('orderlog:delete')")
 	public R delete(@RequestBody Long[] ids){

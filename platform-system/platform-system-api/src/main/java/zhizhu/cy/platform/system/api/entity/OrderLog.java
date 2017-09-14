@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:32:53
+ * @date 2017-09-14 17:46:37
  */
 public class OrderLog implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,17 +20,19 @@ public class OrderLog implements Serializable {
 	//订单ID
 	private Long orderId;
 	//1 : 取消 ， 2： 执行完成 ， 3 ：下单成功
-	private String operationType;
+	private Integer operationType;
+	//描述
+	private String logDesc;
 	//用户ID
 	private Long userId;
 	//创建时间
 	private Date createTime;
 	//更新时间
 	private Date updateTime;
-	//是否删除 ：1 已删， 0 未删
-	private Integer delFlag;
-	//描述
-	private String desc;
+	//表备注
+	private String remark;
+	//是否删除 ：0 已删， 1 未删
+	private Integer dataStatus;
 
 	/**
 	 * 设置：
@@ -59,14 +61,26 @@ public class OrderLog implements Serializable {
 	/**
 	 * 设置：1 : 取消 ， 2： 执行完成 ， 3 ：下单成功
 	 */
-	public void setOperationType(String operationType) {
+	public void setOperationType(Integer operationType) {
 		this.operationType = operationType;
 	}
 	/**
 	 * 获取：1 : 取消 ， 2： 执行完成 ， 3 ：下单成功
 	 */
-	public String getOperationType() {
+	public Integer getOperationType() {
 		return operationType;
+	}
+	/**
+	 * 设置：描述
+	 */
+	public void setLogDesc(String logDesc) {
+		this.logDesc = logDesc;
+	}
+	/**
+	 * 获取：描述
+	 */
+	public String getLogDesc() {
+		return logDesc;
 	}
 	/**
 	 * 设置：用户ID
@@ -105,27 +119,27 @@ public class OrderLog implements Serializable {
 		return updateTime;
 	}
 	/**
-	 * 设置：是否删除 ：1 已删， 0 未删
+	 * 设置：表备注
 	 */
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	/**
-	 * 获取：是否删除 ：1 已删， 0 未删
+	 * 获取：表备注
 	 */
-	public Integer getDelFlag() {
-		return delFlag;
+	public String getRemark() {
+		return remark;
 	}
 	/**
-	 * 设置：描述
+	 * 设置：是否删除 ：0 已删， 1 未删
 	 */
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
 	}
 	/**
-	 * 获取：描述
+	 * 获取：是否删除 ：0 已删， 1 未删
 	 */
-	public String getDesc() {
-		return desc;
+	public Integer getDataStatus() {
+		return dataStatus;
 	}
 }

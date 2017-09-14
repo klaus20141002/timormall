@@ -5,6 +5,7 @@ import java.util.Map;
 
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,36 +19,36 @@ import org.springframework.web.bind.annotation.RestController;
 import zhizhu.cy.platform.mobile.client.util.PageUtils;
 import zhizhu.cy.platform.mobile.client.util.Query;
 import zhizhu.cy.platform.mobile.client.util.R;
-import zhizhu.cy.platform.system.api.entity.Order;
-import zhizhu.cy.platform.system.api.service.IOrderService;
+import zhizhu.cy.platform.system.api.entity.Address;
+import zhizhu.cy.platform.system.api.service.IAddressService;
 
 
 /**
- * 
+ * 餐饮-地址表
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-14 17:46:37
+ * @date 2017-09-14 17:46:21
  */
 @RestController
-@RequestMapping("order")
-public class OrderController {
+@RequestMapping("/api/{version}/address")
+public class AddressController {
 	@Autowired
-	private IOrderService orderService;
+	private IAddressService addressService;
 	
 	/**
 	 * 列表
 	 */
 	@GetMapping("/list")
-	//@PreAuthorize("hasAuthority('order:list')")
+	@PreAuthorize("hasAuthority('address:list')")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
-		List<Order> orderList = orderService.queryList(query);
-		int total = orderService.queryTotal(query);
+		List<Address> addressList = addressService.queryList(query);
+		int total = addressService.queryTotal(query);
 		
-		PageUtils pageUtil = new PageUtils(orderList, total, query.getLimit(), query.getPage());
+		PageUtils pageUtil = new PageUtils(addressList, total, query.getLimit(), query.getPage());
 		
 		return R.ok().put("page", pageUtil);
 	}
@@ -57,21 +58,21 @@ public class OrderController {
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	//@PreAuthorize("hasAuthority('order:info')")
+	@PreAuthorize("hasAuthority('address:info')")
 	public R info(@PathVariable("id") Long id){
-		Order order = orderService.queryObject(id);
+		Address address = addressService.queryObject(id);
 		
-		return R.ok().put("order", order);
+		return R.ok().put("address", address);
 	}
 	
 	/**
 	 * 保存
 	 */
 	@PostMapping("/save")
-	//@RequiresPermissions("order:save")
-	//@PreAuthorize("hasAuthority('order:save')")
-	public R save(@RequestBody Order order){
-		orderService.save(order);
+	//@RequiresPermissions("address:save")
+	@PreAuthorize("hasAuthority('address:save')")
+	public R save(@RequestBody Address address){
+		addressService.save(address);
 		
 		return R.ok();
 	}
@@ -80,10 +81,10 @@ public class OrderController {
 	 * 修改
 	 */
 	@PutMapping("/update")
-	//@RequiresPermissions("order:update")
-	//@PreAuthorize("hasAuthority('order:update')")
-	public R update(@RequestBody Order order){
-		orderService.update(order);
+	//@RequiresPermissions("address:update")
+	@PreAuthorize("hasAuthority('address:update')")
+	public R update(@RequestBody Address address){
+		addressService.update(address);
 		
 		return R.ok();
 	}
@@ -92,10 +93,10 @@ public class OrderController {
 	 * 删除
 	 */
 	@DeleteMapping("/delete")
-	//@RequiresPermissions("order:delete")
-	//@PreAuthorize("hasAuthority('order:delete')")
+	//@RequiresPermissions("address:delete")
+	@PreAuthorize("hasAuthority('address:delete')")
 	public R delete(@RequestBody Long[] ids){
-		orderService.deleteBatch(ids);
+		addressService.deleteBatch(ids);
 		
 		return R.ok();
 	}

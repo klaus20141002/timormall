@@ -10,9 +10,11 @@
         <result property="foodsSkuId" column="foods_sku_id"/>
         <result property="foodsId" column="foods_id"/>
         <result property="count" column="count"/>
-        <result property="createDate" column="create_date"/>
-        <result property="updateDate" column="update_date"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="price" column="price"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="dataStatus" column="data_status"/>
+        <result property="remark" column="remark"/>
     </resultMap>
 
 	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.OrderFoods">
@@ -45,9 +47,11 @@
 			`foods_sku_id`, 
 			`foods_id`, 
 			`count`, 
-			`create_date`, 
-			`update_date`, 
-			`del_flag`
+			`price`, 
+			`create_time`, 
+			`update_time`, 
+			`data_status`, 
+			`remark`
 		)
 		values
 		(
@@ -55,9 +59,11 @@
 			#{foodsSkuId}, 
 			#{foodsId}, 
 			#{count}, 
-			#{createDate}, 
-			#{updateDate}, 
-			#{delFlag}
+			#{price}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{dataStatus}, 
+			#{remark}
 		)
 	</insert>
 	 
@@ -68,9 +74,11 @@
 			<if test="foodsSkuId != null">`foods_sku_id` = #{foodsSkuId}, </if>
 			<if test="foodsId != null">`foods_id` = #{foodsId}, </if>
 			<if test="count != null">`count` = #{count}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}, </if>
-			<if test="updateDate != null">`update_date` = #{updateDate}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="price != null">`price` = #{price}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}, </if>
+			<if test="remark != null">`remark` = #{remark}</if>
 		</set>
 		where id = #{id}
 	</update>

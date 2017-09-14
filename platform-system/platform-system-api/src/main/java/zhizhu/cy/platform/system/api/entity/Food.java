@@ -11,7 +11,7 @@ import java.util.Date;
  * 
  * @author niklaus mikaelson
  * @email niklausjulie@gmail.com
- * @date 2017-09-12 16:32:37
+ * @date 2017-09-14 17:46:21
  */
 public class Food implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,10 +32,6 @@ public class Food implements Serializable {
 	private String foodImages;
 	//销量
 	private Integer foodVolume;
-	//创建时间
-	private Date createDate;
-	//最后更新时间
-	private Date updateDate;
 	//用户展示今日状态 ， 1 :在售 ， 2 ：已售完
 	private Integer foodStatus;
 	//用于展示长期状态 ， 1 : 正常 ， 2:不可用【缺货】
@@ -46,8 +42,14 @@ public class Food implements Serializable {
 	private Integer foodIsContainSku;
 	//库存
 	private Integer foodSaleLimitNum;
-	//是否删除 ：1 已删， 0 未删
-	private Integer delFlag;
+	//创建时间
+	private Date createTime;
+	//更新时间
+	private Date updateTime;
+	//表备注
+	private String remark;
+	//是否删除 ：0 已删， 1 未删
+	private Integer dataStatus;
 
 	/**
 	 * 设置：
@@ -146,30 +148,6 @@ public class Food implements Serializable {
 		return foodVolume;
 	}
 	/**
-	 * 设置：创建时间
-	 */
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	/**
-	 * 获取：创建时间
-	 */
-	public Date getCreateDate() {
-		return createDate;
-	}
-	/**
-	 * 设置：最后更新时间
-	 */
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-	/**
-	 * 获取：最后更新时间
-	 */
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-	/**
 	 * 设置：用户展示今日状态 ， 1 :在售 ， 2 ：已售完
 	 */
 	public void setFoodStatus(Integer foodStatus) {
@@ -230,15 +208,51 @@ public class Food implements Serializable {
 		return foodSaleLimitNum;
 	}
 	/**
-	 * 设置：是否删除 ：1 已删， 0 未删
+	 * 设置：创建时间
 	 */
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	/**
-	 * 获取：是否删除 ：1 已删， 0 未删
+	 * 获取：创建时间
 	 */
-	public Integer getDelFlag() {
-		return delFlag;
+	public Date getCreateTime() {
+		return createTime;
+	}
+	/**
+	 * 设置：更新时间
+	 */
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+	/**
+	 * 获取：更新时间
+	 */
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	/**
+	 * 设置：表备注
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	/**
+	 * 获取：表备注
+	 */
+	public String getRemark() {
+		return remark;
+	}
+	/**
+	 * 设置：是否删除 ：0 已删， 1 未删
+	 */
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	/**
+	 * 获取：是否删除 ：0 已删， 1 未删
+	 */
+	public Integer getDataStatus() {
+		return dataStatus;
 	}
 }

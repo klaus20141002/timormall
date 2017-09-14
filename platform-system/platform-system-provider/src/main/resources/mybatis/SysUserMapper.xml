@@ -13,8 +13,8 @@
             a.mobile,
             a.enabled,
             a.remarks,
-            a.create_date,
-            a.update_date
+            a.create_time,
+            a.update_time
         FROM sys_user a
     </sql>
 
@@ -33,21 +33,21 @@
     <!-- 分页查询用户信息 -->
     <select id="findList" resultType="zhizhu.cy.platform.system.api.entity.SysUser">
         <include refid="selectColumns"/>
-        WHERE a.del_flag = '0'
+        WHERE a.data_status = '0'
         <if test="loginName != null and loginName != ''">
             AND a.login_name like CONCAT('%', #{loginName}, '%')
         </if>
         <if test="name != null and name != ''">
             AND a.name like CONCAT('%', #{name}, '%')
         </if>
-        ORDER BY a.create_date
+        ORDER BY a.create_time
     </select>
 
     <!-- 查询全部用户 -->
     <select id="findAllList" resultType="zhizhu.cy.platform.system.api.entity.SysUser">
         <include refid="selectColumns"/>
-        WHERE a.del_flag = '0'
-        ORDER BY a.create_date
+        WHERE a.data_status = '0'
+        ORDER BY a.create_time
     </select>
 
     <!-- 插入用户 -->
@@ -61,8 +61,8 @@
             phone,
             mobile,
             enabled,
-            create_date,
-            update_date,
+            create_time,
+            update_time,
             remarks
         ) VALUES (
             #{id},
@@ -73,8 +73,8 @@
             #{phone},
             #{mobile},
             #{enabled},
-            #{createDate},
-            #{updateDate},
+            #{createTime},
+            #{updateTime},
             #{remarks}
         )
     </insert>
@@ -92,7 +92,7 @@
             phone = #{phone},
             mobile = #{mobile},
             enabled = #{enabled},
-            update_date = #{updateDate},
+            update_time = #{updateTime},
             remarks = #{remarks}
         </set>
         WHERE id = #{id}
@@ -106,7 +106,7 @@
             email = #{email},
             phone = #{phone},
             mobile = #{mobile},
-            update_date = #{updateDate},
+            update_time = #{updateTime},
             remarks = #{remarks}
         </set>
         WHERE id = #{id}
@@ -123,7 +123,7 @@
     <!-- 删除用户 -->
     <update id="deleteById">
         UPDATE sys_user
-        SET del_flag = '1'
+        SET data_status = '1'
         WHERE id = #{id}
     </update>
 

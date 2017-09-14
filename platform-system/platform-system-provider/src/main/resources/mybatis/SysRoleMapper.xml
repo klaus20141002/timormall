@@ -7,8 +7,8 @@
             a.id,
             a.name,
             a.enabled,
-            a.create_date,
-            a.update_date,
+            a.create_time,
+            a.update_time,
             a.remarks
         FROM sys_role a
     </sql>
@@ -16,10 +16,10 @@
     <select id="findListByUserId" resultType="zhizhu.cy.platform.system.api.entity.SysRole">
         <include refid="selectColumns"/>
         LEFT JOIN sys_user_role ur ON ur.role_id = a.id
-        WHERE a.del_flag = '0'
+        WHERE a.data_status = '0'
         AND a.enabled = '1'
         AND ur.user_id = #{userId}
-        ORDER BY a.create_date
+        ORDER BY a.create_time
     </select>
 
     <!-- 根据编号获得角色 -->
@@ -31,21 +31,21 @@
     <!-- 分页查询角色信息 -->
     <select id="findList" resultType="zhizhu.cy.platform.system.api.entity.SysRole">
         <include refid="selectColumns"/>
-        WHERE a.del_flag = '0'
+        WHERE a.data_status = '0'
         <if test="name != null and name != ''">
             AND a.name like CONCAT('%', #{name}, '%')
         </if>
         <if test="remarks != null and remarks != ''">
             AND a.remarks like CONCAT('%', #{remarks}, '%')
         </if>
-        ORDER BY a.create_date
+        ORDER BY a.create_time
     </select>
 
     <!-- 查询全部角色 -->
     <select id="findAllList" resultType="zhizhu.cy.platform.system.api.entity.SysRole">
         <include refid="selectColumns"/>
-        WHERE a.del_flag = '0'
-        ORDER BY a.create_date
+        WHERE a.data_status = '0'
+        ORDER BY a.create_time
     </select>
 
     <!-- 插入角色 -->
@@ -54,15 +54,15 @@
             id,
             name,
             enabled,
-            create_date,
-            update_date,
+            create_time,
+            update_time,
             remarks
         ) VALUES (
             #{id},
             #{name},
             #{enabled},
-            #{createDate},
-            #{updateDate},
+            #{createTime},
+            #{updateTime},
             #{remarks}
         )
     </insert>
@@ -73,7 +73,7 @@
         <set>
             name = #{name},
             enabled = #{enabled},
-            update_date = #{updateDate},
+            update_time = #{updateTime},
             remarks = #{remarks}
         </set>
         WHERE id = #{id}
@@ -83,7 +83,7 @@
     <!-- 删除角色 -->
     <update id="deleteById">
         UPDATE sys_role
-        SET del_flag = '1'
+        SET data_status = '1'
         WHERE id = #{id}
     </update>
 
