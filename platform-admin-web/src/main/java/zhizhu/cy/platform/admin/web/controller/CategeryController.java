@@ -44,7 +44,7 @@ public class CategeryController extends BaseController{
 	 * 列表
 	 */
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('categery:list')")
+//	@PreAuthorize("hasAuthority('categery:list')")
 	@ApiOperation(value = "查看分裂列表")
 	public R list(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -65,7 +65,7 @@ public class CategeryController extends BaseController{
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('categery:info')")
+//	@PreAuthorize("hasAuthority('categery:info')")
 	@ApiOperation(value = "查看分裂详情")
 	public R info(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -80,7 +80,7 @@ public class CategeryController extends BaseController{
 	 */
 	@PostMapping("/save")
 	//@RequiresPermissions("categery:save")
-	@PreAuthorize("hasAuthority('categery:save')")
+//	@PreAuthorize("hasAuthority('categery:save')")
 	@ApiOperation(value = "保存分裂")
 	public R save(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -95,7 +95,7 @@ public class CategeryController extends BaseController{
 	 */
 	@PutMapping("/update")
 	//@RequiresPermissions("categery:update")
-	@PreAuthorize("hasAuthority('categery:update')")
+//	@PreAuthorize("hasAuthority('categery:update')")
 	@ApiOperation(value = "更新分裂")
 	public R update(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -110,7 +110,7 @@ public class CategeryController extends BaseController{
 	 */
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("categery:delete")
-	@PreAuthorize("hasAuthority('categery:delete')")
+//	@PreAuthorize("hasAuthority('categery:delete')")
 	@ApiOperation(value = "删除分裂")
 	public R delete(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,

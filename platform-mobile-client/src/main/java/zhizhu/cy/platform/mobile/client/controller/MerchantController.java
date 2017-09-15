@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.mobile.client.util.PageUtils;
 import zhizhu.cy.platform.mobile.client.util.Query;
 import zhizhu.cy.platform.mobile.client.util.R;
@@ -26,7 +27,7 @@ import zhizhu.cy.platform.system.api.service.IMerchantService;
  * @date 2017-09-14 17:46:37
  */
 @RestController
-@RequestMapping("merchant")
+@RequestMapping("/api/{version}/merchant")
 public class MerchantController {
 	@Autowired
 	private IMerchantService merchantService;
@@ -36,7 +37,9 @@ public class MerchantController {
 	 */
 	@GetMapping("/list")
 	//@PreAuthorize("hasAuthority('merchant:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "过滤条件，分页，排序 等数据", defaultValue = "{}") @RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -54,7 +57,9 @@ public class MerchantController {
 	 */
 	@GetMapping("/info/{id}")
 	//@PreAuthorize("hasAuthority('merchant:info')")
-	public R info(@PathVariable("id") Long id){
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@PathVariable("id") Long id){
 		Merchant merchant = merchantService.queryObject(id);
 		
 		return R.ok().put("merchant", merchant);

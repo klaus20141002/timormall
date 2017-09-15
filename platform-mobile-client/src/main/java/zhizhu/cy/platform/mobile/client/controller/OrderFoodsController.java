@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.mobile.client.util.PageUtils;
 import zhizhu.cy.platform.mobile.client.util.Query;
 import zhizhu.cy.platform.mobile.client.util.R;
@@ -30,7 +31,7 @@ import zhizhu.cy.platform.system.api.service.IOrderFoodsService;
  * @date 2017-09-14 17:46:37
  */
 @RestController
-@RequestMapping("orderfoods")
+@RequestMapping("/api/{version}/orderfoods")
 public class OrderFoodsController {
 	@Autowired
 	private IOrderFoodsService orderFoodsService;
@@ -40,7 +41,9 @@ public class OrderFoodsController {
 	 */
 	@GetMapping("/list")
 	//@PreAuthorize("hasAuthority('orderfoods:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "过滤条件，分页，排序 等数据", defaultValue = "{}") @RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -58,7 +61,9 @@ public class OrderFoodsController {
 	 */
 	@GetMapping("/info/{id}")
 	//@PreAuthorize("hasAuthority('orderfoods:info')")
-	public R info(@PathVariable("id") Long id){
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "ID", defaultValue = "0") @PathVariable("id") Long id){
 		OrderFoods orderFoods = orderFoodsService.queryObject(id);
 		
 		return R.ok().put("orderFoods", orderFoods);
@@ -70,7 +75,9 @@ public class OrderFoodsController {
 	@PostMapping("/save")
 	//@RequiresPermissions("orderfoods:save")
 	//@PreAuthorize("hasAuthority('orderfoods:save')")
-	public R save(@RequestBody OrderFoods orderFoods){
+	public R save(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody OrderFoods orderFoods){
 		orderFoodsService.save(orderFoods);
 		
 		return R.ok();
@@ -82,7 +89,9 @@ public class OrderFoodsController {
 	@PutMapping("/update")
 	//@RequiresPermissions("orderfoods:update")
 	//@PreAuthorize("hasAuthority('orderfoods:update')")
-	public R update(@RequestBody OrderFoods orderFoods){
+	public R update(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody OrderFoods orderFoods){
 		orderFoodsService.update(orderFoods);
 		
 		return R.ok();
@@ -94,7 +103,9 @@ public class OrderFoodsController {
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("orderfoods:delete")
 	//@PreAuthorize("hasAuthority('orderfoods:delete')")
-	public R delete(@RequestBody Long[] ids){
+	public R delete(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "IDS", defaultValue = "[]") @RequestBody Long[] ids){
 		orderFoodsService.deleteBatch(ids);
 		
 		return R.ok();

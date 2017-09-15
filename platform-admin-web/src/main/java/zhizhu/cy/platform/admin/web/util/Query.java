@@ -23,15 +23,15 @@ public class Query extends LinkedHashMap<String, Object> {
         this.putAll(params);
 
         //分页参数
-        this.page = Integer.parseInt(params.get("page").toString());
-        this.limit = Integer.parseInt(params.get("limit").toString());
+        this.page = Integer.parseInt(params.get("page")!=null?params.get("page").toString():"1");
+        this.limit = Integer.parseInt(params.get("limit")!=null?params.get("limit").toString():"20");
         this.put("offset", (page - 1) * limit);
         this.put("page", page);
         this.put("limit", limit);
 
         //防止SQL注入（因为sidx、order是通过拼接SQL实现排序的，会有SQL注入风险）
-        String sidx = params.get("sidx").toString();
-        String order = params.get("order").toString();
+        String sidx = params.get("sidx")!=null?params.get("sidx").toString():"";
+        String order = params.get("order")!=null?params.get("order").toString():"";
         this.put("sidx", SQLFilter.sqlInject(sidx));
         this.put("order", SQLFilter.sqlInject(order));
     }

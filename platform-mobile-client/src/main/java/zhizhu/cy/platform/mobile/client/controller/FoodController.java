@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.mobile.client.util.PageUtils;
 import zhizhu.cy.platform.mobile.client.util.Query;
 import zhizhu.cy.platform.mobile.client.util.R;
@@ -38,7 +39,9 @@ public class FoodController {
 	 */
 	@GetMapping("/list")
 	//@PreAuthorize("hasAuthority('food:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "过滤条件，分页，排序 等数据", defaultValue = "{}") @RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -56,7 +59,9 @@ public class FoodController {
 	 */
 	@GetMapping("/info/{id}")
 	//@PreAuthorize("hasAuthority('food:info')")
-	public R info(@PathVariable("id") Long id){
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@PathVariable("id") Long id){
 		Food food = foodService.queryObject(id);
 		
 		return R.ok().put("food", food);

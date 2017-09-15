@@ -64,7 +64,7 @@ public class FoodController extends BaseController{
 	/**
 	 * 信息
 	 */
-	@RequestMapping("/info/{id}")
+	@GetMapping("/info/{id}")
 	@PreAuthorize("hasAuthority('food:info')")
 	@ApiOperation(value = "查看菜品详情")
 	public R info(

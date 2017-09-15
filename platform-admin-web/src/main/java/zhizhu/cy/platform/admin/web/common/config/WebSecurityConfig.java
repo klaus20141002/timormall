@@ -26,7 +26,17 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig {
                 "/webjars/**",
                 "/*/user/password",
                 "/*/currency/**",
-                "/*/desk/**"
+                "/sys/*/desk/**",
+                "/sys/*/address/**",
+                "/sys/*/food/**",
+                "/sys/*/foodproperty/**",
+                "/sys/*/foodsku/**",
+                "/sys/*/merchant/**",
+                "/sys/*/order/**",
+                "/sys/*/property/**",
+                "/sys/*/value/**",
+                "/sys/*/propvalue/**",
+                "/sys/*/categery/**"
             )
             .antMatchers(HttpMethod.POST, "/*/user")
         ;

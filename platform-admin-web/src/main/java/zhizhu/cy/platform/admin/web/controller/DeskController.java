@@ -48,7 +48,7 @@ public class DeskController extends BaseController {
 	@ApiOperation(value = "查看椅子列表")
 	public R list(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
-			@ApiParam(required = true, value = "分页及排序", defaultValue = "v1") @RequestParam(required =false) Map<String, Object> params){
+			@ApiParam(required = true, value = "分页及排序", defaultValue = "{}") @RequestParam(required =false) Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 

@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.mobile.client.util.PageUtils;
 import zhizhu.cy.platform.mobile.client.util.Query;
 import zhizhu.cy.platform.mobile.client.util.R;
@@ -32,6 +35,7 @@ import zhizhu.cy.platform.system.api.service.IAddressService;
  */
 @RestController
 @RequestMapping("/api/{version}/address")
+@Api(tags = "地址管理")
 public class AddressController {
 	@Autowired
 	private IAddressService addressService;
@@ -41,7 +45,10 @@ public class AddressController {
 	 */
 	@GetMapping("/list")
 	@PreAuthorize("hasAuthority('address:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	@ApiOperation(value = "获取地址列表")
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "过滤条件，分页，排序 等数据", defaultValue = "{}") @RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -59,7 +66,10 @@ public class AddressController {
 	 */
 	@GetMapping("/info/{id}")
 	@PreAuthorize("hasAuthority('address:info')")
-	public R info(@PathVariable("id") Long id){
+	@ApiOperation(value = "查看地址")
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "地址ID数组", defaultValue = "0")@PathVariable("id") Long id){
 		Address address = addressService.queryObject(id);
 		
 		return R.ok().put("address", address);
@@ -71,7 +81,10 @@ public class AddressController {
 	@PostMapping("/save")
 	//@RequiresPermissions("address:save")
 	@PreAuthorize("hasAuthority('address:save')")
-	public R save(@RequestBody Address address){
+	@ApiOperation(value = "新增地址")
+	public R save(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Address address){
 		addressService.save(address);
 		
 		return R.ok();
@@ -83,7 +96,10 @@ public class AddressController {
 	@PutMapping("/update")
 	//@RequiresPermissions("address:update")
 	@PreAuthorize("hasAuthority('address:update')")
-	public R update(@RequestBody Address address){
+	@ApiOperation(value = "更新地址")
+	public R update(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Address address){
 		addressService.update(address);
 		
 		return R.ok();
@@ -95,7 +111,10 @@ public class AddressController {
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("address:delete")
 	@PreAuthorize("hasAuthority('address:delete')")
-	public R delete(@RequestBody Long[] ids){
+	@ApiOperation(value = "删除地址")
+	public R delete(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "地址ID数组", defaultValue = "[]") @RequestBody Long[] ids){
 		addressService.deleteBatch(ids);
 		
 		return R.ok();

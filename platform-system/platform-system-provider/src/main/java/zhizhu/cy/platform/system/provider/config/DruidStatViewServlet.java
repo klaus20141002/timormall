@@ -1,9 +1,9 @@
 package zhizhu.cy.platform.system.provider.config;
 
-import com.alibaba.druid.support.http.StatViewServlet;
-
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
+
+import com.alibaba.druid.support.http.StatViewServlet;
 
 /**
  * The type Druid stat view servlet.

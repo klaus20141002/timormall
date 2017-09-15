@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.mobile.client.util.PageUtils;
 import zhizhu.cy.platform.mobile.client.util.Query;
 import zhizhu.cy.platform.mobile.client.util.R;
@@ -30,7 +31,7 @@ import zhizhu.cy.platform.system.api.service.IOrderService;
  * @date 2017-09-14 17:46:37
  */
 @RestController
-@RequestMapping("order")
+@RequestMapping("/api/{version}/order")
 public class OrderController {
 	@Autowired
 	private IOrderService orderService;
@@ -40,7 +41,9 @@ public class OrderController {
 	 */
 	@GetMapping("/list")
 	//@PreAuthorize("hasAuthority('order:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "过滤条件，分页，排序 等数据", defaultValue = "{}") @RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -58,7 +61,9 @@ public class OrderController {
 	 */
 	@GetMapping("/info/{id}")
 	//@PreAuthorize("hasAuthority('order:info')")
-	public R info(@PathVariable("id") Long id){
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "ID", defaultValue = "0") @PathVariable("id") Long id){
 		Order order = orderService.queryObject(id);
 		
 		return R.ok().put("order", order);
@@ -70,34 +75,15 @@ public class OrderController {
 	@PostMapping("/save")
 	//@RequiresPermissions("order:save")
 	//@PreAuthorize("hasAuthority('order:save')")
-	public R save(@RequestBody Order order){
+	public R save(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Order order){
 		orderService.save(order);
 		
 		return R.ok();
 	}
 	
-	/**
-	 * 修改
-	 */
-	@PutMapping("/update")
-	//@RequiresPermissions("order:update")
-	//@PreAuthorize("hasAuthority('order:update')")
-	public R update(@RequestBody Order order){
-		orderService.update(order);
-		
-		return R.ok();
-	}
-	
-	/**
-	 * 删除
-	 */
-	@DeleteMapping("/delete")
-	//@RequiresPermissions("order:delete")
-	//@PreAuthorize("hasAuthority('order:delete')")
-	public R delete(@RequestBody Long[] ids){
-		orderService.deleteBatch(ids);
-		
-		return R.ok();
-	}
+
+
 	
 }

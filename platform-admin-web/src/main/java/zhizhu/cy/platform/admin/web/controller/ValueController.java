@@ -5,12 +5,19 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.admin.web.common.controller.BaseController;
 import zhizhu.cy.platform.admin.web.util.PageUtils;
 import zhizhu.cy.platform.admin.web.util.Query;
@@ -27,7 +34,8 @@ import zhizhu.cy.platform.system.api.service.IValueService;
  * @date 2017-09-12 16:27:48
  */
 @RestController
-@RequestMapping("value")
+@RequestMapping("/sys/{version}/value")
+@Api(tags="属性值管理")
 public class ValueController extends BaseController{
 	@Autowired
 	private IValueService valueService;
@@ -35,9 +43,12 @@ public class ValueController extends BaseController{
 	/**
 	 * 列表
 	 */
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	@PreAuthorize("hasAuthority('value:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	@ApiOperation(value="查看属性值列表")
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -53,9 +64,12 @@ public class ValueController extends BaseController{
 	/**
 	 * 信息
 	 */
-	@RequestMapping("/info/{id}")
+	@GetMapping("/info/{id}")
 	@PreAuthorize("hasAuthority('value:info')")
-	public R info(@PathVariable("id") Long id){
+	@ApiOperation(value="查看属性值")
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@PathVariable("id") Long id){
 		Value value = valueService.queryObject(id);
 		
 		return R.ok().put("value", value);
@@ -64,10 +78,13 @@ public class ValueController extends BaseController{
 	/**
 	 * 保存
 	 */
-	@RequestMapping("/save")
+	@PostMapping("/save")
 	//@RequiresPermissions("value:save")
 	@PreAuthorize("hasAuthority('value:save')")
-	public R save(@RequestBody Value value){
+	@ApiOperation(value="新增属性值")
+	public R save(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Value value){
 		valueService.save(value);
 		
 		return R.ok();
@@ -76,10 +93,13 @@ public class ValueController extends BaseController{
 	/**
 	 * 修改
 	 */
-	@RequestMapping("/update")
+	@PutMapping("/update")
 	//@RequiresPermissions("value:update")
 	@PreAuthorize("hasAuthority('value:update')")
-	public R update(@RequestBody Value value){
+	@ApiOperation(value="更新属性值")
+	public R update(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Value value){
 		valueService.update(value);
 		
 		return R.ok();
@@ -88,10 +108,13 @@ public class ValueController extends BaseController{
 	/**
 	 * 删除
 	 */
-	@RequestMapping("/delete")
+	@DeleteMapping("/delete")
 	//@RequiresPermissions("value:delete")
 	@PreAuthorize("hasAuthority('value:delete')")
-	public R delete(@RequestBody Long[] ids){
+	@ApiOperation(value="删除属性值")
+	public R delete(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Long[] ids){
 		valueService.deleteBatch(ids);
 		
 		return R.ok();

@@ -5,16 +5,15 @@ import java.util.Map;
 
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.mobile.client.util.PageUtils;
 import zhizhu.cy.platform.mobile.client.util.Query;
 import zhizhu.cy.platform.mobile.client.util.R;
@@ -30,7 +29,7 @@ import zhizhu.cy.platform.system.api.service.IOrderCommentService;
  * @date 2017-09-14 17:46:37
  */
 @RestController
-@RequestMapping("ordercomment")
+@RequestMapping("/api/{version}/ordercomment")
 public class OrderCommentController {
 	@Autowired
 	private IOrderCommentService orderCommentService;
@@ -40,7 +39,9 @@ public class OrderCommentController {
 	 */
 	@GetMapping("/list")
 	//@PreAuthorize("hasAuthority('ordercomment:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "过滤条件，分页，排序 等数据", defaultValue = "{}") @RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -58,7 +59,9 @@ public class OrderCommentController {
 	 */
 	@GetMapping("/info/{id}")
 	//@PreAuthorize("hasAuthority('ordercomment:info')")
-	public R info(@PathVariable("id") Long id){
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "ID", defaultValue = "0") @PathVariable("id") Long id){
 		OrderComment orderComment = orderCommentService.queryObject(id);
 		
 		return R.ok().put("orderComment", orderComment);
@@ -75,29 +78,4 @@ public class OrderCommentController {
 		
 		return R.ok();
 	}
-	
-	/**
-	 * 修改
-	 */
-	@PutMapping("/update")
-	//@RequiresPermissions("ordercomment:update")
-	//@PreAuthorize("hasAuthority('ordercomment:update')")
-	public R update(@RequestBody OrderComment orderComment){
-		orderCommentService.update(orderComment);
-		
-		return R.ok();
-	}
-	
-	/**
-	 * 删除
-	 */
-	@DeleteMapping("/delete")
-	//@RequiresPermissions("ordercomment:delete")
-	//@PreAuthorize("hasAuthority('ordercomment:delete')")
-	public R delete(@RequestBody Long[] ids){
-		orderCommentService.deleteBatch(ids);
-		
-		return R.ok();
-	}
-	
 }

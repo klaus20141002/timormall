@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.admin.web.common.controller.BaseController;
 import zhizhu.cy.platform.admin.web.util.PageUtils;
 import zhizhu.cy.platform.admin.web.util.Query;
@@ -43,7 +44,9 @@ public class AddressController extends BaseController{
 	 */
 	@GetMapping("/list")
 	@PreAuthorize("hasAuthority('address:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -61,7 +64,9 @@ public class AddressController extends BaseController{
 	 */
 	@GetMapping("/info/{id}")
 	@PreAuthorize("hasAuthority('address:info')")
-	public R info(@PathVariable("id") Long id){
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@PathVariable("id") Long id){
 		Address address = addressService.queryObject(id);
 		
 		return R.ok().put("address", address);
@@ -73,7 +78,9 @@ public class AddressController extends BaseController{
 	@PostMapping("/save")
 	//@RequiresPermissions("address:save")
 	@PreAuthorize("hasAuthority('address:save')")
-	public R save(@RequestBody Address address){
+	public R save(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Address address){
 		addressService.save(address);
 		
 		return R.ok();
@@ -85,7 +92,9 @@ public class AddressController extends BaseController{
 	@PutMapping("/update")
 	//@RequiresPermissions("address:update")
 	@PreAuthorize("hasAuthority('address:update')")
-	public R update(@RequestBody Address address){
+	public R update(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Address address){
 		addressService.update(address);
 		
 		return R.ok();
@@ -97,7 +106,9 @@ public class AddressController extends BaseController{
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("address:delete")
 	@PreAuthorize("hasAuthority('address:delete')")
-	public R delete(@RequestBody Long[] ids){
+	public R delete(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Long[] ids){
 		addressService.deleteBatch(ids);
 		
 		return R.ok();

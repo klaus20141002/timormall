@@ -5,12 +5,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import zhizhu.cy.platform.admin.web.common.controller.BaseController;
 import zhizhu.cy.platform.admin.web.util.PageUtils;
 import zhizhu.cy.platform.admin.web.util.Query;
@@ -27,7 +29,8 @@ import zhizhu.cy.platform.system.api.service.IOrderLogService;
  * @date 2017-09-12 16:27:48
  */
 @RestController
-@RequestMapping("orderlog")
+@RequestMapping("/sys/{version}/orderlog")
+@Api(tags="订单日志管理")
 public class OrderLogController extends BaseController{
 	@Autowired
 	private IOrderLogService orderLogService;
@@ -35,8 +38,9 @@ public class OrderLogController extends BaseController{
 	/**
 	 * 列表
 	 */
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	@PreAuthorize("hasAuthority('orderlog:list')")
+	@ApiOperation(value="查看订单日志列表")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
@@ -53,48 +57,13 @@ public class OrderLogController extends BaseController{
 	/**
 	 * 信息
 	 */
-	@RequestMapping("/info/{id}")
+	@GetMapping("/info/{id}")
 	@PreAuthorize("hasAuthority('orderlog:info')")
+	@ApiOperation(value="查看订单日志")
 	public R info(@PathVariable("id") Long id){
 		OrderLog orderLog = orderLogService.queryObject(id);
 		
 		return R.ok().put("orderLog", orderLog);
-	}
-	
-	/**
-	 * 保存
-	 */
-	@RequestMapping("/save")
-	//@RequiresPermissions("orderlog:save")
-	@PreAuthorize("hasAuthority('orderlog:save')")
-	public R save(@RequestBody OrderLog orderLog){
-		orderLogService.save(orderLog);
-		
-		return R.ok();
-	}
-	
-	/**
-	 * 修改
-	 */
-	@RequestMapping("/update")
-	//@RequiresPermissions("orderlog:update")
-	@PreAuthorize("hasAuthority('orderlog:update')")
-	public R update(@RequestBody OrderLog orderLog){
-		orderLogService.update(orderLog);
-		
-		return R.ok();
-	}
-	
-	/**
-	 * 删除
-	 */
-	@RequestMapping("/delete")
-	//@RequiresPermissions("orderlog:delete")
-	@PreAuthorize("hasAuthority('orderlog:delete')")
-	public R delete(@RequestBody Long[] ids){
-		orderLogService.deleteBatch(ids);
-		
-		return R.ok();
 	}
 	
 }

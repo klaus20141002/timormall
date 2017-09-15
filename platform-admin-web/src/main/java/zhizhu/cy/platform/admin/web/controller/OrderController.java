@@ -5,12 +5,17 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.admin.web.common.controller.BaseController;
 import zhizhu.cy.platform.admin.web.util.PageUtils;
 import zhizhu.cy.platform.admin.web.util.Query;
@@ -27,7 +32,8 @@ import zhizhu.cy.platform.system.api.service.IOrderService;
  * @date 2017-09-12 16:27:32
  */
 @RestController
-@RequestMapping("order")
+@RequestMapping("/sys/{version}/order")
+@Api(tags="订单管理")
 public class OrderController extends BaseController{
 	@Autowired
 	private IOrderService orderService;
@@ -35,9 +41,12 @@ public class OrderController extends BaseController{
 	/**
 	 * 列表
 	 */
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	@PreAuthorize("hasAuthority('order:list')")
-	public R list(@RequestParam Map<String, Object> params){
+	@ApiOperation(value="查看订单列表")
+	public R list(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
 
@@ -53,48 +62,32 @@ public class OrderController extends BaseController{
 	/**
 	 * 信息
 	 */
-	@RequestMapping("/info/{id}")
+	@GetMapping("/info/{id}")
 	@PreAuthorize("hasAuthority('order:info')")
-	public R info(@PathVariable("id") Long id){
+	@ApiOperation(value="查看订单")
+	public R info(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@PathVariable("id") Long id){
 		Order order = orderService.queryObject(id);
 		
 		return R.ok().put("order", order);
 	}
-	
-	/**
-	 * 保存
-	 */
-	@RequestMapping("/save")
-	//@RequiresPermissions("order:save")
-	@PreAuthorize("hasAuthority('order:save')")
-	public R save(@RequestBody Order order){
-		orderService.save(order);
-		
-		return R.ok();
-	}
+
 	
 	/**
 	 * 修改
 	 */
-	@RequestMapping("/update")
+	@PutMapping("/update")
 	//@RequiresPermissions("order:update")
 	@PreAuthorize("hasAuthority('order:update')")
-	public R update(@RequestBody Order order){
+	@ApiOperation(value="更新订单")
+	public R update(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@RequestBody Order order){
 		orderService.update(order);
 		
 		return R.ok();
 	}
-	
-	/**
-	 * 删除
-	 */
-	@RequestMapping("/delete")
-	//@RequiresPermissions("order:delete")
-	@PreAuthorize("hasAuthority('order:delete')")
-	public R delete(@RequestBody Long[] ids){
-		orderService.deleteBatch(ids);
-		
-		return R.ok();
-	}
+
 	
 }
