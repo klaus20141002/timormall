@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +42,7 @@ public class PropValueController extends BaseController{
 	 * 列表
 	 */
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('propvalue:list')")
+//	@PreAuthorize("hasAuthority('propvalue:list')")
 	@ApiOperation(value="查看菜品属性值列表")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
@@ -62,7 +61,7 @@ public class PropValueController extends BaseController{
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('propvalue:info')")
+//	@PreAuthorize("hasAuthority('propvalue:info')")
 	@ApiOperation(value="查看菜品属性值")
 	public R info(@PathVariable("id") Long id){
 		PropValue propValue = propValueService.queryObject(id);
@@ -75,7 +74,7 @@ public class PropValueController extends BaseController{
 	 */
 	@PostMapping("/save")
 	//@RequiresPermissions("propvalue:save")
-	@PreAuthorize("hasAuthority('propvalue:save')")
+//	@PreAuthorize("hasAuthority('propvalue:save')")
 	@ApiOperation(value="新增菜品属性值")
 	public R save(@RequestBody PropValue propValue){
 		propValueService.save(propValue);
@@ -88,7 +87,7 @@ public class PropValueController extends BaseController{
 	 */
 	@PutMapping("/update")
 	//@RequiresPermissions("propvalue:update")
-	@PreAuthorize("hasAuthority('propvalue:update')")
+//	@PreAuthorize("hasAuthority('propvalue:update')")
 	@ApiOperation(value="更新菜品属性值")
 	public R update(@RequestBody PropValue propValue){
 		propValueService.update(propValue);
@@ -101,7 +100,7 @@ public class PropValueController extends BaseController{
 	 */
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("propvalue:delete")
-	@PreAuthorize("hasAuthority('propvalue:delete')")
+//	@PreAuthorize("hasAuthority('propvalue:delete')")
 	@ApiOperation(value="删除菜品属性值")
 	public R delete(@RequestBody Long[] ids){
 		propValueService.deleteBatch(ids);

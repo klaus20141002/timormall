@@ -19,11 +19,11 @@ public abstract class DataEntity extends BaseEntity {
 	/**
      * 删除标记0：正常
      */
-    public static final String DEL_FLAG_NORMAL = "0";
+    public static final Integer DEL_FLAG_NORMAL = 0;
     /**
      * 删除标记1：删除
      */
-    public static final String DEL_FLAG_DELETE = "1";
+    public static final Integer DEL_FLAG_DELETE = 1;
 
     /**
      * 创建日期
@@ -36,7 +36,7 @@ public abstract class DataEntity extends BaseEntity {
     /**
      * 删除标记(0:正常;1:删除;)
      */
-    private String dataStatus;
+    private Integer dataStatus;
 
     public DataEntity() {
         super();
@@ -86,11 +86,11 @@ public abstract class DataEntity extends BaseEntity {
 
     @JsonIgnore
     @Length(min = 1, max = 1)
-    public String getDataStatus() {
+    public Integer getDataStatus() {
         return dataStatus;
     }
 
-    public void setDataStatus(String dataStatus) {
+    public void setDataStatus(Integer dataStatus) {
         this.dataStatus = dataStatus;
     }
 

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.admin.web.common.controller.BaseController;
 import zhizhu.cy.platform.admin.web.util.PageUtils;
 import zhizhu.cy.platform.admin.web.util.Query;
 import zhizhu.cy.platform.admin.web.util.R;
 import zhizhu.cy.platform.system.api.entity.Categery;
 import zhizhu.cy.platform.system.api.service.ICategeryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 
 /**
@@ -114,7 +113,7 @@ public class CategeryController extends BaseController{
 	@ApiOperation(value = "删除分裂")
 	public R delete(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
-			@RequestBody Long[] ids){
+			@ApiParam(required = true, value = "ID数组", defaultValue = "[]")@RequestBody Long[] ids){
 		categeryService.deleteBatch(ids);
 		
 		return R.ok();

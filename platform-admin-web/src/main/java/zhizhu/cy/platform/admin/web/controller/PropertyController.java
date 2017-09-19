@@ -44,7 +44,7 @@ public class PropertyController extends BaseController{
 	 * 列表
 	 */
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('property:list')")
+//	@PreAuthorize("hasAuthority('property:list')")
 	@ApiOperation(value="查看属性列表")
 	public R list(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -65,7 +65,7 @@ public class PropertyController extends BaseController{
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('property:info')")
+//	@PreAuthorize("hasAuthority('property:info')")
 	@ApiOperation(value="查看属性")
 	public R info(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -80,7 +80,7 @@ public class PropertyController extends BaseController{
 	 */
 	@PostMapping("/save")
 	//@RequiresPermissions("property:save")
-	@PreAuthorize("hasAuthority('property:save')")
+//	@PreAuthorize("hasAuthority('property:save')")
 	@ApiOperation(value="新增属性")
 	public R save(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -95,7 +95,7 @@ public class PropertyController extends BaseController{
 	 */
 	@PutMapping("/update")
 	//@RequiresPermissions("property:update")
-	@PreAuthorize("hasAuthority('property:update')")
+//	@PreAuthorize("hasAuthority('property:update')")
 	@ApiOperation(value="更新属性")
 	public R update(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -110,7 +110,7 @@ public class PropertyController extends BaseController{
 	 */
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("property:delete")
-	@PreAuthorize("hasAuthority('property:delete')")
+//	@PreAuthorize("hasAuthority('property:delete')")
 	@ApiOperation(value="删除属性")
 	public R delete(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,

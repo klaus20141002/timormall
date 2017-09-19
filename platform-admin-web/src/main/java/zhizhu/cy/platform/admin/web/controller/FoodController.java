@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import zhizhu.cy.platform.admin.web.common.controller.BaseController;
 import zhizhu.cy.platform.admin.web.util.PageUtils;
 import zhizhu.cy.platform.admin.web.util.Query;
 import zhizhu.cy.platform.admin.web.util.R;
 import zhizhu.cy.platform.system.api.entity.Food;
 import zhizhu.cy.platform.system.api.service.IFoodService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 
 /**
@@ -44,7 +43,7 @@ public class FoodController extends BaseController{
 	 * 列表
 	 */
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('food:list')")
+//	@PreAuthorize("hasAuthority('food:list')")
 	@ApiOperation(value = "查看菜品列表")
 	public R list(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -65,7 +64,7 @@ public class FoodController extends BaseController{
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('food:info')")
+//	@PreAuthorize("hasAuthority('food:info')")
 	@ApiOperation(value = "查看菜品详情")
 	public R info(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -80,7 +79,7 @@ public class FoodController extends BaseController{
 	 */
 	@PostMapping("/save")
 	//@RequiresPermissions("food:save")
-	@PreAuthorize("hasAuthority('food:save')")
+//	@PreAuthorize("hasAuthority('food:save')")
 	@ApiOperation(value = "保存菜品")
 	public R save(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -95,7 +94,7 @@ public class FoodController extends BaseController{
 	 */
 	@PutMapping("/update")
 	//@RequiresPermissions("food:update")
-	@PreAuthorize("hasAuthority('food:update')")
+//	@PreAuthorize("hasAuthority('food:update')")
 	@ApiOperation(value = "更新菜品")
 	public R update(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -110,7 +109,7 @@ public class FoodController extends BaseController{
 	 */
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("food:delete")
-	@PreAuthorize("hasAuthority('food:delete')")
+//	@PreAuthorize("hasAuthority('food:delete')")
 	@ApiOperation(value = "删除菜品")
 	public R delete(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,

@@ -44,7 +44,7 @@ public class FoodPropertyController extends BaseController{
 	 * 列表
 	 */
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('foodproperty:list')")
+//	@PreAuthorize("hasAuthority('foodproperty:list')")
 	@ApiOperation(value = "查看菜品属性列表")
 	public R list(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -65,7 +65,7 @@ public class FoodPropertyController extends BaseController{
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('foodproperty:info')")
+//	@PreAuthorize("hasAuthority('foodproperty:info')")
 	@ApiOperation(value = "查看菜品属性")
 	public R info(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -80,7 +80,7 @@ public class FoodPropertyController extends BaseController{
 	 */
 	@PostMapping("/save")
 	//@RequiresPermissions("foodproperty:save")
-	@PreAuthorize("hasAuthority('foodproperty:save')")
+//	@PreAuthorize("hasAuthority('foodproperty:save')")
 	@ApiOperation(value = "新增菜品属性")
 	public R save(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -95,7 +95,7 @@ public class FoodPropertyController extends BaseController{
 	 */
 	@PutMapping("/update")
 	//@RequiresPermissions("foodproperty:update")
-	@PreAuthorize("hasAuthority('foodproperty:update')")
+//	@PreAuthorize("hasAuthority('foodproperty:update')")
 	@ApiOperation(value = "更新菜品属性")
 	public R update(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -110,7 +110,7 @@ public class FoodPropertyController extends BaseController{
 	 */
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("foodproperty:delete")
-	@PreAuthorize("hasAuthority('foodproperty:delete')")
+//	@PreAuthorize("hasAuthority('foodproperty:delete')")
 	@ApiOperation(value = "删除菜品属性")
 	public R delete(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,

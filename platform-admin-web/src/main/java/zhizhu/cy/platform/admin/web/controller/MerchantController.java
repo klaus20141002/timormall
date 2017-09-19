@@ -44,7 +44,7 @@ public class MerchantController extends BaseController{
 	 * 列表
 	 */
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('sys:merchant:list')")
+//	@PreAuthorize("hasAuthority('sys:merchant:list')")
 	@ApiOperation(value = "查看商家列表")
 	public R list(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -65,7 +65,7 @@ public class MerchantController extends BaseController{
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('sys:merchant:info')")
+//	@PreAuthorize("hasAuthority('sys:merchant:info')")
 	@ApiOperation(value = "查看商家信息")
 	public R info(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -79,7 +79,7 @@ public class MerchantController extends BaseController{
 	 * 保存
 	 */
 	@PostMapping("/save")
-	@PreAuthorize("hasAuthority('sys:merchant:save')")
+//	@PreAuthorize("hasAuthority('sys:merchant:save')")
 	@ApiOperation(value = "新增商家")
 	public R save(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -93,7 +93,7 @@ public class MerchantController extends BaseController{
 	 * 修改
 	 */
 	@PutMapping("/update")
-	@PreAuthorize("hasAuthority('sys:merchant:update')")
+//	@PreAuthorize("hasAuthority('sys:merchant:update')")
 	@ApiOperation(value = "更新商家信息")
 	public R update(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
@@ -107,7 +107,7 @@ public class MerchantController extends BaseController{
 	 * 删除
 	 */
 	@DeleteMapping("/delete")
-	@PreAuthorize("hasAuthority('sys:merchant:delete')")
+//	@PreAuthorize("hasAuthority('sys:merchant:delete')")
 	@ApiOperation(value = "删除商家")
 	public R delete(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,

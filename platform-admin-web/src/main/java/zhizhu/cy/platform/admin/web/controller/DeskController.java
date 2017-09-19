@@ -83,7 +83,7 @@ public class DeskController extends BaseController {
 	@ApiOperation(value = "保存椅子")
 	public R save(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
-			@ApiParam(required = true, value = "椅子") @RequestBody Desk desk){
+			@ApiParam(required = true, value = "椅子", defaultValue = "{}") @RequestBody Desk desk){
 		deskService.save(desk);
 		
 		return R.ok();
@@ -97,7 +97,7 @@ public class DeskController extends BaseController {
 	@ApiOperation(value = "更新椅子")
 	public R update(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
-			@ApiParam(required = true, value = "椅子") @RequestBody Desk desk){
+			@ApiParam(required = true, value = "椅子", defaultValue = "{}") @RequestBody Desk desk){
 		deskService.update(desk);
 		
 		return R.ok();
@@ -111,7 +111,7 @@ public class DeskController extends BaseController {
 	@ApiOperation(value = "删除椅子")
 	public R delete(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
-			@ApiParam(required = true, value = "数组") @RequestBody(required=true) Long[] ids){
+			@ApiParam(required = true, value = "数组" ,defaultValue = "[]") @RequestBody(required=true) Long[] ids){
 		deskService.deleteBatch(ids);
 		
 		return R.ok();

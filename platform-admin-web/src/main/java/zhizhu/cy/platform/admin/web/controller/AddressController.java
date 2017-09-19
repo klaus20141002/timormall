@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +42,7 @@ public class AddressController extends BaseController{
 	 * 列表
 	 */
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('address:list')")
+//	@PreAuthorize("hasAuthority('address:list')")
 	public R list(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
 			@RequestParam Map<String, Object> params){
@@ -63,7 +62,7 @@ public class AddressController extends BaseController{
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('address:info')")
+//	@PreAuthorize("hasAuthority('address:info')")
 	public R info(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
 			@PathVariable("id") Long id){
@@ -77,7 +76,7 @@ public class AddressController extends BaseController{
 	 */
 	@PostMapping("/save")
 	//@RequiresPermissions("address:save")
-	@PreAuthorize("hasAuthority('address:save')")
+//	@PreAuthorize("hasAuthority('address:save')")
 	public R save(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
 			@RequestBody Address address){
@@ -91,7 +90,7 @@ public class AddressController extends BaseController{
 	 */
 	@PutMapping("/update")
 	//@RequiresPermissions("address:update")
-	@PreAuthorize("hasAuthority('address:update')")
+//	@PreAuthorize("hasAuthority('address:update')")
 	public R update(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
 			@RequestBody Address address){
@@ -105,7 +104,7 @@ public class AddressController extends BaseController{
 	 */
 	@DeleteMapping("/delete")
 	//@RequiresPermissions("address:delete")
-	@PreAuthorize("hasAuthority('address:delete')")
+//	@PreAuthorize("hasAuthority('address:delete')")
 	public R delete(
 			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
 			@RequestBody Long[] ids){

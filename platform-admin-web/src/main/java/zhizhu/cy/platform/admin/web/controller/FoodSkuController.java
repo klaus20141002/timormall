@@ -43,7 +43,7 @@ public class FoodSkuController extends BaseController{
 	 * 列表
 	 */
 	@GetMapping("/list")
-	@PreAuthorize("hasAuthority('foodsku:list')")
+//	@PreAuthorize("hasAuthority('foodsku:list')")
 	@ApiOperation(value = "查看菜品SKU列表")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
@@ -62,7 +62,7 @@ public class FoodSkuController extends BaseController{
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	@PreAuthorize("hasAuthority('foodsku:info')")
+//	@PreAuthorize("hasAuthority('foodsku:info')")
 	@ApiOperation(value = "查看菜品SKU")
 	public R info(@PathVariable("id") Long id){
 		FoodSku foodSku = foodSkuService.queryObject(id);
@@ -75,7 +75,7 @@ public class FoodSkuController extends BaseController{
 	 */
 	@PostMapping("/save")
 	//@RequiresPermissions("foodsku:save")
-	@PreAuthorize("hasAuthority('foodsku:save')")
+//	@PreAuthorize("hasAuthority('foodsku:save')")
 	@ApiOperation(value = "新增菜品SKU")
 	public R save(@RequestBody FoodSku foodSku){
 		foodSkuService.save(foodSku);
@@ -88,7 +88,7 @@ public class FoodSkuController extends BaseController{
 	 */
 	@PutMapping("/update")
 	//@RequiresPermissions("foodsku:update")
-	@PreAuthorize("hasAuthority('foodsku:update')")
+//	@PreAuthorize("hasAuthority('foodsku:update')")
 	@ApiOperation(value = "更新菜品SKU")
 	public R update(@RequestBody FoodSku foodSku){
 		foodSkuService.update(foodSku);
