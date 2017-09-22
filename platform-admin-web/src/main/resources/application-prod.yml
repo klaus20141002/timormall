@@ -33,3 +33,17 @@ upload:
   #Disk upload
   work-folder-name: /Users/zhangxd/files #文件存储路径
   access-url: http://127.0.0.1:8090 #文件访问地址，可使用反向代理
+  
+  
+oss:
+  type: 1
+  qcloud-domain: gz.file.myqcloud.com
+  qcloud-prefix: cy
+  qcloud-app-id: 1251437774
+  qcloud-secret-id: AKIDsrw6MhEMgy8b9nnfpAXygWQ5pcTOOQVc
+  qcloud-secret-key: MpNziRD0qljmzIp4ND636CMZqA0ttFRe
+  qcloud-bucket-name: images
+  qcloud-region: 广州(华南) （gz）
+  
+  
+  

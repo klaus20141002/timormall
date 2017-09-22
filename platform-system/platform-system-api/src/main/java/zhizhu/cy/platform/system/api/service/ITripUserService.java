@@ -1,11 +1,12 @@
 package zhizhu.cy.platform.system.api.service;
 
 
+import java.util.Map;
+
 import com.github.pagehelper.PageInfo;
+
 import zhizhu.cy.platform.common.api.Paging;
 import zhizhu.cy.platform.system.api.entity.TripUser;
-
-import java.util.Map;
 
 /**
  * 用户接口
@@ -38,6 +39,15 @@ public interface ITripUserService {
      * @return 用户信息 by mobile
      */
     TripUser getByMobile(String mobile);
+    
+    
+    
+    /**
+     * @Date        :      2017年9月19日
+     * @param open_id
+     * @return
+     */
+    TripUser getByOpenId(String openId) ;
 
     /**
      * 保存用户
@@ -53,6 +63,17 @@ public interface ITripUserService {
      * @param password 密码
      */
     void registryUser(String mobile, String password);
+    
+    
+    
+    /**
+     * 注册用户
+     * 
+     * @Date        :      2017年9月19日
+     * @param open_id 微信open_id
+     * @param password
+     */
+    public void registryUserByWechat(TripUser user) ;
 
     /**
      * 更新用户密码

@@ -20,17 +20,25 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig {
         web
             .ignoring()
             .antMatchers(
-                "/hello",
                 "/favicon.ico",
                 "/swagger**/**",
                 "/*/api-docs",
                 "/webjars/**",
-                "/*/sms/captcha",
-                "/*/user/password",
+                "/api/*/sms/captcha",
+                "/api/*/user/password",
                 "/*/currency/**",
-                "/*/desk/**"
+                "/api/*/login/**",
+                "/api/*/address/**",
+                "/api/*/merchant/**",
+                "/api/*/food/**",
+                "/api/*/order/**",
+                "/api/*/orderfoods/**",
+                "/api/*/ordercomment/**",
+                "/api/*/orderlog/**",
+                "/api/*/user/**"
             )
             .antMatchers(HttpMethod.POST, "/*/user")
+            .antMatchers(HttpMethod.PUT, "/*/user")
         ;
     }
 

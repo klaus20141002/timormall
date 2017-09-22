@@ -24,30 +24,32 @@ package zhizhu.cy.platform.system.api.constant;
 public class OrderConstant {
 	
 	/**待接单*/
-	public final static String ORDER_STATUS_APPLY = "1";
+	public final static Integer ORDER_STATUS_APPLY = 1;
 	/**已接单*/
-	public final static String ORDER_STATUS_ACCEPTED = "2";
+	public final static Integer ORDER_STATUS_ACCEPTED = 2;
 	/**用餐中*/
-	public final static String ORDER_STATUS_EATING = "3";
+	public final static Integer ORDER_STATUS_EATING = 3;
 	/**未支付*/
-	public final static String ORDER_STATUS_UNPAY = "4";
+	public final static Integer ORDER_STATUS_UNPAY = 4;
 	/**已支付*/
-	public final static String ORDER_STATUS_PAYED = "5";
+	public final static Integer ORDER_STATUS_PAYED = 5;
 	/**取消*/
-	public final static String ORDER_STATUS_CANCEL = "6";
+	public final static Integer ORDER_STATUS_CANCEL = 6;
 	/**完成*/
-	public final static String ORDER_STATUS_FINISH = "7";
+	public final static Integer ORDER_STATUS_FINISH = 7;
 	
 	
 	
 	/**商家接单*/
-	public final static String ORDER_OP_ACCEPTED = "1";
+	public final static Integer ORDER_OP_ACCEPTED = 1;
 	/**用户支付*/
-	public final static String ORDER_OP_PAY = "2";
+	public final static Integer ORDER_OP_PAY = 2;
 	/**商家取消*/
-	public final static String ORDER_OP_CANCEL = "3";
+	public final static Integer ORDER_OP_CANCEL = 3;
 	/**商家退款*/
-	public final static String ORDER_OP_REFUND = "4";
+	public final static Integer ORDER_OP_REFUND = 4;
+	/**用户下单*/
+	public final static Integer ORDER_OP_APPLY = 5;
 	
 	
 	

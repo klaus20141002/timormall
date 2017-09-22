@@ -26,6 +26,7 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig {
                 "/webjars/**",
                 "/*/user/password",
                 "/*/currency/**",
+                "/sys/oss/**",
                 "/sys/*/desk/**",
                 "/sys/*/address/**",
                 "/sys/*/food/**",

@@ -69,6 +69,7 @@
         <thumbnailator.version>0.4.8</thumbnailator.version>
         <pinyin4j.version>2.5.1</pinyin4j.version>
         <webmagic.version>0.6.1</webmagic.version>
+        <qcloud.cos.version>4.4</qcloud.cos.version>
     </properties>
 
     <dependencyManagement>
@@ -227,6 +228,21 @@
                 <artifactId>webmagic-extension</artifactId>
                 <version>${webmagic.version}</version>
             </dependency>
+            
+			<!--   云存储          oss -->
+            <dependency>
+				<groupId>com.qcloud</groupId>
+				<artifactId>cos_api</artifactId>
+				<version>${qcloud.cos.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-log4j12</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+            
+            
         </dependencies>
     </dependencyManagement>
 

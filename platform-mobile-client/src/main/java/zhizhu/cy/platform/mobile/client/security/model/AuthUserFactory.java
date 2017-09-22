@@ -21,7 +21,7 @@ public final class AuthUserFactory {
     public static AuthUser create(TripUser user) {
         return new AuthUser(
             user.getId(),
-            user.getMobile(),
+            user.getUserId(),
             user.getPassword(),
             user.getEnabled()
         );

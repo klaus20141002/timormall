@@ -25,7 +25,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String loginName) {
-        TripUser user = tripUserService.getByMobile(loginName);
+//        TripUser user = tripUserService.getByMobile(loginName);
+        TripUser user = tripUserService.getByOpenId(loginName);
 
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", loginName));

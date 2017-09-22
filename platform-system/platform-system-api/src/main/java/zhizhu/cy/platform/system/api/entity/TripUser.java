@@ -11,6 +11,10 @@ import org.hibernate.validator.constraints.Length;
  */
 public class TripUser extends DataEntity {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * 图片存储地址
      */
     public static final String IMAGE_FOLDER = "user";
@@ -19,6 +23,11 @@ public class TripUser extends DataEntity {
      */
     public static final String GENDER_UNKNOWN = "0";
 
+    /**
+     * 用户ID  open_id
+     */
+    private String userId;
+    
     /**
      * 手机号
      */
@@ -40,7 +49,7 @@ public class TripUser extends DataEntity {
      */
     private String age;
     /**
-     * 电话
+     * 头像
      */
     private String photo;
     /**
@@ -134,4 +143,13 @@ public class TripUser extends DataEntity {
         this.remarks = remarks;
     }
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+    
 }

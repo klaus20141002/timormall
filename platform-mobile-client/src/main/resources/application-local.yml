@@ -18,7 +18,7 @@ spring:
       max-request-size: 50Mb # Max request size. Values can use the suffixed "MB" or "KB" to indicate a Megabyte or Kilobyte size.
 
 server:
-  port: 8081
+  port: 80
   tomcat:
     remote-ip-header: x-forwarded-for
     protocol-header: x-forwarded-proto
@@ -39,6 +39,6 @@ upload:
 wechat:
   appid: wx6707b1e86fc31255
   appsecret: b98ca8ed30c71681a054e04e890568d4
-  rediecturi: http://lottery.taolue.fm/shop/user/wxlogin
+  rediecturi: http://lottery.taolue.fm/api/v1/login/wechat
   getaccessurl: https://api.weixin.qq.com/sns/oauth2/access_token?appid=WX_APPID&secret=WX_APPSECRET&code=CODE&grant_type=authorization_code
   getuserbaseinfo: https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN

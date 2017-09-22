@@ -56,5 +56,7 @@
                    ref="tagService" protocol="dubbo" timeout="5000"/>
     <dubbo:service interface="zhizhu.cy.platform.system.api.service.IValueService"
                    ref="valueService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="zhizhu.cy.platform.system.api.service.ISysOssService"
+                   ref="sysOssService" protocol="dubbo" timeout="5000"/>
 
 </beans>

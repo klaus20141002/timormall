@@ -1,11 +1,12 @@
 package zhizhu.cy.platform.system.provider.serviceimpl;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import zhizhu.cy.platform.common.service.service.CrudService;
 import zhizhu.cy.platform.system.api.entity.TripUser;
 import zhizhu.cy.platform.system.api.service.ITripUserService;
 import zhizhu.cy.platform.system.provider.mapper.TripUserMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户服务实现
@@ -19,6 +20,12 @@ public class TripUserService extends CrudService<TripUserMapper, TripUser> imple
     @Override
     public TripUser getByMobile(String mobile) {
         return getDao().getByMobile(mobile);
+    }
+    
+    
+    @Override
+    public TripUser getByOpenId(String open_id) {
+        return getDao().getByOpenId(open_id);
     }
 
     @Override
@@ -42,6 +49,19 @@ public class TripUserService extends CrudService<TripUserMapper, TripUser> imple
         user.preInsert();
         user.setMobile(mobile);
         user.setPassword(password);
+        getDao().insert(user);
+    }
+    
+    @Override
+    @Transactional(readOnly = false)
+    public void registryUserByWechat(TripUser user) {
+        // 用户已存在不做处理，防止客户端重复提交
+        TripUser oldUser = getByMobile(user.getUserId());
+        if (oldUser != null) {
+            return;
+        }
+
+        //插入用户信息
         getDao().insert(user);
     }
 

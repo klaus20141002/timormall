@@ -21,6 +21,15 @@ public interface TripUserMapper extends CrudDao<TripUser> {
      * @return the by mobile
      */
     TripUser getByMobile(String mobile);
+    
+    
+    /**
+     * 根据手机号码查询用户
+     *
+     * @param mobile the mobile
+     * @return the by mobile
+     */
+    TripUser getByOpenId(String openId);
 
     /**
      * 根据手机号码修改密码

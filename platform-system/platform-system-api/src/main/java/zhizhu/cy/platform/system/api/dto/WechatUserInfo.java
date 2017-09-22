@@ -23,7 +23,7 @@ package zhizhu.cy.platform.system.api.dto;
  */
 public class WechatUserInfo {
 	private String userId;
-	private String openid;
+	private String openId;
 	private String nickname;
 	private int sex;
 	private String province;
@@ -38,11 +38,11 @@ public class WechatUserInfo {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getOpenid() {
-		return openid;
+	public String getOpenId() {
+		return openId;
 	}
-	public void setOpenid(String openid) {
-		this.openid = openid;
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
 	public String getNickname() {
 		return nickname;

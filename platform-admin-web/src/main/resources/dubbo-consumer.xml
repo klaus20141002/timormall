@@ -28,5 +28,6 @@
     <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IPropValueService" id="propValueService" />
     <dubbo:reference interface="zhizhu.cy.platform.system.api.service.ITagService" id="tagService" />
     <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IValueService" id="valueService" />
+    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.ISysOssService" id="sysOssService" />
 
 </beans>

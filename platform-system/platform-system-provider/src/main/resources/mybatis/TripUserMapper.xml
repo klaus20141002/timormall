@@ -5,6 +5,7 @@
     <sql id="selectColumns">
         SELECT
             a.`id`,
+            a.`user_id`,
             a.`mobile`,
             a.`password`,
             a.`nickname`,
@@ -21,6 +22,12 @@
     <select id="getByMobile" resultType="zhizhu.cy.platform.system.api.entity.TripUser">
         <include refid="selectColumns"/>
         WHERE a.`mobile` = #{mobile}
+    </select>
+    
+    
+    <select id="getByOpenId" resultType="zhizhu.cy.platform.system.api.entity.TripUser">
+        <include refid="selectColumns"/>
+        WHERE a.`user_id` = #{openId}
     </select>
 
     <select id="get" resultType="zhizhu.cy.platform.system.api.entity.TripUser">
@@ -57,6 +64,7 @@
     <insert id="insert">
         INSERT INTO trip_user (
             `id`,
+            `user_id`,
             `mobile`,
             `password`,
             `nickname`,
@@ -69,6 +77,7 @@
             `update_time`
         ) VALUES (
             #{id},
+            #{userId},
             #{mobile},
             #{password},
             #{nickname},

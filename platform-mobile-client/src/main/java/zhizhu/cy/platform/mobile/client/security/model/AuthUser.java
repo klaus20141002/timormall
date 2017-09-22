@@ -17,6 +17,10 @@ import java.util.Set;
 public class AuthUser extends AbstractAuthUser {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * 用户默认角色
      */
     private static final String TRIP_USER_ROLE = "ROLE_USER";
@@ -24,6 +28,11 @@ public class AuthUser extends AbstractAuthUser {
      * id
      */
     private String id;
+    /**
+     * user_id  open_id 
+     */
+    private String userId;
+    
     /**
      * 手机号
      */
@@ -39,12 +48,12 @@ public class AuthUser extends AbstractAuthUser {
 
     public AuthUser(
         String id,
-        String mobile,
+        String userId,
         String password,
         boolean enabled
     ) {
         this.id = id;
-        this.mobile = mobile;
+        this.userId = userId;
         this.password = password;
         this.enabled = enabled;
     }
@@ -83,12 +92,20 @@ public class AuthUser extends AbstractAuthUser {
         this.enabled = enabled;
     }
 
+    
+
+    
+    
     @Override
     public String getUsername() {
-        return mobile;
-    }
+		return userId;
+	}
 
-    @Override
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	@Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();

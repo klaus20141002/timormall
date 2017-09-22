@@ -40,3 +40,13 @@ upload:
 wechat:
   appid: wx6707b1e86fc31255
   appsecret: b98ca8ed30c71681a054e04e890568d4
+  
+oss:
+  type: 3
+  qcloud-domain: cosgz.myqcloud.com
+  qcloud-prefix: cy
+  qcloud-app-id: 1251437774
+  qcloud-secret-id: AKIDsrw6MhEMgy8b9nnfpAXygWQ5pcTOOQVc
+  qcloud-secret-key: MpNziRD0qljmzIp4ND636CMZqA0ttFRe
+  qcloud-bucket-name: images
+  qcloud-region: gz

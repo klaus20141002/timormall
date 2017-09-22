@@ -21,21 +21,43 @@ package zhizhu.cy.platform.mobile.client.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Connection;
+import org.jsoup.Connection.Response;
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import zhizhu.cy.platform.common.redis.RedisRepository;
+import zhizhu.cy.platform.mobile.client.security.utils.TokenUtil;
 import zhizhu.cy.platform.mobile.client.util.R;
+import zhizhu.cy.platform.system.api.dto.WechatUserInfo;
+import zhizhu.cy.platform.system.api.entity.TripUser;
+import zhizhu.cy.platform.system.api.service.ITripUserService;
 
 
 /**
@@ -43,9 +65,9 @@ import zhizhu.cy.platform.mobile.client.util.R;
  */
 @RestController
 @RequestMapping("/api/{version}/login")
+@Api(tags="登陆")
 public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	
 	
 	@Value("${wechat.appid}")
     private String appid;
@@ -53,8 +75,52 @@ public class LoginController {
     private String appsecret;
     @Value("${wechat.rediecturi}")
     private String rediecturi;
+    @Value("${wechat.getaccessurl}")
+    private String getaccessurl;
+    @Value("${wechat.getuserbaseinfo}")
+    private String getuserbaseinfo;
+    
+    /**
+     * 缓存前缀
+     */
+    private static final String REDIS_PREFIX_ACCESS_TOKEN = "access_token_";
+    
+    /**
+     * 用户服务
+     */
+    @Autowired
+    private ITripUserService tripUserService;
+    
+    /**
+     * 密码加密
+     */
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    
+    /**
+     * redis repository
+     */
+    @Autowired
+    private RedisRepository redisRepository;
+    
+    
+    /**
+     * 权限管理
+     */
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    /**
+     * Token工具类
+     */
+    @Autowired
+    private TokenUtil jwtTokenUtil;
+    
+    
+    
 	
 	@RequestMapping("/wechat")
+	@ApiOperation(value="微信登陆")
 	public R wechat(
 			HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "code", required = false) String code,
@@ -106,7 +172,7 @@ public class LoginController {
 			return R.error(101,code);
 		} else if (!StringUtils.isEmpty(code)){
 			logger.info("用户授权成功");
-			Map<String, Object> map  = new HashMap<String, Object>();
+			Map<String, Object> tokenMap  = new HashMap<String, Object>();
 			//判断是否需要代理跳转
 			///shop/user/wxlogin?redirectDomain=radiomall.cn&code=021uDHb31gvw9L1J07c31kwNb31uDHbu&state=STATE
 			try {
@@ -116,18 +182,133 @@ public class LoginController {
 					response.sendRedirect(targetUrl);
 					return null;
 				}
+				
+				R result = getAccessTokenAndOauthUserInfo(request, response, code);
+				WechatUserInfo userInfo = (WechatUserInfo)result.get("userinfo") ;
+				
+				//存入 Redis
+		        redisRepository.setExpire(REDIS_PREFIX_ACCESS_TOKEN + userInfo.getOpenId(), userInfo.getAccess_token(), 2 * 60 * 60); //俩小时有效期
+				
+				TripUser user = tripUserService.getByOpenId(userInfo.getOpenId());
+				if(user == null) {
+					user = new TripUser();
+					user.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+					user.setUserId(userInfo.getOpenId());
+					user.setPassword(passwordEncoder.encode(userInfo.getOpenId()));
+					user.setCreateTime(new Date());
+					user.setUpdateTime(new Date());
+					user.setEnabled(true);
+					user.setGender(String.valueOf(userInfo.getSex()));
+					user.setNickname(userInfo.getNickname());
+					user.setPhoto(userInfo.getHeadimgurl());
+					user.setRemarks(userInfo.getCountry()+userInfo.getProvince()+userInfo.getCity());
+					// 注册
+					tripUserService.registryUserByWechat(user);
+				}
+				
+				//完成授权
+		        final Authentication authentication = authenticationManager.authenticate(
+		            new UsernamePasswordAuthenticationToken(userInfo.getOpenId(), userInfo.getOpenId())
+		        );
+		        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		        final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		        final String token = jwtTokenUtil.generateToken(userDetails); //生成Token
+
+		        
+		        tokenMap.put("access_token", token);
+		        tokenMap.put("expires_in", jwtTokenUtil.getExpiration());
+		        tokenMap.put("token_type", TokenUtil.TOKEN_TYPE_BEARER);
+
+//		        Map<String, Object> message = new HashMap<>();
+//		        message.put(Message.RETURN_FIELD_CODE, ReturnCode.SUCCESS);
+//		        message.put(Message.RETURN_FIELD_DATA, tokenMap);
+				
+		        tokenMap.put("data", user);
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			
-			
-			return R.ok(map);
-			
+			return R.ok(tokenMap);
 		}
 		return R.ok();
 	}
 	
+	
+	
+	
+
+	
+	
+	public R getAccessTokenAndOauthUserInfo(HttpServletRequest request, HttpServletResponse response, String code) {
+		// 2. 获取 access_token
+		logger.info("微信授权中  获取access_token... ");
+		String accessToken = null;
+		String openid = null;
+		WechatUserInfo userinfo = null ;
+		Map<String,Object> map = new HashMap<String,Object>();
+		Response responseForToken;
+		try {
+			String url = getaccessurl.replaceFirst("WX_APPID", appid).replaceFirst("WX_APPSECRET", appsecret).replaceFirst("CODE", code);
+			Connection con = Jsoup.connect(url);
+			responseForToken = con.execute();
+			logger.info("数据读取成功...");
+			if (null != responseForToken) {
+				String jsonData = responseForToken.body();
+				logger.info("获取内容成功... body={}", jsonData);
+				JSONObject data = JSONObject.parseObject(jsonData);
+				openid = data.getString("openid");
+				accessToken = data.getString("access_token");
+				// 3. 获取用户基本信息
+				if (!StringUtils.isEmpty(accessToken) && !StringUtils.isEmpty(openid)) {
+					userinfo = getOauthUserInfo(request, response, openid, accessToken);
+					
+				}else{
+					logger.error("program error|微信授权 获取access_token或openid为空|response={} code={} openId={} ", jsonData, code, openid);
+					return R.error(102, "微信授权 获取access_token或openid为空");
+				}
+			}else{
+				logger.error("program error|微信授权异常 返回结果为空|code={}, url={}", code, url);
+				return R.error(102, "微信授权异常 返回结果为空");
+			}
+
+		} catch (IOException e) {
+			logger.error("program error|微信授权异常|code={}, e={} ", code, e.getMessage());
+			return null;
+		}
+		map.put("userinfo", userinfo);
+		return R.ok(map);
+
+	}
+	
+	
+	public WechatUserInfo getOauthUserInfo(HttpServletRequest request, HttpServletResponse response, String openid, String accessToken) {
+		Response responseForToken;
+		WechatUserInfo userInfo = null;
+		String url = getuserbaseinfo.replaceAll("OPENID", openid).replaceAll("ACCESS_TOKEN", accessToken);
+		try {
+			responseForToken = Jsoup.connect(url).execute();
+			if (null != responseForToken) {
+				String jsonData = responseForToken.body();
+
+				userInfo = JSON.parseObject(jsonData, WechatUserInfo.class);
+				if(StringUtils.isEmpty(userInfo.getUnionid())){
+					logger.error("program error|微信授权获取用户信息异常 unionid为空|openId={}, response={}", openid, jsonData);
+					return null;
+				}
+				userInfo.setAccess_token(accessToken);
+			}else{
+				logger.error("program error|微信授权获取用户基本信息异常 response返回结果为空|openId={}, access_token={}", openid, accessToken);
+				return null;
+			}
+
+		} catch (IOException e) {
+			logger.error("program error|微信授权获取用户基本信息异常|url={}, e={} ", url, e.getMessage());
+			return null;
+		}
+		logger.info("微信授权完成  获取用户基本信息完成  userInfo={} ", userInfo.toString() );
+		return userInfo;
+	}
 	
 	
 	
