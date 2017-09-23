@@ -1,3 +1,4 @@
+domain: http://zhizhu.com
 spring:
   redis:
     database: 1
@@ -42,3 +43,15 @@ wechat:
   rediecturi: http://lottery.taolue.fm/api/v1/login/wechat
   getaccessurl: https://api.weixin.qq.com/sns/oauth2/access_token?appid=WX_APPID&secret=WX_APPSECRET&code=CODE&grant_type=authorization_code
   getuserbaseinfo: https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+  
+pay:
+  type: 2
+  ali-merchant-id: 2131231
+  ali-secret: 2131231
+  ali-pay-notify-url: ${domain}/notifies/backend
+  ali-refund-notify-url: ${domain}/notifies/refund
+  ali-web-return-url: ${domain}/notifies/web/frontend
+  ali-wap-return-url: ${domain}/notifies/wap/frontend
+  
+  
+  

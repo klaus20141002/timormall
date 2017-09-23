@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="zhizhu.cy.platform.system.provider.mapper.SysMenuMapper">
+<mapper namespace="com.klauting.timormall.system.provider.mapper.SysMenuMapper">
 
     <sql id="selectColumns">
         SELECT DISTINCT
@@ -19,12 +19,12 @@
         FROM sys_menu a
     </sql>
 
-    <select id="get" resultType="zhizhu.cy.platform.system.api.entity.SysMenu">
+    <select id="get" resultType="com.klauting.timormall.system.api.entity.SysMenu">
         <include refid="selectColumns"/>
         WHERE a.id = #{id}
     </select>
 
-    <select id="findListByUserId" resultType="zhizhu.cy.platform.system.api.entity.SysMenu">
+    <select id="findListByUserId" resultType="com.klauting.timormall.system.api.entity.SysMenu">
         <include refid="selectColumns"/>
         JOIN sys_role_menu rm ON rm.menu_id = a.id
         JOIN sys_role r ON r.id = rm.role_id AND r.enabled = '1' AND r.data_status = '0'
@@ -34,7 +34,7 @@
         ORDER BY a.sort
     </select>
 
-    <select id="findListByRoleId" resultType="zhizhu.cy.platform.system.api.entity.SysMenu">
+    <select id="findListByRoleId" resultType="com.klauting.timormall.system.api.entity.SysMenu">
         <include refid="selectColumns"/>
         LEFT JOIN sys_role_menu rm ON rm.menu_id = a.id
         WHERE a.data_status = '0'
@@ -42,7 +42,7 @@
         ORDER BY a.sort
     </select>
 
-    <select id="findAllList" resultType="zhizhu.cy.platform.system.api.entity.SysMenu">
+    <select id="findAllList" resultType="com.klauting.timormall.system.api.entity.SysMenu">
         <include refid="selectColumns"/>
         WHERE a.data_status = '0'
         ORDER BY a.sort
@@ -102,7 +102,7 @@
         WHERE id = #{id} OR parent_ids LIKE CONCAT('%', #{id}, ',%')
     </update>
 
-    <select id="findByParentIdsLike" resultType="zhizhu.cy.platform.system.api.entity.SysMenu">
+    <select id="findByParentIdsLike" resultType="com.klauting.timormall.system.api.entity.SysMenu">
         SELECT
             a.id,
             a.parent_id,

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="zhizhu.cy.platform.system.provider.mapper.AreaMapper">
+<mapper namespace="com.klauting.timormall.system.provider.mapper.AreaMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="zhizhu.cy.platform.system.api.entity.Area" id="areaMap">
+    <resultMap type="com.klauting.timormall.system.api.entity.Area" id="areaMap">
         <result property="id" column="id"/>
         <result property="parentId" column="parent_id"/>
         <result property="name" column="name"/>
@@ -16,11 +16,11 @@
         <result property="status" column="status"/>
     </resultMap>
 
-	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.Area">
+	<select id="queryObject" resultType="com.klauting.timormall.system.api.entity.Area">
 		select * from st_cy_area where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="zhizhu.cy.platform.system.api.entity.Area">
+	<select id="queryList" resultType="com.klauting.timormall.system.api.entity.Area">
 		select * from st_cy_area
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -39,7 +39,7 @@
 		select count(*) from st_cy_area 
 	</select>
 	 
-	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.Area" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="com.klauting.timormall.system.api.entity.Area" useGeneratedKeys="true" keyProperty="id">
 		insert into st_cy_area
 		(
 			`parent_id`, 
@@ -64,7 +64,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.Area">
+	<update id="update" parameterType="com.klauting.timormall.system.api.entity.Area">
 		update st_cy_area 
 		<set>
 			<if test="parentId != null">`parent_id` = #{parentId}, </if>

@@ -41,7 +41,7 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="zhizhu.cy.platform.mobile.client.ClientMobileApplication" level="INFO"/>
+    <logger name="com.klauting.timormall.mobile.client.ClientMobileApplication" level="INFO"/>
 
     <springProfile name="local">
         <logger name="zhizhu.cy.platform" level="DEBUG"/>

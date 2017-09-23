@@ -5,27 +5,32 @@
 		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- dubbo注解扫描包名 -->
-    <!--<dubbo:annotation package="zhizhu.cy.platform.mobile.client"/>-->
+    <!--<dubbo:annotation package="com.klauting.timormall.mobile.client"/>-->
 
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.ITripUserService" id="tripUserService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.ICaptchaService" id="captchaService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.ICurrencyRateService" id="currencyRateService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.ITripUserService" id="tripUserService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.ICaptchaService" id="captchaService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.ICurrencyRateService" id="currencyRateService" />
    
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IDeskService" id="deskService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IAreaService" id="areaService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IAddressService" id="addressService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.ICategeryService" id="categeryService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IFoodPropertyService" id="foodPropertyService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IFoodService" id="foodService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IFoodSkuService" id="foodSkuService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IFoodTagService" id="foodTagService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IMerchantService" id="merchantService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IOrderCommentService" id="orderCommentService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IOrderFoodsService" id="orderFoodsService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IOrderLogService" id="orderLogService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IOrderService" id="orderService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IPropertyService" id="propertyService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IPropValueService" id="propValueService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.ITagService" id="tagService" />
-    <dubbo:reference interface="zhizhu.cy.platform.system.api.service.IValueService" id="valueService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IAreaService" id="areaService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IAddressService" id="addressService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IPropertyService" id="propertyService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IPropValueService" id="propValueService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IValueService" id="valueService" />
+    
+    
+    
+    
+    
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IAdService"
+                   id="adService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IBannerService"
+                   id="bannerService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IGoodsAdService"
+                   id="goodsAdService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IGoodsBasicService"
+                   id="goodsBasicService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IGoodsExtService"
+                   id="goodsExtService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.IGoodsUrlService"
+                   id="goodsUrlService" />
 </beans>

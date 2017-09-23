@@ -5,58 +5,65 @@
 		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- dubbo注解扫描包名 -->
-    <!--<dubbo:annotation package="zhizhu.cy.platform.system.provider"/>-->
+    <!--<dubbo:annotation package="com.klauting.timormall.system.provider"/>-->
 
     <dubbo:protocol name="dubbo"/>
 
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.ISystemService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.ISystemService"
                    ref="systemService" protocol="dubbo" timeout="5000"/>
 
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.ITripUserService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.ITripUserService"
                    ref="tripUserService" protocol="dubbo" timeout="5000"/>
 
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.ICaptchaService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.ICaptchaService"
                    ref="captchaService" protocol="dubbo" timeout="5000"/>
 
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.ICurrencyRateService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.ICurrencyRateService"
                    ref="currencyRateService" protocol="dubbo" timeout="5000"/>
                    
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IDeskService"
-                   ref="deskService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IAreaService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IAreaService"
                    ref="areaService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IAddressService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IAddressService"
                    ref="addressService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.ICategeryService"
-                   ref="categeryService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IFoodPropertyService"
-                   ref="foodPropertyService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IFoodService"
-                   ref="foodService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IFoodSkuService"
-                   ref="foodSkuService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IFoodTagService"
-                   ref="foodTagService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IMerchantService"
-                   ref="merchantService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IOrderCommentService"
-                   ref="orderCommentService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IOrderFoodsService"
-                   ref="orderFoodsService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IOrderLogService"
-                   ref="orderLogService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IOrderService"
-                   ref="orderService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IPropertyService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IPropertyService"
                    ref="propertyService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IPropValueService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IPropValueService"
                    ref="propValueService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.ITagService"
-                   ref="tagService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.IValueService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IValueService"
                    ref="valueService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="zhizhu.cy.platform.system.api.service.ISysOssService"
+    <dubbo:service interface="com.klauting.timormall.system.api.service.ISysOssService"
                    ref="sysOssService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IAdService"
+                   ref="adService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IBannerService"
+                   ref="bannerService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IGoodsAdService"
+                   ref="goodsAdService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IGoodsBasicService"
+                   ref="goodsBasicService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IGoodsExtService"
+                   ref="goodsExtService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.klauting.timormall.system.api.service.IGoodsUrlService"
+                   ref="goodsUrlService" protocol="dubbo" timeout="5000"/>
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
 
 </beans>

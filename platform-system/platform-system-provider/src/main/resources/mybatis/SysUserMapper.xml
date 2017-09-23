@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="zhizhu.cy.platform.system.provider.mapper.SysUserMapper">
+<mapper namespace="com.klauting.timormall.system.provider.mapper.SysUserMapper">
 
     <sql id="selectColumns">
         SELECT
@@ -19,19 +19,19 @@
     </sql>
 
     <!-- 根据编号获得用户 -->
-    <select id="get" resultType="zhizhu.cy.platform.system.api.entity.SysUser">
+    <select id="get" resultType="com.klauting.timormall.system.api.entity.SysUser">
         <include refid="selectColumns"/>
         WHERE a.id = #{id}
     </select>
 
     <!-- 根据登录名查询用户 -->
-    <select id="getByLoginName" resultType="zhizhu.cy.platform.system.api.entity.SysUser">
+    <select id="getByLoginName" resultType="com.klauting.timormall.system.api.entity.SysUser">
         <include refid="selectColumns"/>
         WHERE a.login_name = #{loginName}
     </select>
 
     <!-- 分页查询用户信息 -->
-    <select id="findList" resultType="zhizhu.cy.platform.system.api.entity.SysUser">
+    <select id="findList" resultType="com.klauting.timormall.system.api.entity.SysUser">
         <include refid="selectColumns"/>
         WHERE a.data_status = '0'
         <if test="loginName != null and loginName != ''">
@@ -44,7 +44,7 @@
     </select>
 
     <!-- 查询全部用户 -->
-    <select id="findAllList" resultType="zhizhu.cy.platform.system.api.entity.SysUser">
+    <select id="findAllList" resultType="com.klauting.timormall.system.api.entity.SysUser">
         <include refid="selectColumns"/>
         WHERE a.data_status = '0'
         ORDER BY a.create_time

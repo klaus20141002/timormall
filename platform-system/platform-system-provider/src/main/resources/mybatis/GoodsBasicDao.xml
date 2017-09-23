@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.klauting.timormall.system.provider.mapper.GoodsBasicMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.klauting.timormall.system.api.entity.GoodsBasic" id="goodsBasicMap">
+        <result property="id" column="id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="platformId" column="platform_id"/>
+        <result property="goodsTitle" column="goods_title"/>
+        <result property="goodsImg" column="goods_img"/>
+        <result property="itemUrl" column="item_url"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsPricePro" column="goods_price_pro"/>
+        <result property="goodsDeliverFee" column="goods_deliver_fee"/>
+        <result property="thumbnailImgs" column="thumbnail_imgs"/>
+        <result property="detailImgs" column="detail_imgs"/>
+        <result property="category" column="category"/>
+        <result property="volume" column="volume"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="dataStatus" column="data_status"/>
+        <result property="goods" column="goods"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.klauting.timormall.system.api.entity.GoodsBasic">
+		select * from kt_goods_basic where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.klauting.timormall.system.api.entity.GoodsBasic">
+		select * from kt_goods_basic
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from kt_goods_basic 
+	</select>
+	 
+	<insert id="save" parameterType="com.klauting.timormall.system.api.entity.GoodsBasic" useGeneratedKeys="true" keyProperty="id">
+		insert into kt_goods_basic
+		(
+			`goods_id`, 
+			`platform_id`, 
+			`goods_title`, 
+			`goods_img`, 
+			`item_url`, 
+			`goods_price`, 
+			`goods_price_pro`, 
+			`goods_deliver_fee`, 
+			`thumbnail_imgs`, 
+			`detail_imgs`, 
+			`category`, 
+			`volume`, 
+			`create_time`, 
+			`update_time`, 
+			`data_status`, 
+			`goods`
+		)
+		values
+		(
+			#{goodsId}, 
+			#{platformId}, 
+			#{goodsTitle}, 
+			#{goodsImg}, 
+			#{itemUrl}, 
+			#{goodsPrice}, 
+			#{goodsPricePro}, 
+			#{goodsDeliverFee}, 
+			#{thumbnailImgs}, 
+			#{detailImgs}, 
+			#{category}, 
+			#{volume}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{dataStatus}, 
+			#{goods}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.klauting.timormall.system.api.entity.GoodsBasic">
+		update kt_goods_basic 
+		<set>
+			<if test="goodsId != null">`goods_id` = #{goodsId}, </if>
+			<if test="platformId != null">`platform_id` = #{platformId}, </if>
+			<if test="goodsTitle != null">`goods_title` = #{goodsTitle}, </if>
+			<if test="goodsImg != null">`goods_img` = #{goodsImg}, </if>
+			<if test="itemUrl != null">`item_url` = #{itemUrl}, </if>
+			<if test="goodsPrice != null">`goods_price` = #{goodsPrice}, </if>
+			<if test="goodsPricePro != null">`goods_price_pro` = #{goodsPricePro}, </if>
+			<if test="goodsDeliverFee != null">`goods_deliver_fee` = #{goodsDeliverFee}, </if>
+			<if test="thumbnailImgs != null">`thumbnail_imgs` = #{thumbnailImgs}, </if>
+			<if test="detailImgs != null">`detail_imgs` = #{detailImgs}, </if>
+			<if test="category != null">`category` = #{category}, </if>
+			<if test="volume != null">`volume` = #{volume}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}, </if>
+			<if test="goods != null">`goods` = #{goods}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from kt_goods_basic where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from kt_goods_basic where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

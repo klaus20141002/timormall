@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-zhizhu.cy.platform.common.redis.RedisConfig
+com.klauting.timormall.common.redis.RedisConfig

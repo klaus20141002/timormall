@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="zhizhu.cy.platform.system.provider.mapper.SysOssMapper">
+<mapper namespace="com.klauting.timormall.system.provider.mapper.SysOssMapper">
 
-	<select id="queryObject" resultType="zhizhu.cy.platform.system.api.entity.SysOss">
+	<select id="queryObject" resultType="com.klauting.timormall.system.api.entity.SysOss">
 		select * from sys_oss where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="zhizhu.cy.platform.system.api.entity.SysOss">
+	<select id="queryList" resultType="com.klauting.timormall.system.api.entity.SysOss">
 		select * from sys_oss order by id desc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
@@ -18,7 +18,7 @@
 		select count(*) from sys_oss 
 	</select>
 	 
-	<insert id="save" parameterType="zhizhu.cy.platform.system.api.entity.SysOss" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="com.klauting.timormall.system.api.entity.SysOss" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_oss
 		(
 			`url`, 
@@ -31,7 +31,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="zhizhu.cy.platform.system.api.entity.SysOss">
+	<update id="update" parameterType="com.klauting.timormall.system.api.entity.SysOss">
 		update sys_oss 
 		<set>
 			<if test="url != null">`url` = #{url}, </if>

@@ -27,7 +27,7 @@
         </encoder>
     </appender>
 
-    <logger name="zhizhu.cy.platform.system.provider.SysProviderApplication" level="INFO"/>
+    <logger name="com.klauting.timormall.system.provider.SysProviderApplication" level="INFO"/>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE}.log</file>

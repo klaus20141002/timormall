@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.klauting.timormall.system.provider.mapper.GoodsUrlMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.klauting.timormall.system.api.entity.GoodsUrl" id="goodsUrlMap">
+        <result property="id" column="id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="platformId" column="platform_id"/>
+        <result property="adName" column="ad_name"/>
+        <result property="clickUrl" column="click_url"/>
+        <result property="couponInfo" column="coupon_info"/>
+        <result property="couponUrl" column="coupon_url"/>
+        <result property="couponClickUrl" column="coupon_click_url"/>
+        <result property="couponTotalCount" column="coupon_total_count"/>
+        <result property="couponRemainCount" column="coupon_remain_count"/>
+        <result property="couponStartTime" column="coupon_start_time"/>
+        <result property="couponEndTime" column="coupon_end_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="dataStatus" column="data_status"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.klauting.timormall.system.api.entity.GoodsUrl">
+		select * from kt_goods_url where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.klauting.timormall.system.api.entity.GoodsUrl">
+		select * from kt_goods_url
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from kt_goods_url 
+	</select>
+	 
+	<insert id="save" parameterType="com.klauting.timormall.system.api.entity.GoodsUrl" useGeneratedKeys="true" keyProperty="id">
+		insert into kt_goods_url
+		(
+			`goods_id`, 
+			`platform_id`, 
+			`ad_name`, 
+			`click_url`, 
+			`coupon_info`, 
+			`coupon_url`, 
+			`coupon_click_url`, 
+			`coupon_total_count`, 
+			`coupon_remain_count`, 
+			`coupon_start_time`, 
+			`coupon_end_time`, 
+			`create_time`, 
+			`update_time`, 
+			`data_status`
+		)
+		values
+		(
+			#{goodsId}, 
+			#{platformId}, 
+			#{adName}, 
+			#{clickUrl}, 
+			#{couponInfo}, 
+			#{couponUrl}, 
+			#{couponClickUrl}, 
+			#{couponTotalCount}, 
+			#{couponRemainCount}, 
+			#{couponStartTime}, 
+			#{couponEndTime}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{dataStatus}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.klauting.timormall.system.api.entity.GoodsUrl">
+		update kt_goods_url 
+		<set>
+			<if test="goodsId != null">`goods_id` = #{goodsId}, </if>
+			<if test="platformId != null">`platform_id` = #{platformId}, </if>
+			<if test="adName != null">`ad_name` = #{adName}, </if>
+			<if test="clickUrl != null">`click_url` = #{clickUrl}, </if>
+			<if test="couponInfo != null">`coupon_info` = #{couponInfo}, </if>
+			<if test="couponUrl != null">`coupon_url` = #{couponUrl}, </if>
+			<if test="couponClickUrl != null">`coupon_click_url` = #{couponClickUrl}, </if>
+			<if test="couponTotalCount != null">`coupon_total_count` = #{couponTotalCount}, </if>
+			<if test="couponRemainCount != null">`coupon_remain_count` = #{couponRemainCount}, </if>
+			<if test="couponStartTime != null">`coupon_start_time` = #{couponStartTime}, </if>
+			<if test="couponEndTime != null">`coupon_end_time` = #{couponEndTime}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from kt_goods_url where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from kt_goods_url where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
