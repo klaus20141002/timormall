@@ -18,17 +18,21 @@ public class GoodsUrl implements Serializable {
 	//
 	private Long id;
 	//
-	private Integer goodsId;
+	private Long goodsId;
 	//
 	private Integer platformId;
 	//广告位名称
 	private String adName;
 	//分销地址
 	private String clickUrl;
+	//淘口令
+	private String clickTaokouling;
 	//优惠券面额
 	private String couponInfo;
 	//优惠券地址
 	private String couponUrl;
+	//优惠券淘口令
+	private String couponTaokouling;
 	//商品优惠券推广链接
 	private String couponClickUrl;
 	//优惠券总量
@@ -61,13 +65,13 @@ public class GoodsUrl implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setGoodsId(Integer goodsId) {
+	public void setGoodsId(Long goodsId) {
 		this.goodsId = goodsId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getGoodsId() {
+	public Long getGoodsId() {
 		return goodsId;
 	}
 	/**
@@ -226,4 +230,18 @@ public class GoodsUrl implements Serializable {
 	public Integer getDataStatus() {
 		return dataStatus;
 	}
+	public String getClickTaokouling() {
+		return clickTaokouling;
+	}
+	public void setClickTaokouling(String clickTaokouling) {
+		this.clickTaokouling = clickTaokouling;
+	}
+	public String getCouponTaokouling() {
+		return couponTaokouling;
+	}
+	public void setCouponTaokouling(String couponTaokouling) {
+		this.couponTaokouling = couponTaokouling;
+	}
+	
+	
 }

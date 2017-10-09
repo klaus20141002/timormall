@@ -19,13 +19,13 @@ public class GoodsExt implements Serializable {
 	//
 	private Long id;
 	//
-	private Integer goodsId;
+	private Long goodsId;
 	//
 	private Integer platformId;
 	//卖家旺旺
 	private String sellerWanwan;
 	//卖家id
-	private Integer sellerId;
+	private Long sellerId;
 	//店铺名称
 	private String shopTitle;
 	//佣金比率
@@ -35,7 +35,7 @@ public class GoodsExt implements Serializable {
 	//
 	private Date createTime;
 	//
-	private Date updateTiem;
+	private Date updateTime;
 	//
 	private Integer dataStatus;
 
@@ -54,13 +54,13 @@ public class GoodsExt implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setGoodsId(Integer goodsId) {
+	public void setGoodsId(Long goodsId) {
 		this.goodsId = goodsId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getGoodsId() {
+	public Long getGoodsId() {
 		return goodsId;
 	}
 	/**
@@ -90,13 +90,13 @@ public class GoodsExt implements Serializable {
 	/**
 	 * 设置：卖家id
 	 */
-	public void setSellerId(Integer sellerId) {
+	public void setSellerId(Long sellerId) {
 		this.sellerId = sellerId;
 	}
 	/**
 	 * 获取：卖家id
 	 */
-	public Integer getSellerId() {
+	public Long getSellerId() {
 		return sellerId;
 	}
 	/**
@@ -150,14 +150,14 @@ public class GoodsExt implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setUpdateTiem(Date updateTiem) {
-		this.updateTiem = updateTiem;
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 	/**
 	 * 获取：
 	 */
-	public Date getUpdateTiem() {
-		return updateTiem;
+	public Date getUpdateTime() {
+		return updateTime;
 	}
 	/**
 	 * 设置：

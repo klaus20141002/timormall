@@ -19,7 +19,7 @@ public class GoodsBasic implements Serializable {
 	//
 	private Long id;
 	//
-	private Integer goodsId;
+	private Long goodsId;
 	//
 	private Integer platformId;
 	//商品名称
@@ -48,8 +48,6 @@ public class GoodsBasic implements Serializable {
 	private Date updateTime;
 	//1正常 ， 0 已删除
 	private Integer dataStatus;
-	//
-	private Integer goods;
 
 	/**
 	 * 设置：
@@ -66,13 +64,13 @@ public class GoodsBasic implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setGoodsId(Integer goodsId) {
+	public void setGoodsId(Long goodsId) {
 		this.goodsId = goodsId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getGoodsId() {
+	public Long getGoodsId() {
 		return goodsId;
 	}
 	/**
@@ -242,17 +240,5 @@ public class GoodsBasic implements Serializable {
 	 */
 	public Integer getDataStatus() {
 		return dataStatus;
-	}
-	/**
-	 * 设置：
-	 */
-	public void setGoods(Integer goods) {
-		this.goods = goods;
-	}
-	/**
-	 * 获取：
-	 */
-	public Integer getGoods() {
-		return goods;
 	}
 }

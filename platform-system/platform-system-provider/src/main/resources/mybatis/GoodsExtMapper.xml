@@ -14,7 +14,7 @@
         <result property="tkRate" column="tk_rate"/>
         <result property="tkMoney" column="tk_money"/>
         <result property="createTime" column="create_time"/>
-        <result property="updateTiem" column="update_tiem"/>
+        <result property="updateTime" column="update_time"/>
         <result property="dataStatus" column="data_status"/>
     </resultMap>
 
@@ -52,7 +52,7 @@
 			`tk_rate`, 
 			`tk_money`, 
 			`create_time`, 
-			`update_tiem`, 
+			`update_time`, 
 			`data_status`
 		)
 		values
@@ -65,7 +65,7 @@
 			#{tkRate}, 
 			#{tkMoney}, 
 			#{createTime}, 
-			#{updateTiem}, 
+			#{updateTime}, 
 			#{dataStatus}
 		)
 	</insert>
@@ -81,7 +81,7 @@
 			<if test="tkRate != null">`tk_rate` = #{tkRate}, </if>
 			<if test="tkMoney != null">`tk_money` = #{tkMoney}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
-			<if test="updateTiem != null">`update_tiem` = #{updateTiem}, </if>
+			<if test="updateTime != null">`update_tiem` = #{updateTime}, </if>
 			<if test="dataStatus != null">`data_status` = #{dataStatus}</if>
 		</set>
 		where id = #{id}

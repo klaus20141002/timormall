@@ -1,10 +1,9 @@
 package com.klauting.timormall.system.provider.mapper;
 
-import com.klauting.timormall.system.api.entity.GoodsAd;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.klauting.timormall.common.service.dao.BizDao;
+import com.klauting.timormall.system.api.entity.GoodsAd;
 
 /**
  * 
@@ -15,5 +14,6 @@ import com.klauting.timormall.common.service.dao.BizDao;
  */
 @Mapper
 public interface GoodsAdMapper extends BizDao<GoodsAd> {
+	GoodsAd queryByAdName(String adName);
 	
 }

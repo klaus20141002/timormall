@@ -52,6 +52,8 @@ pay:
   ali-refund-notify-url: ${domain}/notifies/refund
   ali-web-return-url: ${domain}/notifies/web/frontend
   ali-wap-return-url: ${domain}/notifies/wap/frontend
-  
+taobao:
+  file:
+    path: e:/taobao/
   
   

@@ -1,8 +1,13 @@
 spring:
+  data:
+    solr:
+      host: http://127.0.0.1:8983/solr
+      #192.168.219.134:2181,192.168.219.140:2181
+      #defaultCollection: goods
   # DataSource Config
   datasource:
     write:
-      url: jdbc:mysql://127.0.0.1:3306/platform?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+      url: jdbc:mysql://127.0.0.1:3306/timormall?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
       username: root
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver
@@ -23,7 +28,7 @@ spring:
       # 合并多个DruidDataSource的监控数据
       #spring.datasource.useGlobalDataSourceStat=true
     read:
-      url: jdbc:mysql://127.0.0.1:3306/platform?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+      url: jdbc:mysql://127.0.0.1:3306/timormall?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
       username: root
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver

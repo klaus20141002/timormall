@@ -20,13 +20,14 @@ public class GoodsAd implements Serializable {
 	//
 	private String adName;
 	//
-	private Integer goodsId;
+	private Long goodsId;
 	//
-	private Integer goodsPlatform;
+	private Integer platformId;
 	//
 	private Date createTime;
 	//
 	private Date updateTime;
+	private Integer dataStatus;
 
 	/**
 	 * 设置：
@@ -55,26 +56,21 @@ public class GoodsAd implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setGoodsId(Integer goodsId) {
+	public void setGoodsId(Long goodsId) {
 		this.goodsId = goodsId;
 	}
 	/**
 	 * 获取：
 	 */
-	public Integer getGoodsId() {
+	public Long getGoodsId() {
 		return goodsId;
 	}
-	/**
-	 * 设置：
-	 */
-	public void setGoodsPlatform(Integer goodsPlatform) {
-		this.goodsPlatform = goodsPlatform;
+	
+	public Integer getPlatformId() {
+		return platformId;
 	}
-	/**
-	 * 获取：
-	 */
-	public Integer getGoodsPlatform() {
-		return goodsPlatform;
+	public void setPlatformId(Integer platformId) {
+		this.platformId = platformId;
 	}
 	/**
 	 * 设置：
@@ -100,4 +96,11 @@ public class GoodsAd implements Serializable {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
+	public Integer getDataStatus() {
+		return dataStatus;
+	}
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	
 }

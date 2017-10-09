@@ -1,8 +1,13 @@
 package com.klauting.timormall.system.provider.mapper;
 
+import com.klauting.timormall.system.api.dto.GoodsBasicDto;
 import com.klauting.timormall.system.api.entity.GoodsBasic;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.klauting.timormall.common.service.dao.BizDao;
 
@@ -15,5 +20,9 @@ import com.klauting.timormall.common.service.dao.BizDao;
  */
 @Mapper
 public interface GoodsBasicMapper extends BizDao<GoodsBasic> {
+	
+	GoodsBasicDto queryGoodsIdAndPlatformId(@Param("goodsId") Long goodsId,@Param("platformId") Long platformId);
+	
+	List<GoodsBasicDto> queryGoodsBasicDtoList(Map<String, Object> map);
 	
 }

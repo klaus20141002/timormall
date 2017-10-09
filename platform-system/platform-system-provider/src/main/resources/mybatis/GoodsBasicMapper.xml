@@ -21,15 +21,36 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
         <result property="dataStatus" column="data_status"/>
-        <result property="goods" column="goods"/>
     </resultMap>
 
 	<select id="queryObject" resultType="com.klauting.timormall.system.api.entity.GoodsBasic">
 		select * from kt_goods_basic where id = #{value}
 	</select>
-
+	<select id="queryGoodsIdAndPlatformId" resultType="com.klauting.timormall.system.api.dto.GoodsBasicDto">
+		select goods_id as goodsId, platform_id as platformId, goods_title as goodsTitle,goods_img as goodsImg,item_url as itemUrl,
+		goods_price as goodsPrice,goods_price_pro as goodsPricePro,thumbnail_imgs as thumbnailImgs,category,volume,
+		create_time as createTime,update_time as updateTime
+		from kt_goods_basic where goods_id = #{goodsId} and platform_id = #{platformId} and data_status = 1
+	</select>
 	<select id="queryList" resultType="com.klauting.timormall.system.api.entity.GoodsBasic">
 		select * from kt_goods_basic
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	<select id="queryGoodsBasicDtoList" resultType="com.klauting.timormall.system.api.dto.GoodsBasicDto">
+		select goods_id as goodsId, platform_id as platformId, goods_title as goodsTitle,goods_img as goodsImg,item_url as itemUrl,
+		goods_price as goodsPrice,goods_price_pro as goodsPricePro,thumbnail_imgs as thumbnailImgs,category,volume,
+		create_time as createTime,update_time as updateTime
+		from kt_goods_basic where data_status = 1
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -64,8 +85,7 @@
 			`volume`, 
 			`create_time`, 
 			`update_time`, 
-			`data_status`, 
-			`goods`
+			`data_status`
 		)
 		values
 		(
@@ -83,8 +103,7 @@
 			#{volume}, 
 			#{createTime}, 
 			#{updateTime}, 
-			#{dataStatus}, 
-			#{goods}
+			#{dataStatus}
 		)
 	</insert>
 	 
@@ -106,7 +125,6 @@
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
 			<if test="dataStatus != null">`data_status` = #{dataStatus}, </if>
-			<if test="goods != null">`goods` = #{goods}</if>
 		</set>
 		where id = #{id}
 	</update>

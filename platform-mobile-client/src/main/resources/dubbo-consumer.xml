@@ -21,8 +21,6 @@
     
     
     
-    <dubbo:reference interface="com.klauting.timormall.system.api.service.IAdService"
-                   id="adService" />
     <dubbo:reference interface="com.klauting.timormall.system.api.service.IBannerService"
                    id="bannerService" />
     <dubbo:reference interface="com.klauting.timormall.system.api.service.IGoodsAdService"

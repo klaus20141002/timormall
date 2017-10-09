@@ -8,13 +8,16 @@
         <result property="id" column="id"/>
         <result property="adName" column="ad_name"/>
         <result property="goodsId" column="goods_id"/>
-        <result property="goodsPlatform" column="goods_platform"/>
+        <result property="platformId" column="platform_id"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
 	<select id="queryObject" resultType="com.klauting.timormall.system.api.entity.GoodsAd">
 		select * from kt_goods_ad where id = #{value}
+	</select>
+	<select id="queryByAdName" resultType="com.klauting.timormall.system.api.entity.GoodsAd">
+		select * from kt_goods_ad where ad_name = #{adName}
 	</select>
 
 	<select id="queryList" resultType="com.klauting.timormall.system.api.entity.GoodsAd">
@@ -41,7 +44,7 @@
 		(
 			`ad_name`, 
 			`goods_id`, 
-			`goods_platform`, 
+			`platform_id`, 
 			`create_time`, 
 			`update_time`
 		)
@@ -49,7 +52,7 @@
 		(
 			#{adName}, 
 			#{goodsId}, 
-			#{goodsPlatform}, 
+			#{platformId}, 
 			#{createTime}, 
 			#{updateTime}
 		)

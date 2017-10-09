@@ -21,7 +21,11 @@ package com.klauting.timormall.system.api.constant;
 /**
  *
  */
-public class OrderConstant {
+public class GlobalConstant {
+	
+	public static final String DATE_FORMAT_FULL = "yyyy-MM-dd HH:mm:ss";
+	public static final String DATE_FORMAT_SHORT = "yyyy-MM-dd";
+	
 	
 	/**待接单*/
 	public final static Integer ORDER_STATUS_APPLY = 1;
@@ -57,7 +61,7 @@ public class OrderConstant {
 	/**
 	 * @Date        :      2017年9月15日
 	 */
-	private OrderConstant(){
+	private GlobalConstant(){
 		
 	}
 	

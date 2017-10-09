@@ -34,8 +34,6 @@
                    ref="valueService" protocol="dubbo" timeout="5000"/>
     <dubbo:service interface="com.klauting.timormall.system.api.service.ISysOssService"
                    ref="sysOssService" protocol="dubbo" timeout="5000"/>
-    <dubbo:service interface="com.klauting.timormall.system.api.service.IAdService"
-                   ref="adService" protocol="dubbo" timeout="5000"/>
     <dubbo:service interface="com.klauting.timormall.system.api.service.IBannerService"
                    ref="bannerService" protocol="dubbo" timeout="5000"/>
     <dubbo:service interface="com.klauting.timormall.system.api.service.IGoodsAdService"

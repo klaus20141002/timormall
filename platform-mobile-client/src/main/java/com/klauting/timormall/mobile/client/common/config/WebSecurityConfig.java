@@ -29,12 +29,7 @@ public class WebSecurityConfig extends AbstractWebSecurityConfig {
                 "/*/currency/**",
                 "/api/*/login/**",
                 "/api/*/address/**",
-                "/api/*/merchant/**",
-                "/api/*/food/**",
-                "/api/*/order/**",
-                "/api/*/orderfoods/**",
-                "/api/*/ordercomment/**",
-                "/api/*/orderlog/**",
+                "/api/*/goods/**",
                 "/api/*/user/**"
             )
             .antMatchers(HttpMethod.POST, "/*/user")

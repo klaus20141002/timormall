@@ -15,6 +15,7 @@ import java.util.Map;
 public interface IGoodsAdService {
 	
 	GoodsAd queryObject(Long id);
+	GoodsAd queryByAdName(String adName);
 	
 	List<GoodsAd> queryList(Map<String, Object> map);
 	

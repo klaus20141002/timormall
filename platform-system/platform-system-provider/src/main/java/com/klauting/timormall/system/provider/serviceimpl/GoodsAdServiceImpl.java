@@ -51,5 +51,17 @@ public class GoodsAdServiceImpl implements IGoodsAdService {
 	public void deleteBatch(Long[] ids){
 		goodsAdMapper.deleteBatch(ids);
 	}
+
+	/**
+	 * {@inheritDoc} 
+	 * overridden:
+	 * @Date        :      2017年9月27日
+	 * @see com.klauting.timormall.system.api.service.IGoodsAdService#queryByAdName(java.lang.String)
+	**/
+	@Override
+	public GoodsAd queryByAdName(String adName) {
+		// TODO Auto-generated method stub
+		return goodsAdMapper.queryByAdName(adName);
+	}
 	
 }

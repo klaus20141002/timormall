@@ -18,6 +18,11 @@
             <artifactId>timormall-common-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>  
+		    <groupId>org.apache.solr</groupId>  
+		    <artifactId>solr-solrj</artifactId>  
+		</dependency>  
+        
     </dependencies>
 
 </project>

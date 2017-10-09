@@ -1,5 +1,6 @@
 package com.klauting.timormall.system.api.service;
 
+import com.klauting.timormall.system.api.dto.GoodsBasicDto;
 import com.klauting.timormall.system.api.entity.GoodsBasic;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public interface IGoodsBasicService {
 	
 	GoodsBasic queryObject(Long id);
 	
+	GoodsBasicDto queryGoodsIdAndPlatformId(Long goodsId,Long platformId);
+	
+	
+	List<GoodsBasicDto> queryGoodsBasicDtoList(Map<String, Object> map);
 	List<GoodsBasic> queryList(Map<String, Object> map);
 	
 	int queryTotal(Map<String, Object> map);
