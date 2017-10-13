@@ -36,6 +36,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,6 +51,7 @@ import com.klauting.timormall.system.api.service.IGoodsBasicService;
 import com.klauting.timormall.system.api.service.IGoodsExtService;
 import com.klauting.timormall.system.api.service.IGoodsUrlService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -57,6 +59,8 @@ import io.swagger.annotations.ApiParam;
  *
  */
 @RestController
+@Api(tags="商品管理")
+@RequestMapping("/sys/{version}/goods")
 public class GoodsController {
 
 	@Value(value = "${taobao.file.path}")
@@ -182,7 +186,7 @@ public class GoodsController {
 			    if( Long.parseLong(num_iid)==555602212739L) {
 			    	System.out.println("1312312");
 			    }
-			    if(goodsBasicService.queryGoodsIdAndPlatformId(Long.parseLong(num_iid), Long.parseLong(platform_type)) == null) {
+			    if(goodsBasicService.queryGoodsIdAndPlatformId(Long.parseLong(num_iid), Integer.parseInt(platform_type)) == null) {
 				    goodsBasicService.save(goodsBasic);
 				    goodsUrlService.save(goodsUrl);
 				    goodsAdService.save(goodsAd);
@@ -319,7 +323,7 @@ public class GoodsController {
 			    goodsAd.setPlatformId(1);
 			    goodsAd.setGoodsId(Long.parseLong(num_iid));
 			    
-			    if(goodsBasicService.queryGoodsIdAndPlatformId(Long.parseLong(num_iid), 1L) == null) {
+			    if(goodsBasicService.queryGoodsIdAndPlatformId(Long.parseLong(num_iid), 1) == null) {
 				    goodsBasicService.save(goodsBasic);
 				    goodsUrlService.save(goodsUrl);
 				    goodsAdService.save(goodsAd);

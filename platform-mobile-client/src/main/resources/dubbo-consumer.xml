@@ -31,4 +31,6 @@
                    id="goodsExtService" />
     <dubbo:reference interface="com.klauting.timormall.system.api.service.IGoodsUrlService"
                    id="goodsUrlService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.ISolrService"
+ 				   id="solrService" />
 </beans>

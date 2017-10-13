@@ -20,8 +20,6 @@
     <dubbo:reference interface="com.klauting.timormall.system.api.service.ISysOssService" id="sysOssService" />
     
     
-    <dubbo:reference interface="com.klauting.timormall.system.api.service.IAdService"
-                   id="adService" />
     <dubbo:reference interface="com.klauting.timormall.system.api.service.IBannerService"
                    id="bannerService" />
     <dubbo:reference interface="com.klauting.timormall.system.api.service.IGoodsAdService"
@@ -32,5 +30,7 @@
                    id="goodsExtService" />
     <dubbo:reference interface="com.klauting.timormall.system.api.service.IGoodsUrlService"
                    id="goodsUrlService" />
+    <dubbo:reference interface="com.klauting.timormall.system.api.service.ISolrService"
+                   id="solrService" />
 
 </beans>

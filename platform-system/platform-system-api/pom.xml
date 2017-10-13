@@ -18,9 +18,9 @@
             <artifactId>timormall-common-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>  
-		    <groupId>org.apache.solr</groupId>  
-		    <artifactId>solr-solrj</artifactId>  
+        <dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-solr</artifactId>
 		</dependency>  
         
     </dependencies>

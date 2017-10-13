@@ -27,6 +27,9 @@ public class GlobalConstant {
 	public static final String DATE_FORMAT_SHORT = "yyyy-MM-dd";
 	
 	
+	public static final String DEFAULT_SOLR_CORE = "goods";
+	
+	
 	/**待接单*/
 	public final static Integer ORDER_STATUS_APPLY = 1;
 	/**已接单*/

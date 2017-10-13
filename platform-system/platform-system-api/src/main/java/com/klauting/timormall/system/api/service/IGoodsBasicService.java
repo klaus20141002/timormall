@@ -17,7 +17,7 @@ public interface IGoodsBasicService {
 	
 	GoodsBasic queryObject(Long id);
 	
-	GoodsBasicDto queryGoodsIdAndPlatformId(Long goodsId,Long platformId);
+	GoodsBasicDto queryGoodsIdAndPlatformId(Long goodsId,int platformId);
 	
 	
 	List<GoodsBasicDto> queryGoodsBasicDtoList(Map<String, Object> map);

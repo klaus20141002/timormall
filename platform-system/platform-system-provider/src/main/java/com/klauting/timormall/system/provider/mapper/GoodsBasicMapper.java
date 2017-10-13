@@ -21,7 +21,7 @@ import com.klauting.timormall.common.service.dao.BizDao;
 @Mapper
 public interface GoodsBasicMapper extends BizDao<GoodsBasic> {
 	
-	GoodsBasicDto queryGoodsIdAndPlatformId(@Param("goodsId") Long goodsId,@Param("platformId") Long platformId);
+	GoodsBasicDto queryGoodsIdAndPlatformId(@Param("goodsId") Long goodsId,@Param("platformId") int platformId);
 	
 	List<GoodsBasicDto> queryGoodsBasicDtoList(Map<String, Object> map);
 	

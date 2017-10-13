@@ -60,7 +60,7 @@ public class GoodsBasicServiceImpl implements IGoodsBasicService {
 	 * @see com.klauting.timormall.system.api.service.IGoodsBasicService#queryGoodsIdAndPlatformId(java.lang.Long, java.lang.Long)
 	**/
 	@Override
-	public GoodsBasicDto queryGoodsIdAndPlatformId(Long goodsId, Long platformId) {
+	public GoodsBasicDto queryGoodsIdAndPlatformId(Long goodsId, int platformId) {
 		// TODO Auto-generated method stub
 		return goodsBasicMapper.queryGoodsIdAndPlatformId(goodsId,platformId);
 	}

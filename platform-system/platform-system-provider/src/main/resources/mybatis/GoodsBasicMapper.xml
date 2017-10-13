@@ -51,6 +51,10 @@
 		goods_price as goodsPrice,goods_price_pro as goodsPricePro,thumbnail_imgs as thumbnailImgs,category,volume,
 		create_time as createTime,update_time as updateTime
 		from kt_goods_basic where data_status = 1
+		<if test="category != null ">
+			and category like CONCAT(CONCAT('%', #{category}), '%') 
+		</if>
+		
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

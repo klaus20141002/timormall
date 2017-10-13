@@ -74,3 +74,9 @@ spring:
     testConnection: false
 server:
   port: 8097
+spider:
+  url:
+    taobao: http://hws.m.taobao.com/cache/wdetail/5.0/?id=GOODSID
+  pattern:
+    taobaoTmallDetailImgs: (//|https://|http://)img.alicdn.com/imgextra.*?\\.(jpg|png|jpeg|bmp|gif)
+    jdDetailImgs: //img[\\.\\w\\d/_]+\\.(jpg|png|jpeg|bmp)

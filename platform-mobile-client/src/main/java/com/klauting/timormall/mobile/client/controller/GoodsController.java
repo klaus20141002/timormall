@@ -21,6 +21,7 @@ package com.klauting.timormall.mobile.client.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.klauting.timormall.mobile.client.util.PageUtils;
 import com.klauting.timormall.mobile.client.util.Query;
 import com.klauting.timormall.mobile.client.util.R;
+import com.klauting.timormall.system.api.constant.GlobalConstant;
 import com.klauting.timormall.system.api.dto.GoodsBasicDto;
+import com.klauting.timormall.system.api.entity.GoodsBasic;
 import com.klauting.timormall.system.api.service.IGoodsAdService;
 import com.klauting.timormall.system.api.service.IGoodsBasicService;
 import com.klauting.timormall.system.api.service.IGoodsExtService;
 import com.klauting.timormall.system.api.service.IGoodsUrlService;
+import com.klauting.timormall.system.api.service.ISolrService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,6 +65,9 @@ public class GoodsController {
 	
 	@Autowired
 	private IGoodsAdService goodsAdService;
+	
+	@Autowired
+	private ISolrService solrService;
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger( GoodsController.class );
@@ -86,6 +93,26 @@ public class GoodsController {
 		return R.ok().put("page", pageUtil);
 	}
 	
+	
+	@GetMapping("/test")
+//	@PreAuthorize("hasAuthority('address:list')")
+	@ApiOperation(value = "test solr",notes="test solr by admin")
+	public R test(
+			@ApiParam(required = true, value = "版本", defaultValue = "v1") @PathVariable("version") String version,
+			@ApiParam(required = true, value = "过滤条件，分页，排序 等数据", defaultValue = "{}") @RequestParam Map<String, Object> params){
+		//查询列表数据
+        Query query = new Query(params);
+        logger.info(query.toString());
+        
+		GoodsBasic gb = goodsBasicService.queryObject(55L);
+		SolrInputDocument in = new SolrInputDocument();
+		in.addField("id", gb.getId());
+		in.addField("name",gb.getGoodsTitle());
+		in.addField("category", gb.getCategory());
+		solrService.pushDataIntoSolr(GlobalConstant.DEFAULT_SOLR_CORE, in);
+		
+		return R.ok();
+	}
 
 	
 }

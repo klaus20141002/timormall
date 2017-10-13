@@ -44,6 +44,8 @@
                    ref="goodsExtService" protocol="dubbo" timeout="5000"/>
     <dubbo:service interface="com.klauting.timormall.system.api.service.IGoodsUrlService"
                    ref="goodsUrlService" protocol="dubbo" timeout="5000"/>
+    <dubbo:service interface="com.klauting.timormall.system.api.service.ISolrService"
+                   ref="solrService" protocol="dubbo" timeout="5000"/>
                    
                    
                    
