@@ -76,5 +76,11 @@ public class GoodsBasicServiceImpl implements IGoodsBasicService {
 		// TODO Auto-generated method stub
 		return goodsBasicMapper.queryGoodsBasicDtoList(map);
 	}
+
+	@Override
+	public List<GoodsBasic> queryListForSpider(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return goodsBasicMapper.queryListForSpider(map);
+	}
 	
 }

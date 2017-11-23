@@ -19,9 +19,12 @@
 package com.klauting.timormall.system.provider.thirdapi;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
@@ -35,12 +38,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.klauting.timormall.common.redis.RedisRepository;
+import com.klauting.timormall.system.api.constant.GoodsSpiderConst;
+import com.klauting.timormall.system.api.constant.GlobalConstant;
 import com.klauting.timormall.system.api.dto.GoodsBasicDto;
 import com.klauting.timormall.system.api.entity.GoodsBasic;
 import com.klauting.timormall.system.api.entity.GoodsIndex;
 import com.klauting.timormall.system.api.service.IGoodsBasicService;
 import com.klauting.timormall.system.api.service.IGoodsIndexService;
 import com.klauting.timormall.system.api.service.ISpiderService;
+import com.klauting.timormall.system.provider.util.Query;
 
 /**
  *
@@ -72,43 +78,48 @@ public class TaobaoGoodsDetailService {
     @Autowired
     private IGoodsIndexService goodsIndexService;
     
-//    ExecutorService executorService = new 
-    
-    
-    @Scheduled(cron = "0 0/1 * * * ? ")
-	public void getGoodsDetail() {
-		LOGGER.info("updateGoodsDetailImages invoked.............................");
-		spiderService.getGoodsDetailSimple("42347685966", "1");
-		
-		
-		
-	}
-    
-    
+    ExecutorService cachedThreadPool = Executors.newCachedThreadPool();     
 	
-//	@Scheduled(cron = "0 0/1 * * * ? ")
+	@Scheduled(cron = "0 0/2 * * * ? ")
 	public void updateGoodsDetailImages() {
-		LOGGER.info("updateGoodsDetailImages invoked.............................");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("limit", 500);
-		map.put("page", 1);
-		int total = goodsBasicService.queryTotal(map);
-		for(int i =0 ;i<total/Integer.parseInt((String)map.get("page"));i++ ){
-			List<GoodsBasic> result = goodsBasicService.queryList(map);
-			for(GoodsBasic gb :result) {
-				// get goods detail images
-				
-				
-//				goodsBasicService.update(gb);
-			}
-			
-			
-			map.put("page", Integer.parseInt((String)map.get("page"))+1);
-			
-		}
 		
-		
-		
+        cachedThreadPool.execute(new Runnable() {  
+            @Override  
+            public void run() {  
+            	LOGGER.info("updateGoodsDetailImages invoked.............................");
+        		Map<String, Object> map = new HashMap<String, Object>();
+        		map.put("limit", 100);
+        		map.put("page", 1);
+//        		int total = goodsBasicService.queryTotal(map);
+//        		for(int i =0 ;i<total/Integer.parseInt((String)map.get("page"));i++ ){
+        			List<GoodsBasic> result = goodsBasicService.queryListForSpider(new Query(map));
+        			for(GoodsBasic gb :result) {
+        				// get goods detail images
+        				Map<String, Object>  res = spiderService.getGoodsDetailSimple(String.valueOf(gb.getGoodsId()), String.valueOf(gb.getPlatformId()));
+        				
+        				if(GoodsSpiderConst.TaskStatus.OK.equals(res.get("status"))) {
+        					@SuppressWarnings("unchecked")
+        					List<String> goodsThumbnailImgs = (List<String>)res.get("goodsThumbnailImgs");
+        					@SuppressWarnings("unchecked")
+        					List<String> DetailImgs = (List<String>)res.get("DetailImgs");
+        					gb.setThumbnailImgs(String.join(",", goodsThumbnailImgs));
+        					gb.setDetailImgs(String.join(",", DetailImgs));;
+        				} else {
+        					gb.setDataStatus(GlobalConstant.data_status_delete);
+        				}
+        				gb.setUpdateTime(new Date());
+        				goodsBasicService.update(gb);
+        				try {
+        					Thread.sleep(300L);
+        				} catch (InterruptedException e) {
+        					LOGGER.error("InterruptedException {}",e);
+        				}
+        			}
+//        			map.put("page", Integer.parseInt((String)map.get("page"))+1);
+        		}
+//            }  
+        });  
+//        cachedThreadPool.
 	}
 
 	

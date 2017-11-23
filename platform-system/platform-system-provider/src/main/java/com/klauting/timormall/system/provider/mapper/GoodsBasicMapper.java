@@ -25,4 +25,7 @@ public interface GoodsBasicMapper extends BizDao<GoodsBasic> {
 	
 	List<GoodsBasicDto> queryGoodsBasicDtoList(Map<String, Object> map);
 	
+	
+	List<GoodsBasic> queryListForSpider(Map<String, Object> map);
+	
 }

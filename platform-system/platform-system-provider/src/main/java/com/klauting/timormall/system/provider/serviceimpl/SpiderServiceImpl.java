@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
-import com.klauting.timormall.system.api.constant.Const;
+import com.klauting.timormall.system.api.constant.GoodsSpiderConst;
 import com.klauting.timormall.system.api.dto.spider.DescInfo;
 import com.klauting.timormall.system.api.dto.spider.DetailImagesDescDto;
 import com.klauting.timormall.system.api.dto.spider.DetailImagesDto;
@@ -63,34 +63,43 @@ public class SpiderServiceImpl implements ISpiderService {
 		GoodsSpiderDto goodsSpiderDto = gson.fromJson(res, GoodsSpiderDto.class);
 		if(goodsSpiderDto==null) {
 			logger.error("异常 ! Json为空,商品url={}", goodsUrl);
-			respResultMap.put("status", Const.TaskStatus.FAILED);
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
 			respResultMap.put("msg", "爬取商品spu信息出现异常,请稍后再试或直接联系相关人员");
 			return respResultMap;
 		}
 		if(goodsSpiderDto!=null && goodsSpiderDto.getRet().get(0).contains("checkcode")) {
 			logger.error("异常 ! Json为空,商品url={}", goodsUrl);
-			respResultMap.put("status", Const.TaskStatus.FAILED);
-			respResultMap.put("msg", "爬取商品spu信息出现异常,请稍后再试或直接联系相关人员");
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
+			respResultMap.put("msg", goodsSpiderDto.getRet().get(0));
 			return respResultMap;
 		}
-		GoodsSpiderInfoDto goodsSpiderInfo = goodsSpiderDto.getData();
-		ItemInfoModel itemInfoModel = goodsSpiderInfo.getItemInfoModel();
-		respResultMap.put("goodsThumbnailImgs", itemInfoModel.getPicsPath());
-		DescInfo descInfo = goodsSpiderInfo.getDescInfo();
-		String goodsDetailImgesUrl = descInfo.getFullDescUrl();
-		
-		String detailImages = DownPageUtil.downloadPage(goodsDetailImgesUrl);
-		DetailImagesDto detailImagesDto = gson.fromJson(detailImages, DetailImagesDto.class);
-		if(detailImagesDto!=null && detailImagesDto.getRet().get(0).contains("SUCCESS")) {
-			DetailImagesDescDto detailImagesDescDto = detailImagesDto.getData();
-			String desc = detailImagesDescDto.getDesc();
-			respResultMap.put("DetailImgs", getDetailImgslist(desc));
-		} else {
+		if(goodsSpiderDto!=null && goodsSpiderDto.getRet().get(0).contains("ERRCODE")) {
 			logger.error("异常 ! Json为空,商品url={}", goodsUrl);
-			respResultMap.put("status", Const.TaskStatus.FAILED);
-			respResultMap.put("msg", "爬取商品goods detail images 出现异常,请稍后再试或直接联系相关人员");
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
+			respResultMap.put("msg", goodsSpiderDto.getRet().get(0));
 			return respResultMap;
+		}
+		if(goodsSpiderDto!=null && goodsSpiderDto.getRet().get(0).contains("SUCCESS")) {
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.OK);
+			GoodsSpiderInfoDto goodsSpiderInfo = goodsSpiderDto.getData();
+			ItemInfoModel itemInfoModel = goodsSpiderInfo.getItemInfoModel();
+			respResultMap.put("goodsThumbnailImgs", itemInfoModel.getPicsPath());
+			DescInfo descInfo = goodsSpiderInfo.getDescInfo();
+			String goodsDetailImgesUrl = descInfo.getFullDescUrl();
 			
+			String detailImages = DownPageUtil.downloadPage(goodsDetailImgesUrl);
+			DetailImagesDto detailImagesDto = gson.fromJson(detailImages, DetailImagesDto.class);
+			if(detailImagesDto!=null && detailImagesDto.getRet().get(0).contains("SUCCESS")) {
+				DetailImagesDescDto detailImagesDescDto = detailImagesDto.getData();
+				String desc = detailImagesDescDto.getDesc();
+				respResultMap.put("DetailImgs", getDetailImgslist(desc));
+			} else {
+				logger.error("异常 ! Json为空,商品url={}", goodsUrl);
+				respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
+				respResultMap.put("msg", "爬取商品goods detail images 出现异常,请稍后再试或直接联系相关人员");
+				return respResultMap;
+				
+			}
 		}
 		logger.info("respResultMap : {} ",respResultMap);
 		return respResultMap;
@@ -113,7 +122,7 @@ public class SpiderServiceImpl implements ISpiderService {
 		Json json = new Json(res);
 		if (json == null) {
 			logger.error("异常 ! Json为空,商品url={}", goodsUrl);
-			respResultMap.put("status", Const.TaskStatus.FAILED);
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
 			respResultMap.put("msg", "爬取商品spu信息出现异常,请稍后再试或直接联系相关人员");
 			return respResultMap;
 		}
@@ -121,7 +130,7 @@ public class SpiderServiceImpl implements ISpiderService {
 		String value = json.jsonPath("$..ret").get();
 		if (value.contains("checkcode")) {
 			logger.error(" 访问受限 ,商品url={}", goodsUrl);
-			respResultMap.put("status", Const.TaskStatus.FAILED);
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
 			respResultMap.put("msg", "爬取商品spu信息-访问受限,请稍后再试或直接联系相关人员");
 			return respResultMap;
 		}
@@ -131,7 +140,7 @@ public class SpiderServiceImpl implements ISpiderService {
 		boolean saleOffFlag = false;
 		saleOff = json.jsonPath("$..ret").get();
 		if (saleOff.contains("宝贝不存在")) {
-			respResultMap.put("status", Const.TaskStatus.FAILED);
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
 			respResultMap.put("msg", "宝贝不存在");
 			return respResultMap;
 
@@ -146,7 +155,7 @@ public class SpiderServiceImpl implements ISpiderService {
 			// 如果unitControl的值出现errorMessage，且包含 已下架 区域卖光，则商品也下架了
 			if (!StringUtils.isEmpty(errorMessage)) {
 				if (errorMessage.contains("已下架") || errorMessage.contains("区域卖光")) {
-					respResultMap.put("status", Const.TaskStatus.FAILED);
+					respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
 					respResultMap.put("msg", "宝贝不存在");
 					return respResultMap;
 				}
@@ -156,7 +165,7 @@ public class SpiderServiceImpl implements ISpiderService {
 
 		} else {
 			logger.error(" 异常！ 淘宝 天猫 Api获取失败 , 得不到$..data.apiStack.value信息,商品url={}", goodsUrl);
-			respResultMap.put("status", Const.TaskStatus.FAILED);
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
 			respResultMap.put("msg", "爬取商品spu信息出现异常,得不到apiStack信息");
 			return respResultMap;
 		}
@@ -206,7 +215,7 @@ public class SpiderServiceImpl implements ISpiderService {
 			}
 		} else {
 			logger.error(" 异常！ 淘宝 天猫 Api获取失败  找不到商品价格   商品url={}", goodsUrl);
-			respResultMap.put("status", Const.TaskStatus.FAILED);
+			respResultMap.put("status", GoodsSpiderConst.TaskStatus.FAILED);
 			respResultMap.put("msg", "爬取商品spu信息出现异常, 找不到商品价格");
 			return respResultMap;
 		}
@@ -302,9 +311,10 @@ public class SpiderServiceImpl implements ISpiderService {
 		//最开始的值：   taobaoTmallDetailImgs: (//|https://|http://)img.alicdn.com/imgextra.*?\\.(jpg|png|jpeg|bmp|gif)
 		//修改后:taobaoTmallDetailImgs=(//|https://|http://)img.alicdn.com/imgextra.*?\\.(jpg|png|jpeg|bmp|gif)
 		
-		logger.debug("taobao_imgs_pattern={}",taobaoTmallDetailImgs);
-		Matcher  m = Pattern.compile(taobaoTmallDetailImgs).matcher( detailImgsContent );
-//		Matcher  m = Pattern.compile("(//|https://|http://)img.alicdn.com/imgextra.*?\\.(jpg|png|jpeg|bmp|gif)").matcher( detailImgsContent );
+		logger.info("taobao_imgs_pattern {}",taobaoTmallDetailImgs);
+		logger.info("detailImgsContent {}",detailImgsContent);
+//		Matcher  m = Pattern.compile(taobaoTmallDetailImgs).matcher( detailImgsContent );
+		Matcher  m = Pattern.compile("(//|https://|http://)img.alicdn.com/imgextra.*?\\.(jpg|png|jpeg|bmp|gif)").matcher( detailImgsContent );
 		//http://img.alicdn.com/imgextra/i2/2289469223/TB26QCquAqvpuFjSZFhXXaOgXXa_!!2289469223.jpg
 		while( m.find() ){
 			String img  = m.group();
@@ -324,11 +334,29 @@ public class SpiderServiceImpl implements ISpiderService {
 	}
 	
 	public static void main(String[] args) {
-//		String init = "<html>\n <head>\n  <script>window.TBDetail = (window.TBDetail || {});\nwindow.TBDetail.data = {itemId:42347685966,sellerId:2289469223}</script>\n </head>\n <body>\n  <img class=\"desc_anchor\" id=\"desc-module-1\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <p><img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB26QCquAqvpuFjSZFhXXaOgXXa_!!2289469223.jpg\" /><img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB2sgiyhPuhSKJjSspaXXXFgFXa_!!2289469223.jpg\" /></p>\n  <img class=\"desc_anchor\" id=\"desc-module-2\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <p><img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB2cYswq9XlpuFjy0FeXXcJbFXa_!!2289469223.jpg\" /><img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB2uJJ.uxtmpuFjSZFqXXbHFpXa_!!2289469223.jpg\" /></p>\n  <img class=\"desc_anchor\" id=\"desc-module-3\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB2OFZJq4dkpuFjy0FbXXaNnpXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB2qXO0utFopuFjSZFHXXbSlXXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-4\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i4/2289469223/TB2LRZbc6ihSKJjy0FfXXbGzFXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB2YNxlcvBNTKJjSszcXXbO2VXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-5\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB2IuKQy7qvpuFjSZFhXXaOgXXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB28VaFrgxlpuFjy0FoXXa.lXXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-6\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB27p4krbJkpuFjy1zcXXa5FFXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB2x.0urbXlpuFjy1zbXXb_qpXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-7\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB28T8QrbFkpuFjy1XcXXclapXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB2zbYUji0TMKJjSZFNXXa_1FXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-8\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <div>\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB2NHIwq9XlpuFjy0FeXXcJbFXa_!!2289469223.jpg\" />\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB20sg.q9xjpuFjSszeXXaeMVXa_!!2289469223.jpg\" />\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB21ds7q3xlpuFjSszgXXcJdpXa_!!2289469223.jpg\" />\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i4/2289469223/TB2vP70qYtlpuFjSspfXXXLUpXa_!!2289469223.jpg\" />\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB25LDodH5K.eBjy0FnXXaZzVXa_!!2289469223.jpg\" />\n   <div>\n    &nbsp;\n   </div>\n  </div>\n  <p>&nbsp;</p>\n  <script src=\"https://g.alicdn.com/i/popshop/0.0.23/p/seemore/load.js?c\"></script> \n </body>\n</html>";
+		String init = "<html>\n <head>\n  <script>window.TBDetail = (window.TBDetail || {});\nwindow.TBDetail.data = {itemId:42347685966,sellerId:2289469223}</script>\n </head>\n <body>\n  <img class=\"desc_anchor\" id=\"desc-module-1\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <p><img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB26QCquAqvpuFjSZFhXXaOgXXa_!!2289469223.jpg\" /><img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB2sgiyhPuhSKJjSspaXXXFgFXa_!!2289469223.jpg\" /></p>\n  <img class=\"desc_anchor\" id=\"desc-module-2\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <p><img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB2cYswq9XlpuFjy0FeXXcJbFXa_!!2289469223.jpg\" /><img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB2uJJ.uxtmpuFjSZFqXXbHFpXa_!!2289469223.jpg\" /></p>\n  <img class=\"desc_anchor\" id=\"desc-module-3\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB2OFZJq4dkpuFjy0FbXXaNnpXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB2qXO0utFopuFjSZFHXXbSlXXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-4\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i4/2289469223/TB2LRZbc6ihSKJjy0FfXXbGzFXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB2YNxlcvBNTKJjSszcXXbO2VXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-5\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB2IuKQy7qvpuFjSZFhXXaOgXXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB28VaFrgxlpuFjy0FoXXa.lXXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-6\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB27p4krbJkpuFjy1zcXXa5FFXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i1/2289469223/TB2x.0urbXlpuFjy1zbXXb_qpXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-7\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB28T8QrbFkpuFjy1XcXXclapXa_!!2289469223.jpg\" />\n  <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB2zbYUji0TMKJjSZFNXXa_1FXa_!!2289469223.jpg\" />\n  <img class=\"desc_anchor\" id=\"desc-module-8\" src=\"http://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif\" />\n  <div>\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB2NHIwq9XlpuFjy0FeXXcJbFXa_!!2289469223.jpg\" />\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i2/2289469223/TB20sg.q9xjpuFjSszeXXaeMVXa_!!2289469223.jpg\" />\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB21ds7q3xlpuFjSszgXXcJdpXa_!!2289469223.jpg\" />\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i4/2289469223/TB2vP70qYtlpuFjSspfXXXLUpXa_!!2289469223.jpg\" />\n   <img align=\"absmiddle\" src=\"http://img.alicdn.com/imgextra/i3/2289469223/TB25LDodH5K.eBjy0FnXXaZzVXa_!!2289469223.jpg\" />\n   <div>\n    &nbsp;\n   </div>\n  </div>\n  <p>&nbsp;</p>\n  <script src=\"https://g.alicdn.com/i/popshop/0.0.23/p/seemore/load.js?c\"></script> \n </body>\n</html>";
 //		System.out.println(getDetailImgslist(init));
 		
 		
+		System.out.println(new SpiderServiceImpl().getDetailImgslist(init));
 		
+		
+	}
+
+	public String getTaobaoTmallDetailImgs() {
+		return taobaoTmallDetailImgs;
+	}
+
+	public void setTaobaoTmallDetailImgs(String taobaoTmallDetailImgs) {
+		this.taobaoTmallDetailImgs = taobaoTmallDetailImgs;
+	}
+
+	public String getJdDetailImgs() {
+		return jdDetailImgs;
+	}
+
+	public void setJdDetailImgs(String jdDetailImgs) {
+		this.jdDetailImgs = jdDetailImgs;
 	}
 	
 	

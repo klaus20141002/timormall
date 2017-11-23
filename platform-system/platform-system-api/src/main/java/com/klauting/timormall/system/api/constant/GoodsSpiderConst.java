@@ -1,23 +1,10 @@
-/**
- *Project Name： spu-data-handle
- *Package Name:com.bezuo.spu_data_handle.common 
- *File Name：Const.java
- *Date:2016年4月20日 上午10:25:21
- *Copyright(c)2016,必做网络科技 All Rights Reserved
- */
 package com.klauting.timormall.system.api.constant;
 
-/**
- * 常量类 ClassName: Const
- * 
- * @since: JDK 1.8 Date: 2016年4月20日 上午10:25:21
- * @author: HANWEIDONG
- */
-public class Const {
+public class GoodsSpiderConst {
 
-	/** spu信息的爬取状态--未爬取 */
+	/** SPU信息的爬取状态--未爬取 */
 	public static final String SKU_CRAWING_NOT_COMPLETE = "0";
-	/** spu信息的爬取状态--完成 */
+	/** SPU信息的爬取状态--完成 */
 	public static final String SKU_CRAWING_COMPLETE = "1";
 	/** 分销信息的爬取状态--未爬取 */
 	public static final String DISTRIBUTION_CRAWING_NOT_COMPLETE = "0";
@@ -32,7 +19,7 @@ public class Const {
 		public static final String EVENT = "event";
 	}
 
-	/** spu,sku是否可用状态 */
+	/** SPU,SKU是否可用状态 */
 	public static class IsUseType {
 		/** 状态1: 可用 */
 		public static final int ON_SALE = 1;
@@ -90,11 +77,11 @@ public class Const {
 
 	}
 
-	/** 一个spu是否含有sku */
+	/** 一个SPU是否含有SKU */
 	public static class IsContainSku {
-		/** 这个商品含有sku */
+		/** 这个商品含有SKU */
 		public static final String CONTAIN_SKU = "1";
-		/** 这个商品只有spu,没有sku */
+		/** 这个商品只有SPU,没有sku */
 		public static final String NOT_CONTAIN_SKU = "2";
 	}
 

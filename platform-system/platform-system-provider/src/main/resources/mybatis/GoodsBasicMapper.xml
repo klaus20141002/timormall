@@ -46,6 +46,14 @@
 			limit #{offset}, #{limit}
 		</if>
 	</select>
+	<select id="queryListForSpider" resultType="com.klauting.timormall.system.api.entity.GoodsBasic">
+		select * from kt_goods_basic 
+		where 1=1
+		and detail_imgs is null
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
 	<select id="queryGoodsBasicDtoList" resultType="com.klauting.timormall.system.api.dto.GoodsBasicDto">
 		select goods_id as goodsId, platform_id as platformId, goods_title as goodsTitle,goods_img as goodsImg,item_url as itemUrl,
 		goods_price as goodsPrice,goods_price_pro as goodsPricePro,thumbnail_imgs as thumbnailImgs,category,volume,

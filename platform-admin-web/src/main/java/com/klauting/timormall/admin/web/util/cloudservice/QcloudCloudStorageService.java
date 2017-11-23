@@ -10,12 +10,11 @@ import org.apache.commons.io.IOUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.klauting.timormall.admin.web.util.RRException;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.request.UploadFileRequest;
 import com.qcloud.cos.sign.Credentials;
-
-import com.klauting.timormall.admin.web.util.RRException;
 
 /**
  * 腾讯云存储

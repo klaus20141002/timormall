@@ -22,6 +22,7 @@ public interface IGoodsBasicService {
 	
 	List<GoodsBasicDto> queryGoodsBasicDtoList(Map<String, Object> map);
 	List<GoodsBasic> queryList(Map<String, Object> map);
+	List<GoodsBasic> queryListForSpider(Map<String, Object> map);
 	
 	int queryTotal(Map<String, Object> map);
 	
